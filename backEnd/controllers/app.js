@@ -12,7 +12,7 @@ const app = express();
 
 const bodyParser = require('body-parser');
 
-var user = require('../model/student.js');
+var student = require('../model/student.js');
 
 
 var cors = require('cors');
@@ -70,6 +70,10 @@ app.options('*',cors());
 app.use(cors());
 
 
+app.get('/',(req,res)=>{
+    res.statusCode = 200;
+    res.send("GET successfully");
+});
 
 
 
