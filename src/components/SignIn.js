@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from '../firebase.js';
 import React, { useState } from 'react'
+import Button from 'react-bootstrap/Button';
 
 const SignIn = () => {
     const [email, setEmail] = useState("");
@@ -49,8 +50,7 @@ const SignIn = () => {
             <input placeholder="password" type="password" onChange={(event) => {
                 setPassword(event.target.value);
             }} />
-            <button onClick={login}> Sign In</button>
-
+            <Button variant="outline-secondary" onClick={login}> Sign In</Button>
             <h1>Sign up</h1>
             <input placeholder="email" type="email" onChange={(event) => {
                 setEmail(event.target.value);
@@ -58,7 +58,7 @@ const SignIn = () => {
             <input placeholder="password" type="password" onChange={(event) => {
                 setPassword(event.target.value);
             }} />
-            <button onClick={register}>Sign Up</button>
+            <Button variant="outline-secondary" onClick={register}>Sign Up</Button>
         </div>
     )
 }

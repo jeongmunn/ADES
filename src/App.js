@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from './firebase.js';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const [user, setUser] = useState({});
@@ -21,7 +22,7 @@ function App() {
   });
 
   return (
-    <div className="App">
+    <div>
       {user ? <Home />:<SignIn />}
     </div>
   );
