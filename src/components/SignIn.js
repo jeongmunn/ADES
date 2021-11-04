@@ -9,8 +9,6 @@ import React, { useState } from 'react'
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    // const [loginEmail, setLoginEmail] = useState("");
-    // const [loginPassword, setLoginPassword] = useState("");
 
     const register = async () => {
         try {
@@ -34,8 +32,6 @@ const SignIn = () => {
                 email,
                 password
             );
-            // console.log(JSON.stringify(user.user.uid));
-
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
