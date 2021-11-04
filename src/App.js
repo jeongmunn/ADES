@@ -11,6 +11,7 @@ function App() {
   onAuthStateChanged(auth, (currentUser) => {
     try {
       setUser(currentUser);
+      console.log(currentUser);
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
