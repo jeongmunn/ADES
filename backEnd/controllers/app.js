@@ -110,7 +110,6 @@ app.post('/newBadge',printDebugInfo, function (req, res) {
     pic_url : req.body.pic_url,
     badgeClass: req.body.badgeClass, 
     };
-    
 
     badge.insertBadge(data, function (err, result) {
         if (!err) {
@@ -143,9 +142,7 @@ app.put('/editBadge/:badgeID',printDebugInfo, function (req, res) {
         res.status(400).send();
         return;
       }
-    
 
-    
       var data = {
         name : req.body.name,
         requirements : req.body.requirements,
