@@ -13,14 +13,8 @@ const app = express();
 const bodyParser = require('body-parser');
 
 var student = require('../model/student.js');
-
-
+var reward = require('../model/reward.js');
 var cors = require('cors');
-
-
-var urlencodedParser=bodyParser.urlencoded({extended:false});
-
-
 
 //-------------------------------------------------------------------------
 // Middleware functions
@@ -69,5 +63,38 @@ app.use(jsonParser);
 app.options('*',cors());
 app.use(cors());
 
+app.get('/',(req,res)=>{
+    res.statusCode = 200;
+    res.send("GET successfully");
+});
+
+
+app.get('/rewards', function (req, res) {
+    
+    reward.getReward(function (err, result) {
+        console.log("reward.getReward called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.post('/rewards', function (req,res) {
+    var data = {
+        rewardName : req.body.rewardName ,
+        ptsRequired : req.body.ptsRequired ,
+        url : req.body.url
+    };
+
+    reward.createReward(data,function(err,result) {
+        if(!err){
+            res.status(201).send("");
+        }else {
+            res.status(500).send("Error ! Cannot post reward");
+        }
+    });
+});
 
 module.exports = app;

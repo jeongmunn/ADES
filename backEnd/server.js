@@ -10,7 +10,7 @@ console.log("--------------------------------------");
 const express=require("express");
 const cors = require('cors');
 const path = require("path");
-//const app = require('./controllers/app.js');
+const router = require('./controllers/app.js');
 const app = express();
 
 // Web Server
@@ -18,10 +18,8 @@ const buildPath = path.join(__dirname, '..' , 'build');
 app.use(express.static(buildPath));
 app.use(cors());
 
-app.get('/hello',(req,res)=>{
-    res.statusCode = 200;
-    res.send("GET successfully");
-});
+// APIs
+app.use('/api',router);
 
 app.use(function (req, res, next) {
     res.status(404).send("Sorry can't find that!")

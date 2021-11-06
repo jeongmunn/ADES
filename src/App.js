@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
+import UploadRewards from './components/UploadReward'
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -21,7 +22,7 @@ function App() {
 
   return (
     <div className="App">
-      {user ? <Home />:<SignIn />}
+      {user ? <Home />:<UploadRewards />}
     </div>
   );
 }
