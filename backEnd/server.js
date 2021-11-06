@@ -8,15 +8,24 @@ console.log("--------------------------------------");
 //imports
 //---------------------------
 const express=require("express");
+const app = require('./controllers/app');
+const path = require('path');
+
+
+
+
 const cors = require('cors');
-const path = require("path");
-//const app = require('./controllers/app.js');
-const app = express();
+
+
+//const app = express();
 
 // Web Server
 const buildPath = path.join(__dirname, '..' , 'build');
 app.use(express.static(buildPath));
 app.use(cors());
+
+// To handle body
+app.use(express.json());
 
 app.get('/hello',(req,res)=>{
     res.statusCode = 200;

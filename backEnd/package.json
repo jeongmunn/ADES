@@ -10,9 +10,9 @@
     "express": "^4.17.1",
     "firebase": "^9.2.0",
     "mysql": "^2.18.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pg": "^8.7.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
