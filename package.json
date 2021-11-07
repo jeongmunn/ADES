@@ -8,7 +8,7 @@
   },
   "scripts": {
     "frontend": "cd frontEnd && npm start",
-    "backend": "cd backEnd && npm start",
+    "backend": "cd backEnd && node server.js",
     "start": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\"",
     "heroku-postbuild": "cd frontEnd && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -34,8 +34,5 @@
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "pg": "^8.7.1"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.14"
   }
 }
