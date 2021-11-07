@@ -13,8 +13,8 @@ var rewards = {
     createReward: function (reward, callback) {
       console.log(" create reward function called");
       console.log(" reward data = " + JSON.stringify(reward));
-      var rewardName = reward.rewardName ;
-      var ptsRequired = reward.ptsRequired ;
+      var rewardName = "testing" ;
+      var ptsRequired = 60 ;
       var url = reward.url ;
 
         const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)

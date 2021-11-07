@@ -1,12 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import { TwitterAuthProvider } from '@firebase/auth';
+const FormData = require('form-data');
+const fs = require('fs');
 
-class UploadReward extends React.Component {
+export default class UploadReward extends React.Component {
   state = {
     rewardName: '',
     rewardPoints: '',
-    pictureURL: ''
+    file: '',
   }
 
   handleName = event => {
@@ -18,21 +19,25 @@ class UploadReward extends React.Component {
   }
 
   handleURL = event => {
-    this.setState({ pictureURL : event.target.value, });
+    this.setState({ file : event.target.files[0], });
   }
 
   handleSubmit = event => {
     event.preventDefault();
+    const reward = new FormData();
+    reward.append('myImage', this.state.file);
+    reward.append('rewardName', this.state.rewardName);
+    reward.append('ptsRequired', this.state.rewardPoints)
 
-    const reward = {
-        rewardName: this.state.rewardName,
-        ptsRequired: this.state.rewardPoints,
-        url: this.state.pictureURL
-    };
+    console.log("reward : " + reward);
 
-    console.log("reward : " + JSON.stringify(reward));
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    }
 
-    axios.post(`https://localhost:8081/api/rewards`, { reward })
+    axios.post('http://localhost:8081/api/rewards',  reward, config )
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -48,11 +53,11 @@ class UploadReward extends React.Component {
           </label>
           <label>
             Points Required :
-            <input type="number" name="rewardName" onChange={this.handlePoints} />
+            <input type="number" name="ptsRequired" onChange={this.handlePoints} />
           </label>
           <label>
             Picture URL :
-            <input type="file" name="rewardName" onChange={this.handleURL} />
+            <input type="file" name="myImage" onChange={this.handleURL} />
           </label>
           <button type="submit">Add</button>
         </form>
@@ -60,4 +65,3 @@ class UploadReward extends React.Component {
     )
 }
 }
-export default UploadReward;

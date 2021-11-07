@@ -6,30 +6,31 @@ console.log("---------------------------------------------------------");
 //imports
 //-------------------------------------------------------------------------
 const express = require('express');
-
-//Create an instance of express
 const app = express();
-
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 var student = require('../model/student.js');
 var reward = require('../model/reward.js');
 var cors = require('cors');
+const path = require('path');
+
+
+const storage = multer.diskStorage({
+    destination: "./public/",
+    filename: function(req, file, cb){
+        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+}).single("myImage");
+
 
 //-------------------------------------------------------------------------
 // Middleware functions
 //-------------------------------------------------------------------------
-
-/** 
- * @param {object} req 
- *  request object
- * @param {object} res  
- *  response object 
- * @param {function} 
- *  reference to the enxt function to call
- * 
- */
-
 
 function printDebugInfo(req, res, next) {
     console.log();
@@ -47,10 +48,6 @@ function printDebugInfo(req, res, next) {
 
 }
 
-// from bodyParser, we want to get 2 different kinds of parsers
-// who are capable of parsing some kind of data coming in
-// 1.URL Encoded Parser
-// 2.JSON Parser
 var urlEncodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
@@ -81,12 +78,15 @@ app.get('/rewards', function (req, res) {
     });
 });
 
-app.post('/rewards', function (req,res) {
+app.post('/rewards',  upload, function(req,res) {
     var data = {
         rewardName : req.body.rewardName ,
         ptsRequired : req.body.ptsRequired ,
-        url : req.body.url
+        url : req.file.path
     };
+
+    console.log("post rewards function called.")
+    console.log("post data : " + JSON.stringify(data));
 
     reward.createReward(data,function(err,result) {
         if(!err){
