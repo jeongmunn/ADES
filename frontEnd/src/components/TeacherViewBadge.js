@@ -42,7 +42,8 @@ export default class BadgeList extends React.Component {
   }
 
   render() {
-    return (<div>
+    return (
+    <div>
      {/* GET*/}
         <div>  
             <ul> { this.state.badges.map(badge => <li>{badge.name}</li>)}</ul>

@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 
 var student = require('../model/student');
 var badge = require('../model/badge');
-
+var maze = require('../model/maze');
 
 var cors = require('cors');
 
@@ -166,5 +166,29 @@ app.put('/editBadge/:badgeID',printDebugInfo, function (req, res) {
     });
 });
 
+//MAP OF MAZE CONTENT--------------
 
+app.get('/mazeContent',printDebugInfo, function (req, res) {
+
+    maze.getMazeContent(function (err, result) {
+    
+    console.log("OVER HERE")
+    
+    if (!err) {
+    
+    res.status(201).send(result.rows );
+    
+    //   res.status(201).json({
+    
+    //     "row": row,
+    
+    } else {
+    
+    res.status(500).send("Some error");
+    
+    }
+    
+    });
+    
+    });
 module.exports = app;
