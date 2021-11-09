@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
+import TeacherAdministration from './components/TeacherHome';
+import BadgeAdmin from './components/BadgeAdmin';
+import RewardAdmin from './components/RewardAdmin';
+import UploadReward from './components/UploadReward';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -22,9 +27,14 @@ function App() {
   });
 
   return (
-    <div>
-      {user ? <Home />:<SignIn />}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
+        <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
+        <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
+        <Route path="/uploadReward" element={<UploadReward/>}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
