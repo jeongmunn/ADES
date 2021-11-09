@@ -6,6 +6,7 @@ import TeacherAdministration from './components/TeacherHome';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
 import UploadReward from './components/UploadReward';
+import RewardAdminEdit from './components/RewardAdminEdit';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
+        <Route path="/rewardsAdminEdit" element={<RewardAdminEdit/>}></Route>
         <Route path="/uploadReward" element={<UploadReward/>}></Route>
       </Routes>
     </BrowserRouter>

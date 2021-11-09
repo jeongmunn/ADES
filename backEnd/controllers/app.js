@@ -206,6 +206,47 @@ app.get('/rewards', function (req, res) {
     });
 });
 
+app.get('/rewards/:id', function (req, res) {
+    var rewardID=req.params.id;
+    reward.getRewardById(rewardID,function (err, result) {
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.put('/rewards/:id', function (req, res) {
+    var rewardID=req.params.id;
+    var ptsRequired=req.body.ptsRequired;
+    reward.editReward(rewardID,ptsRequired,function (err, result) {
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+app.delete('/rewards/:id', function (req, res) {
+    var rewardID=req.params.id;
+ 
+    reward.deleteReward(rewardID,function (err, result) {
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+
+
+
 app.post('/rewards', upload, function(req,res) {
     var data = {
         rewardName : req.body.rewardName ,
@@ -225,4 +266,7 @@ app.post('/rewards', upload, function(req,res) {
         }
     });
 });
+
+
+
 module.exports = app;

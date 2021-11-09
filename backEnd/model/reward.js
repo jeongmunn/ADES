@@ -43,6 +43,20 @@ var rewards = {
                 }
             })
     },
+    getRewardById: function(id, callback) {
+        console.log(" get reward by ID function called");
+      
+            const sql = `SELECT * FROM "public"."Rewards" where "Rewards"."rewardID"=$1`;
+             const values = [id]
+            pool.query(sql,values,(err, result) => {
+                if(err) {
+                    console.log(err);
+                    return callback(err.null);
+                } else {
+                    return callback(null,result.rows);
+                }
+            })
+    },
 
     editReward: function(id,ptsRequired,callback) {
         console.log(" edit reward by ID function called");
