@@ -1,29 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 
 export default class UploadReward extends React.Component {
     state = {
-        rewardName: [],
-        rewardPoints: [],
-        file: [],
+        data: []
     }
 
     componentDidMount(){
         axios.get('http://localhost:8081/api/rewards')
         .then(res => {
-            const rewardName = res.data.rewardName ;
-            const rewardPoints = res.data.ptsRequired ;
-            const file = res.data.url ;
-            this.setState({ rewardName });
-            this.setState({ rewardPoints });
-            this.setState({ file });
+            this.setState({ data : res.data });
         })
     }
 
     render() {
+
+        const data = this.state.data ;
+
         return (
             <div className="viewReward">
-                
+            <h3 className="p-3 text-center">React - Display a list of items</h3>
+            <table className="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Points</th>
+                        <th>Picture</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data && data.map(item =>
+                        <tr key={item.rewardID}>
+                            <td>{item.rewardName}</td>
+                            <td>{item.ptsRequired}</td>
+                            <td><img src={'../images/'+ item.url} style={{height: 200, width: 200}}></img></td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
           </div>
         )
     }

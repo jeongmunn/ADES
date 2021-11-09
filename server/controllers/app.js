@@ -16,7 +16,7 @@ const path = require('path');
 
 
 const storage = multer.diskStorage({
-    destination: "./public/",
+    destination: "../public/images",
     filename: function(req, file, cb){
         cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
     }
@@ -82,11 +82,12 @@ app.post('/rewards',  upload, function(req,res) {
     var data = {
         rewardName : req.body.rewardName ,
         ptsRequired : req.body.ptsRequired ,
-        url : req.file.path
+        url : req.file.filename
     };
 
     console.log("post rewards function called.")
     console.log("post data : " + JSON.stringify(data));
+    console.log("url : " + JSON.stringify(req.file));
 
     reward.createReward(data,function(err,result) {
         if(!err){
