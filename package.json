@@ -2,10 +2,6 @@
   "name": "quizment",
   "version": "1.0.0",
   "description": "",
-  "engines": {
-    "node": "12.x",
-    "npm": "6.x"
-  },
   "scripts": {
     "frontend": "cd frontEnd && npm start",
     "backend": "cd backEnd && node server.js",

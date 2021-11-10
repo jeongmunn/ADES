@@ -4,9 +4,9 @@ import SignIn from './components/SignIn';
 import TeacherAdministration from './components/TeacherHome';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
-import UploadReward from './components/UploadReward';
+// import UploadReward from './components/UploadReward';
 import RewardAdminEdit from './components/RewardAdminEdit';
-import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
+// import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
 import StudentDashboard from './components/StudentDashboard';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
@@ -36,9 +36,9 @@ function App() {
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/rewardsAdminEdit" element={<RewardAdminEdit/>}></Route>
-        <Route path="/uploadReward" element={<UploadReward/>}></Route>
+        {/* <Route path="/uploadReward" element={<UploadReward/>}></Route> */}
         <Route path="/editReward" element={<RewardAdminEdit/>}></Route>
-        <Route path="/teacherViewStudentProgress" element={<TeacherViewStudentProgress/>}></Route>
+        {/* <Route path="/teacherViewStudentProgress" element={<TeacherViewStudentProgress/>}></Route> */}
         <Route path="/studentDashBoard" element={<StudentDashboard/>}></Route>
       </Routes>
     </BrowserRouter>
