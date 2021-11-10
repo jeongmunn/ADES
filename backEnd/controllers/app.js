@@ -118,9 +118,8 @@ app.post('/newBadge', printDebugInfo, function (req, res) {
         name: req.body.name,
         requirements: req.body.requirements,
         pic_url: req.body.pic_url,
-        badgeClass: req.body.badgeClass,
+        badgeClassID: req.body.badgeClassID,
     };
-
     badge.insertBadge(data, function (err, result) {
         if (!err) {
 

@@ -34,15 +34,17 @@ var badge = {
         var name = badge.name;
         var requirements = badge.requirements;
         var pic = badge.pic_url;
-        var badgeClass = badge.badgeClass;
-        var data = [name, requirements, pic, badgeClass];
+        var badgeCID = badge.badgeClassID;
+    
+        var badgeClassID = parseInt(badgeCID);
+        var data = [name, requirements, pic, badgeClassID];
 
         var sql = ` INSERT INTO public.badge(name, requirements, pic_url,"badgeClassID")
         VALUES ( $1, $2,$3,$4)`;
 
         pool.query(sql, data, (err, result) => {
             if (err) {
-                console.log(name+ requirements + pic + badgeClass)
+                console.log(name+ requirements + pic + badgeClassID)
                 console.log(err);
                 return callback(err.null);
             } else {

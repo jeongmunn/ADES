@@ -7,7 +7,7 @@ const fs = require('fs');
 export default class BadgeAdmin extends React.Component {
   state = {
     data: [],
-    name: '',
+      name: '',
     requirements: '',
     pic_url: '',
     badgeClassID: ''
@@ -50,23 +50,39 @@ export default class BadgeAdmin extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const badge = new FormData();
-    badge.append('name', this.state.name);
-    badge.append('requirements', this.state.requirements);
-    badge.append('pic_url', this.state.pic_url);
-    badge.append('badgeClassID', this.state.badgeClassID);
-    console.log("reward : " + badge);
-    const config = {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-    axios.post(`http://localhost:8081/newBadge`, badge, config)
+    
+    console.log("overHERERRER")
+    
+    // badge.push('name', this.state.name);
+    // badge.push('requirements', this.state.requirements);
+    // badge.push('pic_url', this.state.pic_url);
+    // badge.push('badgeClassID', this.state.badgeClassID);
+
+
+console.log(this.state.pic_url.name)
+     //data extraction (combining data)
+            const badge = {
+                name:  this.state.name,
+                requirements: this.state.requirements,
+                pic_url: this.state.pic_url.name,
+                badgeClassID: this.state.badgeClassID
+
+            };
+            console.log("BADGEEEE"+  JSON.stringify(badge))   
+
+      const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+
+    axios.post('http://localhost:8081/newBadge', badge,config)
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
   }
+  
 
   render() {
     const data = this.state.data;
@@ -74,6 +90,7 @@ export default class BadgeAdmin extends React.Component {
       <div>
         <h1>Badges Administration</h1>
         <div className="viewBadges">
+          <div>
 
           <h2>Add Badge</h2>
           <form onSubmit={this.handleSubmit}>
@@ -96,7 +113,7 @@ export default class BadgeAdmin extends React.Component {
             </label>
             <button type="submit">Add</button>
           </form>
-
+</div>
           <h2>View Badges</h2>
           {data && data.map(item =>
             <tr key={item.badgeID}>
