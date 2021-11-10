@@ -6,36 +6,31 @@ console.log("---------------------------------------------------------");
 //imports
 //-------------------------------------------------------------------------
 const express = require('express');
-
-//Create an instance of express
 const app = express();
-
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 var student = require('../model/student.js');
-
-
+var reward = require('../model/reward.js');
 var cors = require('cors');
+const path = require('path');
 
 
-var urlencodedParser=bodyParser.urlencoded({extended:false});
+const storage = multer.diskStorage({
+    destination: "../public/images",
+    filename: function(req, file, cb){
+        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+});
 
+const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+}).single("myImage");
 
 
 //-------------------------------------------------------------------------
 // Middleware functions
 //-------------------------------------------------------------------------
-
-/** 
- * @param {object} req 
- *  request object
- * @param {object} res  
- *  response object 
- * @param {function} 
- *  reference to the enxt function to call
- * 
- */
-
 
 function printDebugInfo(req, res, next) {
     console.log();
@@ -53,10 +48,6 @@ function printDebugInfo(req, res, next) {
 
 }
 
-// from bodyParser, we want to get 2 different kinds of parsers
-// who are capable of parsing some kind of data coming in
-// 1.URL Encoded Parser
-// 2.JSON Parser
 var urlEncodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
 
@@ -69,5 +60,66 @@ app.use(jsonParser);
 app.options('*',cors());
 app.use(cors());
 
+app.get('/',(req,res)=>{
+    res.statusCode = 200;
+    res.send("GET successfully");
+});
+
+
+app.get('/rewards', function (req, res) {
+    
+    reward.getReward(function (err, result) {
+        console.log("reward.getReward called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.post('/rewards',  upload, function(req,res) {
+    var data = {
+        rewardName : req.body.rewardName ,
+        ptsRequired : req.body.ptsRequired ,
+        url : req.file.filename
+    };
+
+    console.log("post rewards function called.")
+    console.log("post data : " + JSON.stringify(data));
+    console.log("url : " + JSON.stringify(req.file));
+
+    reward.createReward(data,function(err,result) {
+        if(!err){
+            res.status(201).send("");
+        }else {
+            res.status(500).send("Error ! Cannot post reward");
+        }
+    });
+});
+
+app.get('/leaderboard', function (req,res) {
+
+    student.getLeaderboard(function (err, result){
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get leaderboard");
+        }
+    })
+    
+})
+
+app.get('/ptsHistory/:id', function (req,res) {
+    var id = req.params.id ;
+
+    student.getPtsHistory(id,function (err, result){
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get points history");
+        }
+    })
+})
 
 module.exports = app;
