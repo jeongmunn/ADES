@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "(cd ./frontEnd && npm run build) && (cd ./backend && npm install)",
     "eject": "cd ./frontEnd && react-scripts eject",
-    "start": "(cd ./backend && npm start) && (cd ./frontEnd && npm run start) "
+    "start": "(cd ./frontEnd && npm run start) && (cd ./backend && npm start)  "
   },
   "eslintConfig": {
     "extends": [
