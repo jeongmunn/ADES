@@ -1,13 +1,15 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import Button from 'react-bootstrap/Button';
 const FormData = require('form-data');
 const fs = require('fs');
 
 export default class BadgeAdmin extends React.Component {
   state = {
     data: [],
-      name: '',
+    name: '',
     requirements: '',
     pic_url: '',
     badgeClassID: ''
@@ -50,39 +52,38 @@ export default class BadgeAdmin extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    
-    console.log("overHERERRER")
-    
-    // badge.push('name', this.state.name);
-    // badge.push('requirements', this.state.requirements);
-    // badge.push('pic_url', this.state.pic_url);
-    // badge.push('badgeClassID', this.state.badgeClassID);
+    //data extraction (combining data)
+    // file upload
+    const storage = getStorage();
+    const storageRef = ref(storage, 'img/' + this.state.pic_url.name);
+    var file = this.state.pic_url;
+    // Create file metadata including the content type
+    /** @type {any} */
+    const metadata = {
+      contentType: this.state.pic_url.type,
+    };
+    console.log("yes");
+    uploadBytes(storageRef, file, metadata);
+    const badge = {
+      name: this.state.name,
+      requirements: this.state.requirements,
+      pic_url: this.state.pic_url.name,
+      badgeClassID: this.state.badgeClassID
+    };
+    console.log("BADGEEEE" + JSON.stringify(badge))
 
+    const config = {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
 
-console.log(this.state.pic_url.name)
-     //data extraction (combining data)
-            const badge = {
-                name:  this.state.name,
-                requirements: this.state.requirements,
-                pic_url: this.state.pic_url.name,
-                badgeClassID: this.state.badgeClassID
-
-            };
-            console.log("BADGEEEE"+  JSON.stringify(badge))   
-
-      const config = {
-            headers: {
-                'content-type': 'application/json'
-            }
-        }
-
-    axios.post('http://localhost:8081/newBadge', badge,config)
+    axios.post('http://localhost:8081/newBadge', badge, config)
       .then(res => {
         console.log(res);
         console.log(res.data);
       })
   }
-  
 
   render() {
     const data = this.state.data;
@@ -91,42 +92,41 @@ console.log(this.state.pic_url.name)
         <h1>Badges Administration</h1>
         <div className="viewBadges">
           <div>
-
-          <h2>Add Badge</h2>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              Badge Name:
+            <h2>Add Badge</h2>
+            <form onSubmit={this.handleSubmit}>
+              <label>
+                Badge Name:
             <input type="text" name="name" onChange={this.handleName} />
-            </label>
-            <label>
-              Badge Requirement:
+              </label>
+              <label>
+                Badge Requirement:
             <input type="text" name="requirements" onChange={this.handleRequirement} />
-            </label>
-            <label>
-              Pic URL:
+              </label>
+              <label>
+                Pic URL:
             <input type="file" name="pic_url" onChange={this.handleURL} />
-            </label>
-            {/* Please remember to change and do JOIN table for it to not display as ID */}
-            <label>
-              Badge Class ID:
+              </label>
+              {/* Please remember to change and do JOIN table for it to not display as ID */}
+              <label>
+                Badge Class ID:
             <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} />
-            </label>
-            <button type="submit">Add</button>
-          </form>
-</div>
+              </label>
+              <button type="submit">Add</button>
+            </form>
+          </div>
           <h2>View Badges</h2>
           {data && data.map(item =>
             <tr key={item.badgeID}>
               <td>{item.name}</td>
               <td>{item.requirements}</td>
               <td>{item.badgeClassID}</td>
-              <td><img src={'../images/' + item.pic_url} style={{ height: 200, width: 200 }}></img></td>
-            </tr>
+              <td>
+                <Link to={`/EditMazeContent?lvl=${item.badgeID}`}>
+                  <Button>Edit</Button>
+                </Link>
+              </td>            </tr>
           )}
         </div>
-
-
-
       </div>
     )
   }
