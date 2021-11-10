@@ -9,8 +9,8 @@
   "scripts": {
     "frontend": "cd frontEnd && npm start",
     "backend": "cd backEnd && nodemon server.js",
-    "start": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\"",
-    "heroku-postbuild": "cd frontEnd && npm install && npm run build",
+    "start": "concurrently --kill-others-on-fail \"npm run frontend\" \"npm run backend\"",
+    "build": "cd frontEnd && npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
