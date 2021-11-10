@@ -15,6 +15,7 @@ var student = require('../model/student');
 var badge = require('../model/badge');
 var maze = require('../model/maze');
 var reward = require('../model/reward');
+var teacher = require('../model/teacher');
 
 var cors = require('cors');
 
@@ -276,5 +277,18 @@ app.post('/rewards', upload, function(req,res) {
 });
 
 
+//teacher view student progress
+
+app.get('/studentProgress', function (req, res) {
+    
+    teacher.getStudentProgress(function (err, result) {
+        console.log("teacher.studentprogress called");
+        if (!err) {
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
 
 module.exports = app;

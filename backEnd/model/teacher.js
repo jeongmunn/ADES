@@ -1,5 +1,5 @@
 console.log("---------------------------------------------------------");
-console.log("ADES> model >student.js");
+console.log("ADES> model >teacher.js");
 console.log("---------------------------------------------------------");
 
 
@@ -10,12 +10,14 @@ const pool = require("../controllers/dbConfig")
 // ----------------------------------------------------------------------------
 
 
-var studentDB = {
-    getStudents: function (callback) {
+var teacherDB = {
+    getStudentProgress: function (callback) {
       console.log("function CALLED---------")
- 
+      const sql = `SELECT "public"."Student"."studentID","public"."Student"."name", "public"."Student"."streaks", "public"."Student"."mazeLvl","public"."Student"."totalPts","public"."quiz"."attempt"
+      FROM "public"."Student"
+      INNER JOIN "public"."quiz" ON "public"."Student"."studentID"="public"."quiz"."studentID";`;
 
-        pool.query('SELECT * FROM public."Student"', (err, result) => {
+        pool.query(sql, (err, result) => {
           if (err) {
             console.log(err);
             return callback(err.null);
@@ -34,5 +36,5 @@ var studentDB = {
 // ----------------------------------------------------------------------------
 // exports
 // ----------------------------------------------------------------------------
-module.exports = studentDB;
+module.exports = teacherDB;
 
