@@ -29,10 +29,13 @@ export default class TeacherViewStudentProgress extends React.Component {
                         <th>Streaks</th>
                         <th>Maze Level</th>
                         <th>Total Points</th>
-                        <th>Number of Quiz Attempted</th>
+                        <th>Quiz Attempted</th>
                     </tr>
                 </thead>
                 <tbody>
+
+
+
                     {data && data.map(item =>
                         <tr key={item.studentID}>
                             <td>{item.name}</td>
