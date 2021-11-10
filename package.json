@@ -10,8 +10,7 @@
     "build": "(cd frontEnd && npm run build) && (cd backend && npm install)",
     "backend": "cd backend && nodemon server.js",
     "frontend": "cd frontEnd && npm start",
-    "startPart1": "npm-run-all --sequential build backend",
-    "start": "npm-run-all --parallel startPart1 frontend"
+    "start": "npm-run-all --parallel backend frontend"
   },
   "repository": {
     "type": "git",
