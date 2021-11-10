@@ -156,7 +156,7 @@ app.put('/editBadge/:badgeID', printDebugInfo, function (req, res) {
         name: req.body.name,
         requirements: req.body.requirements,
         pic_url: req.body.pic_url,
-        badgeClass: req.body.badgeClass,
+        badgeClassID: req.body.badgeClassID,
     };
     // to extract data
 
@@ -190,7 +190,38 @@ app.get('/mazeContent', printDebugInfo, function (req, res) {
     });
 });
 
+    
+app.put('/mazeContent/:lvl',printDebugInfo, function (req, res) {
+    
+    var lvl = parseInt(req.params.lvl);
 
+   
+    if (isNaN(lvl)) {
+        console.log(lvl)
+        res.status(400).send();
+        return;
+      }
+
+      var data = {
+        points : req.body.points,
+        
+        };
+     // to extract data
+
+    
+    maze.editMazeContent(lvl, data, function (err, result) {
+        if (!err) {
+            var output={
+                "output" : result,
+                "MESSAGE" : "SUCESSFUL!"
+            }
+            res.status(201).send(output);
+            
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
 // rewards
 
 app.get('/rewards', function (req, res) {

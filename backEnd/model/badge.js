@@ -60,8 +60,10 @@ var badge = {
         var name = badge.name;
         var requirements = badge.requirements;
         var pic = badge.pic_url;
-        var badgeClass = badge.badgeClass;
-        var data = [name, requirements, pic, badgeClass,badgeID];
+        var badgeCID = badge.badgeClassID;
+    
+        var badgeClassID = parseInt(badgeCID);
+        var data = [name, requirements, pic, badgeClassID,badgeID];
 
         var sql = ` UPDATE
          public.badge 

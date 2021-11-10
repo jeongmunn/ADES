@@ -1,10 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
-const FormData = require('form-data');
-const fs = require('fs');
+
 
 export default class BadgeAdmin extends React.Component {
   state = {
@@ -19,17 +18,7 @@ export default class BadgeAdmin extends React.Component {
     axios.get(`http://localhost:8081/badges`)
       .then(res => {
         console.log(res.data.length);
-        // for(let i = 0; i < res.data.length; i++) {
-        //   const name = res.data[i].name;
-        //   const requirements = res.data[i].requirements;
-        //   const pic_url = res.data[i].pic_url;
-        //   const badgeClassID = res.data[i].badgeClassID;
-        //   console.log(name);
-        //   this.setState({ name });
-        //   this.setState({ requirements });
-        //   this.setState({ pic_url });
-        //   this.setState({ badgeClassID });
-        // }
+       
         this.setState({ data: res.data });
       })
   }
@@ -120,8 +109,9 @@ export default class BadgeAdmin extends React.Component {
               <td>{item.name}</td>
               <td>{item.requirements}</td>
               <td>{item.badgeClassID}</td>
+              <td><img src={'../images/' + item.pic_url} style={{ height: 200, width: 200 }}></img></td>
               <td>
-                <Link to={`/EditMazeContent?lvl=${item.badgeID}`}>
+                <Link to={`/EditBadge?id=${item.badgeID}`}>
                   <Button>Edit</Button>
                 </Link>
               </td>            </tr>
