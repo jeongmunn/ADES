@@ -68,6 +68,7 @@ var rewards = {
                     console.log(err);
                     return callback(err.null);
                 } else {
+                    console.log("result : " + result.rows);
                     return callback(null,result.rows);
                 }
             })

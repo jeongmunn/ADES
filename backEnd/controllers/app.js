@@ -219,9 +219,16 @@ app.get('/rewards/:id', function (req, res) {
 });
 
 app.put('/rewards/:id', function (req, res) {
-    var rewardID=req.params.id;
-    var ptsRequired=req.body.ptsRequired;
-    reward.editReward(rewardID,ptsRequired,function (err, result) {
+
+    var rewardID=req.params.id
+
+    var ptsRequired = req.body.ptsRequired ;
+
+    console.log("rewardID" + rewardID);
+    console.log("ptsRequired" + ptsRequired);
+
+    reward.editReward(rewardID, ptsRequired,function (err, result) {
+
         console.log("reward.getReward IDcalled");
         if (!err) {
             res.send(result);
@@ -230,6 +237,7 @@ app.put('/rewards/:id', function (req, res) {
         }
     });
 });
+
 app.delete('/rewards/:id', function (req, res) {
     var rewardID=req.params.id;
  

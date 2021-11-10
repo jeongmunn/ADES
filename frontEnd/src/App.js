@@ -35,6 +35,7 @@ function App() {
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/rewardsAdminEdit" element={<RewardAdminEdit/>}></Route>
         <Route path="/uploadReward" element={<UploadReward/>}></Route>
+        <Route path="/editReward" element={<RewardAdminEdit/>}></Route>
       </Routes>
     </BrowserRouter>
   );
