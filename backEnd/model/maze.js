@@ -37,6 +37,7 @@ var maze = {
                     return callback(null, result);
 
                 }
+
                 // pool.end()
 
             })
