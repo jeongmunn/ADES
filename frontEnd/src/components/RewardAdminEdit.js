@@ -13,7 +13,6 @@ export default class UploadReward extends React.Component {
   }
   
   componentDidMount(){
-
     axios.get('http://localhost:8081/rewards/' + window.location.href.split('/')[3].slice(14))
     .then(res => {
        console.log("the data  name of reward"+res.data[0].rewardName)

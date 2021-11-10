@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import TeacherAdministration from './components/TeacherHome';
@@ -8,7 +9,7 @@ import RewardAdmin from './components/RewardAdmin';
 import RewardAdminEdit from './components/RewardAdminEdit';
 // import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
 import StudentDashboard from './components/StudentDashboard';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import {
   onAuthStateChanged,
 } from "firebase/auth";

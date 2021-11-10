@@ -1,5 +1,5 @@
 console.log("---------------------------------------------------------");
-console.log("ADES> model >user.js");
+console.log("ADES> model >student.js");
 console.log("---------------------------------------------------------");
 
 
