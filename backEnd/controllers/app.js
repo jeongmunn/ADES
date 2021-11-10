@@ -73,7 +73,7 @@ app.use(cors());
 
 
 
-app.get('/students',printDebugInfo, function (req, res) {
+app.get('/students/',printDebugInfo, function (req, res) {
     console.log("ITS IN HERE")
     student.getStudents(function (err, result) {
         console.log("OVER HERE")
@@ -85,6 +85,83 @@ app.get('/students',printDebugInfo, function (req, res) {
         }
     });
 });
+
+
+
+app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentStreakByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentPointByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/topStudents/',printDebugInfo, function (req, res) {
+  
+    console.log("ITS IN HERE")
+    student.getTopStudents(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+ //---------------- to view student's process--------------
+app.get('/students/process/',printDebugInfo, function (req, res) {
+   
+    console.log("ITS IN HERE process student")
+    student.getStudentProcess(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/process/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE student processby id")
+    student.getStudentProcessByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
 
 
 //Getting all badges
