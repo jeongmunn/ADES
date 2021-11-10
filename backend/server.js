@@ -14,7 +14,7 @@ const api = require('./controllers/app.js');
 const app = express();
 
 // Web Server
-const buildPath = path.join(__dirname, '..' , 'build');
+const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 app.use(express.static(buildPath));
 app.use(cors());
 
