@@ -9,7 +9,7 @@
   "scripts": {
     "frontend": "cd frontEnd && npm start",
     "backend": "cd backEnd && nodemon server.js",
-    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "start": "concurrently --kill-others-on-fail \"npm run frontend\" \"npm run backend\"",
     "build": "(cd frontEnd && npm install && npm run build) && (cd backend && npm install)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
