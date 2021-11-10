@@ -11,10 +11,11 @@ const express = require('express');
 const app = express();
 
 const bodyParser = require('body-parser');
-
+const multer = require('multer');
 var student = require('../model/student');
 var badge = require('../model/badge');
-
+;
+const path = require('path');
 
 var cors = require('cors');
 
@@ -22,6 +23,17 @@ var cors = require('cors');
 var urlencodedParser=bodyParser.urlencoded({extended:false});
 
 
+const storage = multer.diskStorage({
+    destination: "../public/images",
+    filename: function(req, file, cb){
+        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+}).single("myImage");
 
 //-------------------------------------------------------------------------
 // Middleware functions
@@ -244,8 +256,6 @@ app.put('/editBadge/:badgeID',printDebugInfo, function (req, res) {
 });
 
 
-<<<<<<< Updated upstream
-=======
 // rewards
 
 app.get('/rewards', function (req, res) {
@@ -394,5 +404,4 @@ app.get('/students/topStudents/',printDebugInfo, function (req, res) {
     });
 });
 
->>>>>>> Stashed changes
 module.exports = app;

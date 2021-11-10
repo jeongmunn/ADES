@@ -12,11 +12,7 @@ const pool = require("../controllers/dbConfig")
 
 var studentDB = {
 
-<<<<<<< Updated upstream
-
-=======
   
->>>>>>> Stashed changes
     getStudents: function (callback) {
       console.log("function CALLED---------")
  
@@ -33,12 +29,6 @@ var studentDB = {
           })
           
     },
-<<<<<<< Updated upstream
-    getStudentPointByID: function (id,callback) {
-      console.log("function CALLED---------")
-     
-      const sql = `SELECT "public"."Student"."totalPts","public"."Student"."redeemedPts" FROM "public"."Student" WHERE "studentID"=$1;`;
-=======
     getStudentStreakByID: function (id,callback) {
       console.log("function CALLED---------")
  
@@ -60,7 +50,6 @@ var studentDB = {
       console.log("function CALLED---------")
  
       const sql = `SELECT "public"."Student"."totalPts" FROM "public"."Student" WHERE "studentID"=$1;`;
->>>>>>> Stashed changes
       const values = [id]
         pool.query(sql,values, (err, result) => {
           if (err) {
@@ -68,11 +57,7 @@ var studentDB = {
             return callback(err.null);
         } else {
             console.log("its over HEREEEE")
-<<<<<<< Updated upstream
-            return callback(null, result.rows);
-=======
             return callback(null, result);
->>>>>>> Stashed changes
         }
            // pool.end()
           })
@@ -82,11 +67,7 @@ var studentDB = {
       console.log("function CALLED---------")
  
 
-<<<<<<< Updated upstream
-        pool.query('SELECT "public"."Student"."studentID","public"."Student"."name","public"."Student"."totalPts" FROM "public"."Student" ORDER BY "public"."Student"."totalPts" DESC LIMIT 3;', (err, result) => {
-=======
         pool.query('SELECT "public"."Student"."name","public"."Student"."totalPts" FROM "public"."Student" ORDER BY "public"."Student"."totalPts" DESC LIMIT 3;', (err, result) => {
->>>>>>> Stashed changes
           if (err) {
             console.log(err);
             return callback(err.null);
@@ -98,12 +79,6 @@ var studentDB = {
           })
           
     },
-<<<<<<< Updated upstream
-    getStudentStreakByID: function (id,callback) {
-      console.log("function CALLED---------")
- 
-      const sql = `SELECT streaks FROM "public"."Student" WHERE "studentID"=$1`;
-=======
 
     //---------------- to view student's process--------------
     // get all student process
@@ -129,7 +104,6 @@ var studentDB = {
       console.log("function CALLED---------")
  
       const sql = `SELECT "public"."Student"."name","public"."Student"."streaks","public"."Student"."totalPts","public"."Student"."mazeLvl" FROM "public"."Student" WHERE "studentID"=$1;`;
->>>>>>> Stashed changes
       const values = [id]
         pool.query(sql,values, (err, result) => {
           if (err) {

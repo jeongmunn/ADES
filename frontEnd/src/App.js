@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
-<<<<<<< Updated upstream
-=======
 import TeacherAdministration from './components/TeacherHome';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
@@ -10,7 +8,7 @@ import UploadReward from './components/UploadReward';
 import RewardAdminEdit from './components/RewardAdminEdit';
 import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
 import StudentDashboard from './components/StudentDashboard';
->>>>>>> Stashed changes
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -32,11 +30,6 @@ function App() {
   });
 
   return (
-<<<<<<< Updated upstream
-    <div>
-      {user ? <Home />:<SignIn />}
-    </div>
-=======
     <BrowserRouter>
       <Routes>
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
@@ -49,7 +42,6 @@ function App() {
         <Route path="/studentDashBoard" element={<StudentDashboard/>}></Route>
       </Routes>
     </BrowserRouter>
->>>>>>> Stashed changes
   );
 }
 
