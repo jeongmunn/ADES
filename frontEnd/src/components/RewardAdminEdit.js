@@ -52,12 +52,13 @@ export default class UploadReward extends React.Component {
       }
     }
 
-    
+
     
     axios.put('http://localhost:8081/rewards/' +  window.location.href.split('/')[3].slice(14),  reward, config)
     .then(res => {
       console.log(res);
       console.log(res.data);
+      window.location.reload() 
     })
 }
 
@@ -74,6 +75,7 @@ handleDelete = event => {
     .then(res => {
       console.log(res);
       console.log(res.data);
+      window.location.replace("http://localhost:3000/rewardsAdmin");
 
     })
 
