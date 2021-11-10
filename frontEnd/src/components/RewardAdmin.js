@@ -5,11 +5,11 @@ import Button from 'react-bootstrap/Button';
 
 export default class RewardAdmin extends React.Component {
     state = {
-        data: [],
+        data: []
     }
 
     componentDidMount(){
-        axios.get('http://localhost:8081/rewards')
+        axios.get('http://localhost:8081/api/rewards')
         .then(res => {
             this.setState({ data : res.data });
         })
@@ -30,7 +30,6 @@ export default class RewardAdmin extends React.Component {
                         <th>Name</th>
                         <th>Points</th>
                         <th>Picture</th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,8 +38,6 @@ export default class RewardAdmin extends React.Component {
                             <td>{item.rewardName}</td>
                             <td>{item.ptsRequired}</td>
                             <td><img src={'../images/'+ item.url} style={{height: 200, width: 200}}></img></td>
-                            <td><Link to={`/editReward?id=${item.rewardID}`}> <Button id={item.rewardID} onClick={this.handleID}>Edit Reward</Button>
-            </Link></td>
                         </tr>
                     )}
                 </tbody>

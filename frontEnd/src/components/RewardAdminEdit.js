@@ -23,6 +23,7 @@ export default class UploadReward extends React.Component {
        this.setState({ptsRequired})
 
     })
+    
 }
 
 

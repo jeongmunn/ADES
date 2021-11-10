@@ -8,6 +8,8 @@ import RewardAdmin from './components/RewardAdmin';
 import UploadReward from './components/UploadReward';
 import RewardAdminEdit from './components/RewardAdminEdit';
 import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
+import StudentDashboard from './components/StudentDashboard';
+
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -38,6 +40,7 @@ function App() {
         <Route path="/uploadReward" element={<UploadReward/>}></Route>
         <Route path="/editReward" element={<RewardAdminEdit/>}></Route>
         <Route path="/teacherViewStudentProgress" element={<TeacherViewStudentProgress/>}></Route>
+        <Route path="/studentDashBoard" element={<StudentDashboard/>}></Route>
       </Routes>
     </BrowserRouter>
   );

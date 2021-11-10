@@ -13,9 +13,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 var student = require('../model/student');
 var badge = require('../model/badge');
-var maze = require('../model/maze');
-var reward = require('../model/reward');
-var teacher = require('../model/teacher');
+;
+const path = require('path');
 
 var cors = require('cors');
 
@@ -23,6 +22,17 @@ var cors = require('cors');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 
+const storage = multer.diskStorage({
+    destination: "../public/images",
+    filename: function(req, file, cb){
+        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+}).single("myImage");
 
 //-------------------------------------------------------------------------
 // Middleware functions
@@ -84,7 +94,7 @@ const upload = multer({
 }).single("myImage");
 
 
-app.get('/students', printDebugInfo, function (req, res) {
+app.get('/students/',printDebugInfo, function (req, res) {
     console.log("ITS IN HERE")
     student.getStudents(function (err, result) {
         console.log("OVER HERE")
@@ -96,6 +106,83 @@ app.get('/students', printDebugInfo, function (req, res) {
         }
     });
 });
+
+
+
+app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentStreakByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentPointByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/topStudents/',printDebugInfo, function (req, res) {
+  
+    console.log("ITS IN HERE")
+    student.getTopStudents(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+ //---------------- to view student's process--------------
+app.get('/students/process/',printDebugInfo, function (req, res) {
+   
+    console.log("ITS IN HERE process student")
+    student.getStudentProcess(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/process/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE student processby id")
+    student.getStudentProcessByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
 
 
 //Getting all badges
@@ -287,6 +374,56 @@ app.get('/studentProgress', function (req, res) {
             res.send(result.rows);
         } else {
             res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+//student dashboard
+
+
+
+app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentStreakByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentPointByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+
+app.get('/students/topStudents/',printDebugInfo, function (req, res) {
+  
+    console.log("ITS IN HERE")
+    student.getTopStudents(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
         }
     });
 });
