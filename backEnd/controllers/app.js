@@ -167,4 +167,155 @@ app.put('/editBadge/:badgeID',printDebugInfo, function (req, res) {
 });
 
 
+<<<<<<< Updated upstream
+=======
+// rewards
+
+app.get('/rewards', function (req, res) {
+    
+    reward.getReward(function (err, result) {
+        console.log("reward.getReward called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.get('/rewards/:id', function (req, res) {
+    var rewardID=req.params.id;
+    reward.getRewardById(rewardID,function (err, result) {
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.put('/rewards/:id', function (req, res) {
+
+    var rewardID=req.params.id
+
+    var ptsRequired = req.body.ptsRequired ;
+
+    console.log("rewardID" + rewardID);
+    console.log("ptsRequired" + ptsRequired);
+
+    reward.editReward(rewardID, ptsRequired,function (err, result) {
+
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.delete('/rewards/:id', function (req, res) {
+    var rewardID=req.params.id;
+ 
+    reward.deleteReward(rewardID,function (err, result) {
+        console.log("reward.getReward IDcalled");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+
+
+
+app.post('/rewards', upload, function(req,res) {
+    var data = {
+        rewardName : req.body.rewardName ,
+        ptsRequired : req.body.ptsRequired ,
+        url : req.file.filename
+    };
+
+    console.log("post rewards function called.")
+    console.log("post data : " + JSON.stringify(data));
+    console.log("url : " + JSON.stringify(req.file));
+
+    reward.createReward(data,function(err,result) {
+        if(!err){
+            res.status(201).send("");
+        }else {
+            res.status(500).send("Error ! Cannot post reward");
+        }
+    });
+});
+
+
+//teacher view student progress
+
+app.get('/studentProgress', function (req, res) {
+    
+    teacher.getStudentProgress(function (err, result) {
+        console.log("teacher.studentprogress called");
+        if (!err) {
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+//student dashboard
+
+
+
+app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentStreakByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentPointByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+
+app.get('/students/topStudents/',printDebugInfo, function (req, res) {
+  
+    console.log("ITS IN HERE")
+    student.getTopStudents(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+>>>>>>> Stashed changes
 module.exports = app;
