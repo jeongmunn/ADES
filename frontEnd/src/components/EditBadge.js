@@ -38,7 +38,6 @@ export default class EditBadge extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
         // navigation function
-        const navigate = useNavigate();
         // file upload
         const storage = getStorage();
         const storageRef = ref(storage, 'img/' + this.state.pic_url.name);
@@ -77,8 +76,7 @@ export default class EditBadge extends React.Component {
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
-                    navigate('/badgesAdmin')
-                })
+                    window.location.replace('http://localhost:3000/badgesAdmin')                })
         });
     }
 
