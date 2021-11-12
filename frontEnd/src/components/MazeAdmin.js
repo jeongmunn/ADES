@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-
+import '../css/Table&Add.css';
 export default class RewardAdmin extends React.Component {
 
     state = {
@@ -24,8 +24,10 @@ export default class RewardAdmin extends React.Component {
     render() {
         const data = this.state.data;
         return (
+            <div id="body">
+            <div id="div">
             <div className="viewMazeLvl">
-                <h3 className="p-3 text-center">React - Display maze content</h3>
+                <h3 className="p-3 text-center">Map of Maze Content</h3>
 
                 <table className="table table-striped table-bordered">
                     <thead>
@@ -35,9 +37,10 @@ export default class RewardAdmin extends React.Component {
 
                         </tr>
                     </thead>
-                    <tbody>
+                    
+
                         {data && data.map(item =>
-                            <tr >
+                            <tr id='tableRow' class="spaceUnder">
                                 <td>{item.mazeLvl}</td>
                                 <td>{item.points}</td>
                                 <td>
@@ -48,9 +51,11 @@ export default class RewardAdmin extends React.Component {
 
                             </tr>
                         )}
-                    </tbody>
+                    
                 </table>
             </div>
+            </div>
+      </div>
         )
     }
 }

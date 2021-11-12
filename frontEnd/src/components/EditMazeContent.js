@@ -43,11 +43,13 @@ export default class EditMazeContent extends React.Component {
                 console.log(res.data);
             })
     }
-    render() {
+    render() { const lvl= window.location.href.split('/')[3].slice(20);
         return (
+            <div id="bodyEdit">
+            <div id="divEdit">
             <div className="editReward">
-                <h1>Upload Reward</h1>
-                <form onSubmit={this.handleSubmit}>
+                <h1>Edit Points on Level {lvl}</h1>
+                <form onSubmit={this.handleSubmit} id="formEdit">
                     {/* <label>
                          :
             <input type="text" name="mazeLvl" onChange={this.handleLvl} />
@@ -57,9 +59,11 @@ export default class EditMazeContent extends React.Component {
             <input type="number" name="points" onChange={this.handlePoints} />
                     </label>
                    
-                    <button type="submit">Add</button>
+                    <button type="submit">Update</button>
                 </form>
             </div>
+            </div>
+      </div>
         )
     }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import '../css/badgemazeEdit.css';
 
 
 export default class EditBadge extends React.Component {
@@ -60,29 +60,37 @@ export default class EditBadge extends React.Component {
     }
     render() {
         return (
+            <div id="bodyEdit">
+            <div id="divEdit">
             <div className="editReward">
                 <h1>Edit Badge</h1>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
+                <form onSubmit={this.handleSubmit} id="formEdit">
+                    <label class='label'>
                         Badge Name:
                         <input type="text" name="name" onChange={this.handleName} />
                     </label>
-                    <label>
+                    <br/>
+                    <label class='label'>
                         Badge Requirement:
                         <input type="text" name="requirements" onChange={this.handleRequirement} />
                     </label>
-                    <label>
+                    <br/>
+                    <label class='label'>
                         Pic URL:
                         <input type="file" name="pic_url" onChange={this.handleURL} />
                     </label>
+                    <br/>
                     {/* Please remember to change and do JOIN table for it to not display as ID */}
-                    <label>
+                    <label class='label'>
                         Badge Class ID:
                         <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} />
                     </label>
+                    <br/>
                     <button type="submit">Add</button>
                 </form>
             </div>
+            </div>
+      </div>
         )
     }
 }
