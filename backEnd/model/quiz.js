@@ -1,5 +1,5 @@
 console.log("---------------------------------------------------------");
-console.log("ADES>backend> model >badge.js");
+console.log("ADES>backend> model >quiz.js");
 
 console.log("---------------------------------------------------------");
 
@@ -13,26 +13,11 @@ const pool = require("../controllers/dbConfig")
 // ----------------------------------------------------------------------------
 
 
-var badge = {
-    getBadges: function (callback) {
+var quiz = {
+    getQuiz: function (callback) {
 
 
-        pool.query('SELECT * FROM public.badge  INNER JOIN public."badgeClass" ON  badge."badgeClassID" = public."badgeClass"."badgeClassID"', (err, result) => {
-            if (err) {
-                console.log(err);
-                return callback(err.null);
-            } else {
-                return callback(null, result);
-            }
-            // pool.end()
-        })
-
-    },
-
-    getBadgeClass: function (callback) {
-
-
-        pool.query('SELECT * FROM public."badgeClass"', (err, result) => {
+        pool.query('SELECT * FROM public."quiz"', (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err.null);
@@ -45,8 +30,7 @@ var badge = {
     },
 
 
-
-    insertBadge: function ( callback) {
+    insertQuiz: function (badge, callback) {
         var name = badge.name;
         var requirements = badge.requirements;
         var pic = badge.pic_url;
@@ -71,7 +55,7 @@ var badge = {
         })
     },
 
-
+//----------------------------------
     editBadge: function (badgeID, badge, callback) {
         var name = badge.name;
         var requirements = badge.requirements;
@@ -109,4 +93,4 @@ var badge = {
 // ----------------------------------------------------------------------------
 // exports
 // ----------------------------------------------------------------------------
-module.exports = badge;
+module.exports = quiz;

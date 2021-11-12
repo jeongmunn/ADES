@@ -3,11 +3,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
+import '../css/Table&Add.css';
 
 
 export default class BadgeAdmin extends React.Component {
   state = {
     data: [],
+    class: [],
     name: '',
     requirements: '',
     pic_url: '',
@@ -18,10 +20,18 @@ export default class BadgeAdmin extends React.Component {
     axios.get(`http://localhost:8081/badges`)
       .then(res => {
         console.log(res.data.length);
-       
+
         this.setState({ data: res.data });
       })
+
+    axios.get(`http://localhost:8081/badgeClass`)
+      .then(res => {
+        console.log(res.data.length);
+
+        this.setState({ class: res.data });
+      })
   }
+
 
   handleName = event => {
     this.setState({ name: event.target.value });
@@ -53,6 +63,8 @@ export default class BadgeAdmin extends React.Component {
     };
     console.log("yes");
     uploadBytes(storageRef, file, metadata);
+
+    console.log(this.state.badgeClassID)
     const badge = {
       name: this.state.name,
       requirements: this.state.requirements,
@@ -76,46 +88,88 @@ export default class BadgeAdmin extends React.Component {
 
   render() {
     const data = this.state.data;
+    const data2 = this.state.class;
     return (
-      <div>
-        <h1>Badges Administration</h1>
-        <div className="viewBadges">
-          <div>
-            <h2>Add Badge</h2>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                Badge Name:
-            <input type="text" name="name" onChange={this.handleName} />
-              </label>
-              <label>
-                Badge Requirement:
-            <input type="text" name="requirements" onChange={this.handleRequirement} />
-              </label>
-              <label>
-                Pic URL:
-            <input type="file" name="pic_url" onChange={this.handleURL} />
-              </label>
-              {/* Please remember to change and do JOIN table for it to not display as ID */}
-              <label>
-                Badge Class ID:
-            <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} />
-              </label>
-              <button type="submit">Add</button>
-            </form>
+
+      <div id="body">
+        <div id="div">
+          <h1 style={{ fontFamily: "sans-serif ", color: 'blue' }}>Badges Administration</h1>
+          <div className="viewBadges">
+            <div id="divForm">
+              <h2 id="add">Add Badge</h2>
+              <form onSubmit={this.handleSubmit} id="form" >
+                <label>
+                  Badge Name:
+                  <input type="text" name="name" onChange={this.handleName} />
+                </label>
+                <br/>
+                <label>
+                  Badge Requirement:
+                  <input type="text" name="requirements" onChange={this.handleRequirement} />
+                </label>
+                <br/>
+                <label>
+                  Pic URL:
+                  <input type="file" name="pic_url" onChange={this.handleURL} />
+                </label>
+                {/* Please remember to change and do JOIN table for it to not display as ID */}
+                <br/>
+                <label>
+                  Badge Class ID:
+                  <select name="badgeClassID" onChange={this.handleBadgeClassID} >
+                    <option value="1">Air</option>
+                    <option value="2">Water</option>
+                    <option value="3">Fire</option>
+                    <option value="4">Geo</option>
+                  </select>
+                  {/* <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} /> */}
+                </label>
+                <button  type="submit">Add</button>
+              </form>
+            </div>
+
+            <div> <div>
+              <h2>Badge Class</h2>
+              <table class="table">
+                <tr>
+                  <th>Class Name</th>
+                  <th>Describtion </th>
+
+                </tr>
+                {data2 && data2.map(item =>
+                  <tr id='tableRow' class="spaceUnder">
+                    <td>{item.className}</td>
+                    <td>{item.classDescription}</td>
+
+                  </tr>
+                )}
+              </table>
+            </div></div>
+            <div>
+              <h2>View Badges</h2>
+              <table class="table">
+                <tr>
+                  <th>Badge Name</th>
+                  <th>Requirements</th>
+                  <th>badgeClass</th>
+                  <th>Picture</th>
+                </tr>
+                {data && data.map(item2 =>
+                  <tr key={item2.badgeID} id='tableRow' class="spaceUnder">
+                    <td>{item2.name}</td>
+                    <td>{item2.requirements}</td>
+                    <td>{item2.className}</td>
+                    <td><img src={'../images/' + item2.pic_url} style={{ height: 200, width: 200 }} alt=""></img></td>
+                    <td><Link to={`/EditBadge?id=${item2.badgeID}`}>
+                      <Button>Edit</Button>
+                    </Link>
+                    </td>
+                  </tr>
+                )}
+              </table>
+            </div>
+
           </div>
-          <h2>View Badges</h2>
-          {data && data.map(item =>
-            <tr key={item.badgeID}>
-              <td>{item.name}</td>
-              <td>{item.requirements}</td>
-              <td>{item.badgeClassID}</td>
-              <td><img src={'../images/' + item.pic_url} style={{ height: 200, width: 200 }}></img></td>
-              <td>
-                <Link to={`/EditBadge?id=${item.badgeID}`}>
-                  <Button>Edit</Button>
-                </Link>
-              </td>            </tr>
-          )}
         </div>
       </div>
     )

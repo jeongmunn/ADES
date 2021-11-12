@@ -15,6 +15,7 @@ var student = require('../model/student');
 var badge = require('../model/badge');
 var maze = require('../model/maze');
 var reward = require('../model/reward');
+var quiz = require('../model/quiz');
 
 var cors = require('cors');
 
@@ -112,6 +113,23 @@ app.get('/badges', printDebugInfo, function (req, res) {
         }
     });
 });
+
+//Getting all badge Classes
+app.get('/badgeClass', printDebugInfo, function (req, res) {
+
+    badge.getBadgeClass(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+            res.status(201).send(result.rows);
+            //   res.status(201).json({
+            //     "row": row,
+
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
 
 app.post('/newBadge', printDebugInfo, function (req, res) {
     var data = {
@@ -255,4 +273,21 @@ app.post('/rewards', upload, function(req,res) {
         }
     });
 });
+//QUIZ------------------------------------
+
+app.get('/quiz', function (req, res) {
+    
+    quiz.getQuiz(function (err, result) {
+        console.log("quiz getQuiz called");
+        if (!err) {
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Error ! Cannot get Quiz");
+        }
+    });
+});
+
+
+
+
 module.exports = app;
