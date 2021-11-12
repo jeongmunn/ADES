@@ -49,7 +49,7 @@ var studentDB = {
     getStudentPointByID: function (id,callback) {
       console.log("function CALLED---------")
  
-      const sql = `SELECT "public"."Student"."totalPts" FROM "public"."Student" WHERE "studentID"=$1;`;
+      const sql = `SELECT "public"."Student"."totalPts","public"."Student"."redeemedPts" FROM "public"."Student" WHERE "studentID"=$1;`;
       const values = [id]
         pool.query(sql,values, (err, result) => {
           if (err) {
