@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
 
 
@@ -18,7 +18,7 @@ export default class BadgeAdmin extends React.Component {
     axios.get(`http://localhost:8081/badges`)
       .then(res => {
         console.log(res.data.length);
-       
+
         this.setState({ data: res.data });
       })
   }
@@ -53,25 +53,31 @@ export default class BadgeAdmin extends React.Component {
     };
     console.log("yes");
     uploadBytes(storageRef, file, metadata);
-    const badge = {
-      name: this.state.name,
-      requirements: this.state.requirements,
-      pic_url: this.state.pic_url.name,
-      badgeClassID: this.state.badgeClassID
-    };
-    console.log("BADGEEEE" + JSON.stringify(badge))
 
-    const config = {
-      headers: {
-        'content-type': 'application/json'
+
+    getDownloadURL(storageRef).then((downloadURL) => {
+      console.log('File available at', downloadURL);
+
+      const badge = {
+        name: this.state.name,
+        requirements: this.state.requirements,
+        pic_url: downloadURL,
+        badgeClassID: this.state.badgeClassID
+      };
+      console.log("BADGEEEE" + JSON.stringify(badge))
+
+      const config = {
+        headers: {
+          'content-type': 'application/json'
+        }
       }
-    }
-
-    axios.post('http://localhost:8081/newBadge', badge, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+      axios.post('http://localhost:8081/newBadge', badge, config)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        })
+    });
   }
 
   render() {
@@ -109,12 +115,13 @@ export default class BadgeAdmin extends React.Component {
               <td>{item.name}</td>
               <td>{item.requirements}</td>
               <td>{item.badgeClassID}</td>
-              <td><img src={'../images/' + item.pic_url} style={{ height: 200, width: 200 }}></img></td>
+              <td><img src={item.pic_url} style={{ height: 200, width: 200 }}></img></td>
               <td>
                 <Link to={`/EditBadge?id=${item.badgeID}`}>
                   <Button>Edit</Button>
                 </Link>
-              </td>            </tr>
+              </td>            
+            </tr>
           )}
         </div>
       </div>
