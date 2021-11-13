@@ -274,18 +274,6 @@ export default class StudentDashboard extends React.Component {
                         </Card>
 
 
-                        {/* 
-                        <Card className="" style={{ width: '18rem' }} >
-
-                            <ListGroup variant="flush" >
-
-                                <ListGroup.Item>nur khadijah 99</ListGroup.Item>
-                                <ListGroup.Item>monika  98</ListGroup.Item>
-                                <ListGroup.Item>jane 89</ListGroup.Item>
-
-                            </ListGroup>
-
-                        </Card> */}
                     </Col>
                 </Row>
 
@@ -296,15 +284,6 @@ export default class StudentDashboard extends React.Component {
 
 
 
-            //             <div className='toatalContainer' >
-
-
-
-
-
-            //                 {/* 
-
-            //                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', paddingLeft: '75px', paddingRight: '500px', paddingTop: '100px' }}>
 
 
 
@@ -324,59 +303,7 @@ export default class StudentDashboard extends React.Component {
             //                     </Progress>
 
 
-            //                 </div> */}
-
-
-
-
-            //                 {/* 
-
-            //                 <table
-            //                 style={{ justifyContent: 'center', alignItems: 'center', paddingLeft: '75px', marginTop:'100px' }}
-
-
-            //                 className="table table-striped table-bordered leader-table">
-            //                     <thead>
-            //                         <tr>
-            //                             <th>Student Name</th>
-            //                             <th>Total Points</th>
-
-            //                         </tr>
-            //                     </thead>
-            //                     <tbody>
-            // {data && data.map(item =>
-            //     <tr key={item.studentID}>
-            //         <td>{item.name}</td>
-            //         <td>{item.totalPts}</td>
-
-
-
-            //     </tr>
-            // )}
-            //                     </tbody>
-            //                 </table>
-
-            //  */}
-
-            //                 <div className="c2">
-
-
-
-            //                     <div className="c1">
-            //                         <h3 className="p-3 text-center">Student dashboard</h3>
-
-            //                         <h4>Monika</h4>
-
-            //                         <div className="box">
-
-            //                             <div className="points">
-            //                                 <div className="pointsCon">
-            //                                     <h5>Total Points:</h5>
-
-            //                                     <h5>{this.state.totalPts}</h5>
-            //                                 </div>
-
-            //                             </div>
+           
 
 
 
@@ -384,93 +311,6 @@ export default class StudentDashboard extends React.Component {
 
 
 
-            //                             <div className="points">
-            //                                 <div className="pointsCon">
-            //                                     <h5>Redeemable Points:</h5>
-
-            //                                     <h5>{this.state.redeemedPts}
-
-            //                                     </h5>
-            //                                 </div>
-            //                             </div>
-
-            //                         </div>
-
-
-
-            //                     </div>
-
-            //                     <div className="AssignmentBox">
-            //                         <h3>Assignment To Do:</h3>
-
-            //                         <div className="AssignmentItem">
-            //                             <div className="AssignmentTitle">
-            //                                 <h5>Math Algebra Homework
-            //                                     Due Next week 23/11/2020
-            //                                 </h5>
-            //                             </div>
-            //                             <Button>Do It Now</Button>
-            //                         </div>
-            //                         <div className="AssignmentItem">
-            //                             <div className="AssignmentTitle">
-            //                                 <h5>Math Algebra Homework
-            //                                     Due Next week 23/11/2020
-            //                                 </h5>
-            //                             </div>
-            //                             <Button>Do It Now</Button>
-            //                         </div>
-            //                         <div className="AssignmentItem">
-            //                             <div className="AssignmentTitle">
-            //                                 <h5>Math Algebra Homework
-            //                                     Due Next week 23/11/2020
-            //                                 </h5>
-            //                             </div>
-            //                             <Button>Do It Now</Button>
-            //                         </div>
-            //                         <div className="AssignmentItem">
-            //                             <div className="AssignmentTitle">
-            //                                 <h5>Math Algebra Homework
-            //                                     Due Next week 23/11/2020
-            //                                 </h5>
-            //                             </div>
-            //                             <Button>Do It Now</Button>
-            //                         </div>
-            //                         <div className="AssignmentItem">
-            //                             <div className="AssignmentTitle">
-            //                                 <h5>Math Algebra Homework
-            //                                     Due Next week 23/11/2020
-            //                                 </h5>
-            //                             </div>
-            //                             <Button>Do It Now</Button>
-            //                         </div>
-            //                     </div>
-
-
-
-            //                     <div className="leaderboardBox">
-
-            //                         <h5>Leaderboard</h5>
-            //                         {data && data.map(item =>
-            //                             <tr className="leaderBoardItem" key={item.studentID}>
-            //                                 <td>{item.name}</td>
-            //                                 <td>{item.totalPts}</td>
-
-
-
-            //                             </tr>
-            //                         )}
-            //                     </div>
-
-
-
-
-
-
-
-
-            //                 </div>
-
-            //             </div>
 
 
         )
