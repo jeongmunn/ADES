@@ -162,7 +162,7 @@ export default class BadgeAdmin extends React.Component {
                     <td>{item2.name}</td>
                     <td>{item2.requirements}</td>
                     <td>{item2.className}</td>
-                    <td><img src={'../images/' + item2.pic_url} style={{ height: 200, width: 200 }} alt=""></img></td>
+                    <td><img src={item2.pic_url} style={{ height: 200, width: 200 }} alt=""></img></td>
                     <td><Link to={`/EditBadge?id=${item2.badgeID}`}>
                       <Button>Edit</Button>
                     </Link>
