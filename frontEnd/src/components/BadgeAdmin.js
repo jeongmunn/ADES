@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
 import '../css/Table&Add.css';
 
@@ -64,26 +64,29 @@ export default class BadgeAdmin extends React.Component {
     console.log("yes");
     uploadBytes(storageRef, file, metadata);
 
-    console.log(this.state.badgeClassID)
-    const badge = {
-      name: this.state.name,
-      requirements: this.state.requirements,
-      pic_url: this.state.pic_url.name,
-      badgeClassID: this.state.badgeClassID
-    };
-    console.log("BADGEEEE" + JSON.stringify(badge))
+    getDownloadURL(storageRef).then((downloadURL) => {
+      console.log('File available at', downloadURL);
 
-    const config = {
-      headers: {
-        'content-type': 'application/json'
+      const badge = {
+        name: this.state.name,
+        requirements: this.state.requirements,
+        pic_url: downloadURL,
+        badgeClassID: this.state.badgeClassID
+      };
+      console.log("BADGEEEE" + JSON.stringify(badge))
+
+      const config = {
+        headers: {
+          'content-type': 'application/json'
+        }
       }
-    }
-
-    axios.post('http://localhost:8081/newBadge', badge, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+      axios.post('http://localhost:8081/newBadge', badge, config)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        })
+    });
   }
 
   render() {
