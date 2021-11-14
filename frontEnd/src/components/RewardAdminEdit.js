@@ -89,6 +89,7 @@ handleDelete = event => {
     }
 
   return (
+
       <div className="viewReward">
       <h3 className="p-3 text-center">React - Display a list of items</h3>
    
