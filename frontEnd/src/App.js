@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Routes, Route, Redirect } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import TeacherAdministration from './components/TeacherHome';
