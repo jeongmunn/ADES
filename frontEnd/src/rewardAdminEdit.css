@@ -1,0 +1,93 @@
+
+.toatalContainer {
+    /* use these three for all colour */
+      /* background: linear-gradient( rgba(220,172,175,0.5)
+      , transparent); */
+    
+      backdrop-filter: blur(50px);
+      /* background-color: #ccd8d6 ; */
+      height: 100%;
+      /* background-color: white; */
+  
+/*     
+      width: 100%; */
+      
+      /* background: radial-gradient(closest-side, #3f87a6, #ebf8e1, #f69d3c); */
+    
+    }
+
+.mainBox{
+
+  width: 50%;
+ 
+  
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-top: 90px !important;
+
+
+    /* background-color: rgba(266, 255, 255, 0.7);
+  
+  backdrop-filter: blur(18px); */
+
+
+   
+}
+
+.rewardDelBox{
+  /* padding: 90px; */
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center !important;
+  justify-content: flex-start;
+  height:150px;
+border-radius: 8px;
+
+  
+  
+background: linear-gradient( rgba(224, 223, 223, 0.9)
+, transparent);
+        background-color: #ccd8d6 ;
+  backdrop-filter: blur(18px);
+}
+
+
+.btnDel{
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+}
+
+
+.rewardDelBoxCon{
+  margin-left: 45px ;
+  justify-content: center;
+  text-align: center;
+  margin-top: 10px;
+ 
+
+}
+
+.rewardEditBox{
+  margin-left: 90px ;
+  justify-content: center;
+  text-align: center;
+  margin-top: 25px;
+  width: 70%;
+  /* margin-left: auto;
+  margin-right: auto; */
+  text-align: center !important;
+  justify-content: flex-start;
+  height:150px;
+border-radius: 8px;
+
+  
+  
+background: linear-gradient( rgba(224, 223, 223, 0.9)
+, transparent);
+        background-color: #ccd8d6 ;
+  backdrop-filter: blur(18px);
+ 
+
+}
