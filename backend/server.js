@@ -18,6 +18,10 @@ const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 app.use(express.static(buildPath));
 app.use(cors());
 
+app.get('/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
+});
+
 app.use('/api',api);
 
 app.use(function (req, res, next) {

@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
+import TeacherAdministration from './components/TeacherHome';
+import BadgeAdmin from './components/BadgeAdmin';
+import RewardAdmin from './components/RewardAdmin';
+import UploadReward from './components/UploadReward';
+import MazeAdmin from './components/MazeAdmin';
+import EditMaze from './components/EditMazeContent';
+import EditBadge from './components/EditBadge';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { auth } from './firebase.js';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const [user, setUser] = useState({});
@@ -20,9 +29,20 @@ function App() {
   });
 
   return (
-    <div className="App">
-      {user ? <Home />:<SignIn />}
-    </div>
+    // {user ? <Home />:<SignIn />}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<SignIn />}></Route>
+        <Route path="/studentDashboard" element={<Home />}></Route>
+        <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
+        <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
+        <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
+        <Route path="/uploadReward" element={<UploadReward/>}></Route>
+        <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
+        <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
+        <Route path="/EditBadge" element={<EditBadge/>}></Route>
+      </Routes>
+    </BrowserRouter> 
   );
 }
 
