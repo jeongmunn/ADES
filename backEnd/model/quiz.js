@@ -38,14 +38,12 @@ var quiz = {
     
       //  var badgeClassID = parseInt(badgeCID);
         var data = [quizID, studentID, pointsEarned, marksEarned];
-        var data2= [studentID,pointsEarned]
+        
 
         var sql = ` INSERT INTO public."quizHistory"("quizID", "studentID", "pointsEarned", "marksEarned")
         VALUES ( $1, $2,$3,$4)` ; 
 
-        var sql2 = `UPDATE public."Student"
-        SET "totalPts"="totalPts" + $1 
-        WHERE "studentID" =$2`
+        
 
         pool.query(sql, data, (err, result) => {
             if (err) {
@@ -58,17 +56,7 @@ var quiz = {
             }
             // pool.end()
         })
-        pool.query(sql2, data2, (err, result) => {
-            if (err) {
-                console.log(quizID +studentID+ pointsEarned+ markEarned)
-                console.log(err);
-                return callback(err.null);
-            } else {
-               
-                return callback(null, result);
-            }
-            // pool.end()
-        })
+       
     },
 
 //-------------------

@@ -287,6 +287,8 @@ app.get('/quiz', function (req, res) {
 
 //posting to quizHistory
 app.post('/quiz', function (req, res) {
+
+    
     var data = {
         quizID : req.body.quizID ,
         studentID: req.body.studentID ,
@@ -314,7 +316,7 @@ app.post('/quiz', function (req, res) {
 
 
 //updating the student table
-app.post('/studentPoints', function (req, res) {
+app.put('/studentPoints', function (req, res) {
     var data = {
         pointsEarned : req.body.pointsEarned,
         studentID: req.body.studentID 
