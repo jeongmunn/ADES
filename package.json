@@ -10,7 +10,7 @@
   "scripts": {
     "start-client": "cd frontEnd && react-scripts start",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "(cd frontEnd && npm run build) && (cd ../backend && npm install)",
+    "build": "(cd frontEnd && npm run build) && (cd backend && npm install)",
     "eject": "cd frontEnd && react-scripts eject",
     "start": "cd backend && node server.js"
   },
