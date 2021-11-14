@@ -70,14 +70,14 @@ export default class EditBadge extends React.Component {
             }
 
             const badgeID = window.location.href.split('/')[3].slice(13);
-            const baseUrl = "http://localhost:8081";
+            const baseUrl = "http://localhost:8081/api";
             console.log(badgeID);
 
             axios.put(`${baseUrl}/editBadge/${badgeID}`, badge, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
-                    window.location.replace('http://localhost:3000/badgesAdmin')
+                    window.location.replace('http://localhost:8081/quizment/badgesAdmin')
                 })
         });
     }

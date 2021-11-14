@@ -17,14 +17,13 @@ export default class BadgeAdmin extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8081/badges`)
+    axios.get(`http://localhost:8081/api/badges`)
       .then(res => {
         console.log(res.data.length);
-
         this.setState({ data: res.data });
       })
 
-    axios.get(`http://localhost:8081/badgeClass`)
+    axios.get(`http://localhost:8081/api/badgeClass`)
       .then(res => {
         console.log(res.data.length);
 
@@ -82,7 +81,7 @@ export default class BadgeAdmin extends React.Component {
           'content-type': 'application/json'
         }
       }
-      axios.post('http://localhost:8081/newBadge', badge, config)
+      axios.post('http://localhost:8081/api/newBadge', badge, config)
         .then(res => {
           console.log(res);
           console.log(res.data);

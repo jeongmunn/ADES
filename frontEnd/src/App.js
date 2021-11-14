@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import TeacherAdministration from './components/TeacherHome';
@@ -30,7 +30,6 @@ function App() {
 
   return (
     // {user ? <Home />:<SignIn />}
-    <BrowserRouter>
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         <Route path="/studentDashboard" element={<Home />}></Route>
@@ -42,7 +41,6 @@ function App() {
         <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
         <Route path="/EditBadge" element={<EditBadge/>}></Route>
       </Routes>
-    </BrowserRouter> 
   );
 }
 

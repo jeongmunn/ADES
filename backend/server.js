@@ -11,6 +11,7 @@ const express=require("express");
 const cors = require('cors');
 const path = require("path");
 const api = require('./controllers/app.js');
+const basename = "/quizment";
 const app = express();
 
 // Web Server
@@ -18,7 +19,7 @@ const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 app.use(express.static(buildPath));
 app.use(cors());
 
-app.get('/*', function (req, res) {
+app.get(basename + '/*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
 });
 
