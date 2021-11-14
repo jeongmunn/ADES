@@ -132,11 +132,15 @@ app.get('/badgeClass', printDebugInfo, function (req, res) {
 
 
 app.post('/newBadge', printDebugInfo, function (req, res) {
+    console.log("IS it here??" +req.body.badgeClassID);
+    console.log("OR is it here" + parseInt(req.body.badgeClassID));
+    var badgeClassID = parseInt(req.body.badgeClassID);
+
     var data = {
         name: req.body.name,
         requirements: req.body.requirements,
         pic_url: req.body.pic_url,
-        badgeClassID: req.body.badgeClassID,
+        badgeClassID: badgeClassID,
     };
     badge.insertBadge(data, function (err, result) {
         if (!err) {
@@ -157,12 +161,6 @@ app.put('/editBadge/:badgeID', printDebugInfo, function (req, res) {
 
     var badgeID = parseInt(req.params.badgeID);
 
-    //you can only update your own account
-    //so, we need to establish 2 things:
-    //who are u?
-    //   --req.decodedToken.user_id
-    //Who are you trying to update?
-    //              --req.userID
 
     if (isNaN(badgeID)) {
         console.log(badgeID)
@@ -287,7 +285,59 @@ app.get('/quiz', function (req, res) {
     });
 });
 
+//posting to quizHistory
+app.post('/quiz', function (req, res) {
+    var data = {
+        quizID : req.body.quizID ,
+        studentID: req.body.studentID ,
+        pointsEarned : req.body.pointsEarned,
+        marksEarned: req.body.marksEarned
+    };
 
+    console.log("post quiz  function called.")
+    console.log("post data : " + JSON.stringify(data));
+
+    quiz.postQuiz(data, function (err, result) {
+        console.log("quiz postQuiz called");
+        if (!err) {
+            res.send('');
+        } else {
+            res.status(500).send("Error ! Cannot get Quiz");
+        }
+    });
+
+
+
+
+
+});
+
+
+//updating the student table
+app.post('/studentPoints', function (req, res) {
+    var data = {
+        pointsEarned : req.body.pointsEarned,
+        studentID: req.body.studentID 
+        
+    };
+
+    console.log("student Points  function called.")
+    console.log("Student Points: " + JSON.stringify(data));
+
+    
+
+quiz.UpdatePoints(data,function (err, result) {
+    console.log("quiz UpdatePoints called");
+    if (!err) {
+        res.send('');
+    } else {
+        res.status(500).send("Error ! Cannot get Quiz");
+    }
+});
+
+
+
+});
 
 
 module.exports = app;

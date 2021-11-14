@@ -46,13 +46,14 @@ var badge = {
 
 
 
-    insertBadge: function ( callback) {
+    insertBadge: function (badge, callback) {
         var name = badge.name;
         var requirements = badge.requirements;
         var pic = badge.pic_url;
         var badgeCID = badge.badgeClassID;
-    
+    console.log(badgeCID +'HELLOO');
         var badgeClassID = parseInt(badgeCID);
+
         var data = [name, requirements, pic, badgeClassID];
 
         var sql = ` INSERT INTO public.badge(name, requirements, pic_url,"badgeClassID")
@@ -77,8 +78,11 @@ var badge = {
         var requirements = badge.requirements;
         var pic = badge.pic_url;
         var badgeCID = badge.badgeClassID;
+        
+            var badgeClassID = parseInt(badgeCID);
     
-        var badgeClassID = parseInt(badgeCID);
+    
+      
         var data = [name, requirements, pic, badgeClassID,badgeID];
 
         var sql = ` UPDATE

@@ -41,9 +41,7 @@ export default class BadgeAdmin extends React.Component {
     this.setState({ requirements: event.target.value });
   }
 
-  handleBadgeClassID = event => {
-    this.setState({ badgeClassID: event.target.value });
-  }
+ 
 
   handleURL = event => {
     this.setState({ pic_url: event.target.files[0], });
@@ -61,17 +59,21 @@ export default class BadgeAdmin extends React.Component {
     const metadata = {
       contentType: this.state.pic_url.type,
     };
-    console.log("yes");
+   
     uploadBytes(storageRef, file, metadata);
 
     getDownloadURL(storageRef).then((downloadURL) => {
       console.log('File available at', downloadURL);
 
+      var bcID = document.getElementById("dropDown");
+      var bID = bcID.value;
+      var badgeClassID = parseInt(bID);
+      console.log(badgeClassID + "classBADGE")
       const badge = {
         name: this.state.name,
         requirements: this.state.requirements,
         pic_url: downloadURL,
-        badgeClassID: this.state.badgeClassID
+        badgeClassID: badgeClassID
       };
       console.log("BADGEEEE" + JSON.stringify(badge))
 
@@ -119,7 +121,7 @@ export default class BadgeAdmin extends React.Component {
                 <br/>
                 <label>
                   Badge Class ID:
-                  <select name="badgeClassID" onChange={this.handleBadgeClassID} >
+                  <select name="badgeClassID" onChange={this.handleBadgeClassID} id="dropDown">
                     <option value="1">Air</option>
                     <option value="2">Water</option>
                     <option value="3">Fire</option>

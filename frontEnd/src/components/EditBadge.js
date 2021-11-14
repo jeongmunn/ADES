@@ -44,17 +44,21 @@ export default class EditBadge extends React.Component {
         const metadata = {
             contentType: this.state.pic_url.type,
         };
-        console.log("yes");
+        
         uploadBytes(storageRef, file, metadata);
 
         getDownloadURL(storageRef).then((downloadURL) => {
             console.log('File available at', downloadURL);
 
+            var bcID = document.getElementById("dropDown");
+            var bID = bcID.value;
+            var badgeClassID = parseInt(bID);
+
             const badge = {
                 name: this.state.name,
                 requirements: this.state.requirements,
                 pic_url: downloadURL,
-                badgeClassID: this.state.badgeClassID
+                badgeClassID: badgeClassID
             };
 
             console.log("BADGEEEE" + JSON.stringify(badge))
@@ -86,23 +90,28 @@ export default class EditBadge extends React.Component {
                         <form onSubmit={this.handleSubmit} id="formEdit">
                             <label class='label'>
                                 Badge Name:
-                        <input type="text" name="name" onChange={this.handleName} />
+                                <input type="text" name="name" onChange={this.handleName} />
                             </label>
                             <br />
                             <label class='label'>
                                 Badge Requirement:
-                        <input type="text" name="requirements" onChange={this.handleRequirement} />
+                                <input type="text" name="requirements" onChange={this.handleRequirement} />
                             </label>
                             <br />
                             <label class='label'>
                                 Pic URL:
-                        <input type="file" name="pic_url" onChange={this.handleURL} />
+                                <input type="file" name="pic_url" onChange={this.handleURL} />
                             </label>
                             <br />
-                            {/* Please remember to change and do JOIN table for it to not display as ID */}
-                            <label class='label'>
+                            <label>
                                 Badge Class ID:
-                        <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} />
+                                <select name="badgeClassID" onChange={this.handleBadgeClassID} id="dropDown">
+                                    <option value="1">Air</option>
+                                    <option value="2">Water</option>
+                                    <option value="3">Fire</option>
+                                    <option value="4">Geo</option>
+                                </select>
+                                {/* <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} /> */}
                             </label>
                             <br />
                             <button type="submit">Add</button>
