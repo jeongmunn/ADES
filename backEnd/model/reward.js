@@ -60,12 +60,15 @@ var rewards = {
 
     editReward: function(id,ptsRequired,callback) {
         console.log(" edit reward by ID function called");
+
+      
+        
       
             const sql = `UPDATE "public"."Rewards" SET "ptsRequired"=$1 where "Rewards"."rewardID"=$2;`;
              const values = [ptsRequired,id]
             pool.query(sql,values,(err, result) => {
                 if(err) {
-                    console.log(err);
+                    console.log("error: "+err);
                     return callback(err.null);
                 } else {
                     console.log("result : " + result.rows);

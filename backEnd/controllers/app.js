@@ -72,14 +72,14 @@ app.use(cors());
 
 const storage = multer.diskStorage({
     destination: "../public/images",
-    filename: function(req, file, cb){
+    filename: function (req, file, cb) {
         cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
     }
 });
 
 const upload = multer({
     storage: storage,
-    limits:{fileSize: 1000000},
+    limits: { fileSize: 1000000 },
 }).single("myImage");
 
 
@@ -195,7 +195,7 @@ app.get('/mazeContent', printDebugInfo, function (req, res) {
 // rewards
 
 app.get('/rewards', function (req, res) {
-    
+
     reward.getReward(function (err, result) {
         console.log("reward.getReward called");
         if (!err) {
@@ -207,8 +207,8 @@ app.get('/rewards', function (req, res) {
 });
 
 app.get('/rewards/:id', function (req, res) {
-    var rewardID=req.params.id;
-    reward.getRewardById(rewardID,function (err, result) {
+    var rewardID = req.params.id;
+    reward.getRewardById(rewardID, function (err, result) {
         console.log("reward.getReward IDcalled");
         if (!err) {
             res.send(result);
@@ -220,28 +220,48 @@ app.get('/rewards/:id', function (req, res) {
 
 app.put('/rewards/:id', function (req, res) {
 
-    var rewardID=req.params.id
+    var rewardID = req.params.id
 
-    var ptsRequired = req.body.ptsRequired ;
+    var ptsRequired = req.body.ptsRequired;
 
     console.log("rewardID" + rewardID);
     console.log("ptsRequired" + ptsRequired);
 
-    reward.editReward(rewardID, ptsRequired,function (err, result) {
+    if(!isNaN(ptsRequired)){
 
-        console.log("reward.getReward IDcalled");
-        if (!err) {
-            res.send(result);
-        } else {
-            res.status(500).send("Error ! Cannot get reward");
-        }
-    });
+  
+
+    if (ptsRequired > 0) {
+
+
+
+        reward.editReward(rewardID, ptsRequired, function (err, result) {
+
+            console.log("reward.editReward IDcalled");
+            if (!err) {
+                res.send(result);
+            } else {
+                res.status(500).send("Error ! Cannot get reward");
+            }
+        });
+
+    }
+    else {
+        console.log("error input less than 0")
+        res.status(406).send("Error ! input less than zero");
+    }
+}
+else{
+    console.log("input not a number")
+    res.status(406).send("Error ! input not a number");
+}
+
 });
 
 app.delete('/rewards/:id', function (req, res) {
-    var rewardID=req.params.id;
- 
-    reward.deleteReward(rewardID,function (err, result) {
+    var rewardID = req.params.id;
+
+    reward.deleteReward(rewardID, function (err, result) {
         console.log("reward.getReward IDcalled");
         if (!err) {
             res.send(result);
@@ -255,21 +275,21 @@ app.delete('/rewards/:id', function (req, res) {
 
 
 
-app.post('/rewards', upload, function(req,res) {
+app.post('/rewards', upload, function (req, res) {
     var data = {
-        rewardName : req.body.rewardName ,
-        ptsRequired : req.body.ptsRequired ,
-        url : req.file.filename
+        rewardName: req.body.rewardName,
+        ptsRequired: req.body.ptsRequired,
+        url: req.file.filename
     };
 
     console.log("post rewards function called.")
     console.log("post data : " + JSON.stringify(data));
     console.log("url : " + JSON.stringify(req.file));
 
-    reward.createReward(data,function(err,result) {
-        if(!err){
+    reward.createReward(data, function (err, result) {
+        if (!err) {
             res.status(201).send("");
-        }else {
+        } else {
             res.status(500).send("Error ! Cannot post reward");
         }
     });
