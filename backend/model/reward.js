@@ -44,11 +44,29 @@ var rewards = {
             })
     },
 
-    editReward: function(id,ptsRequired,callback) {
-        console.log(" edit reward by ID function called");
+    getRewardById: function(id, callback) {
+        console.log(" get reward by ID function called");
       
-            const sql = `UPDATE "public"."Rewards" SET "ptsRequired"=$1 where "Rewards"."rewardID"=$2;`;
-             const values = [ptsRequired,id]
+            const sql = `SELECT * FROM "public"."Rewards" WHERE"Rewards"."rewardID"=$1`;
+            const values = [id]
+            pool.query(sql,values,(err, result) => {
+                if(err) {
+                    console.log(err);
+                    return callback(err.null);
+                } else {
+                    return callback(null,result.rows);
+                }
+            })
+    },
+
+    editReward: function(id,reward,callback) {
+        console.log(" edit reward by ID function called");
+            var rewardName = reward.rewardName ;
+            var ptsRequired = reward.ptsRequired ;
+            var url = reward.url ;
+      
+            const sql = `UPDATE "public"."Rewards" SET "rewardName" = $1, "ptsRequired"=$2, url= $3 WHERE "Rewards"."rewardID"=$4;`;
+            const values = [rewardName, ptsRequired, url, id]
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
@@ -62,8 +80,26 @@ var rewards = {
     deleteReward: function(id,callback) {
         console.log(" edit reward by ID function called");
       
-            const sql = ` Delete from "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;
-             const values = [id]
+            const sql = ` DELETE FROM "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;
+            const values = [id]
+            pool.query(sql,values,(err, result) => {
+                if(err) {
+                    console.log(err);
+                    return callback(err.null);
+                } else {
+                    return callback(null,result.rows);
+                }
+            })
+    },
+
+    insertRewardHistory: function(reward,callback) {
+        console.log(" insert reward history function called");
+        var studentID = reward.studentID ;
+        var rewardID = reward.rewardID ;
+
+            const sql = `INSERT INTO public."rewardHistory" ("studentID", "rewardID")
+                        VALUES ($1,$2) `;
+            const values = [studentID, rewardID];
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
