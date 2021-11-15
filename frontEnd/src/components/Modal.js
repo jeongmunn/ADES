@@ -21,7 +21,7 @@ export default class ModalPopup extends Component {
     }
 
     handleClose = () => {
-        this.props.onPopUpClose(false);
+        this.props.onPopupClose(false);
     }
 
     componentDidMount(){
