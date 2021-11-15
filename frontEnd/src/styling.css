@@ -29,14 +29,18 @@
 
 .c1 {
  /* for all colour don't put color here */
-  background: linear-gradient( rgba(220,172,175,0.5)
+  background: linear-gradient( rgba(255, 255, 255, 0.1)
   , transparent);
 
+
+  /* background-color: #ccd8d6 ; */
   backdrop-filter: blur(50px);
-  background-color: #ccd8d6 ;
+  background: url(https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces) no-repeat center center fixed;
+  background-size: cover;
 
   /* border-top-left-radius: 0.7rem;
   border-bottom-left-radius: 0.7rem; */
+  
   width: 30%;
   /* height: 100%; */
   text-align: center;
@@ -107,11 +111,11 @@ justify-content:baseline;
 .AssignmentTitle{
   width: 50%;
 }
-
+/* 
 .leaderboardBox{
   background-color: rgba(255, 255, 255);
 
-  /* background-color: rgba(255, 255, 255, 0.25); */
+  background-color: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(14px);
 
   border-radius: 0.7rem;
@@ -119,10 +123,10 @@ justify-content:baseline;
   width: 30%;
   height: 10rem;
   text-align: center;
-  margin: 5rem 5rem 0 3rem;
+  margin: 0rem 5rem 0 3rem;
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   justify-content:center;
-}
+} */
 
 
 
@@ -168,7 +172,7 @@ left: 90px !important;
 }
 
 .leaderBoardBox{
-  margin-top: 212px;
+  margin-top: 100px;
 }
 
 .navItem:hover{
@@ -179,6 +183,14 @@ left: 90px !important;
 .active{
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
+}
+
+/* .sliderStreak{
+  width:150px;
+} */
+.streakNum{
+ margin-top:30px;
+  margin-left: 35px;
 }
 /* strokeColor={{
     '0%': '#fefb72',

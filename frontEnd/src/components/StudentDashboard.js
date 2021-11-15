@@ -16,8 +16,16 @@ import '../styling.css'
 
 const styles = theme => ({
     root: {
-        paddingTop: '100px',
-        color: 'green'
+        // paddingTop: '100px',
+        marginTop:"60px",
+       
+      
+
+        width:"250px",
+      
+        marginLeft:"40px",
+    
+      
     },
 });
 
@@ -54,9 +62,11 @@ class StudentDashboard extends React.Component {
     state = {
         data: [],
         streaks: 0,
+        fullStreaks: 0,
         totalPts: [],
         redeemedPts: [],
         name: [],
+        showStreak:false,
 
         progress: 0,
 
@@ -68,7 +78,7 @@ class StudentDashboard extends React.Component {
                 this.setState({ data: res.data });
             })
 
-        axios.get('http://localhost:8081/students/streaks/' + 2)
+        axios.get('http://localhost:8081/students/streaks/' + 4)
             .then(res => {
                 console.log("number of streak " + res.data[0].streaks)
                 const streaks = res.data[0].streaks;
@@ -120,6 +130,8 @@ class StudentDashboard extends React.Component {
             })
 
 
+        
+
 
 
     }
@@ -145,9 +157,9 @@ class StudentDashboard extends React.Component {
 
                 <Row xs={1} className="row">
                     <Col md={4} className="c1 column">
-                        <h3 className="p-3 text-center">Student dashboard</h3>
+                        
 
-                        <h4>{this.state.name}</h4>
+                        <h4 className="mt-5 mb-5">{this.state.name}</h4>
 
                         <Card className="mb-3 points">
                             <Card.Body>
@@ -253,6 +265,8 @@ class StudentDashboard extends React.Component {
                     <Col md={3} className=" box3 column">
                         <Col>
 
+                           <Row className="sliderStreak">
+                               <Col>
                             <Slider
                                 className={classes.root}
                                 aria-label="Always visible"
@@ -261,30 +275,27 @@ class StudentDashboard extends React.Component {
                                 min={0}
                                 max={5}
                                 marks={marks}
-                                valueLabelDisplay="on"
+                            
+
+                                valueLabelDisplay="off"
                             />
-                            <input type="range"
-                                value={this.state.streaks}
-                                width="80px"
-
-                                max="5"
-                                min="0"
-                                orientation="vertical"
-                                reversed={true}
-                                //  disabled="disabled"
-
-                                className="custom-range" id="customRange1" />
+                            </Col>
+                            <Col className="streakNum">
+                          
+                            <h6>Streaks: {this.state.streaks} </h6>
+                            </Col>
+                            </Row>
+                           
 
 
-
-                            <h5>{this.state.streaks} </h5>
+                        
 
 
 
 
                         </Col>
-
-                        <Card className="leaderBoardBox"  >
+                      
+                        <Card   className="leaderBoardBox"  >
                             <Card.Header className="leaderBoardTitle">
                                 Leaderboard
                             </Card.Header>
