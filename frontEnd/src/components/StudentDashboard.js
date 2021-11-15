@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
 import { Progress } from 'antd';
 import { Stepper, Step } from 'react-form-stepper';
+import StreakSlider from './Streak.js';
 
-import { Slider } from '@material-ui/core';
 
 import Box from '@mui/material/Box';
 
@@ -243,15 +243,7 @@ export default class StudentDashboard extends React.Component {
 
                             <h5>{this.state.streaks} </h5>
 
-                            <Slider
-                                aria-label="Custom marks"
-                                defaultValue={20}
-                                getAriaValueText={this.state.streaks}
-                                step={10}
-                                valueLabelDisplay="auto"
-                                marks={this.state.streaks}
-                            />
-
+                            <StreakSlider/>
 
                         </Col>
 
