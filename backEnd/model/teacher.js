@@ -13,9 +13,8 @@ const pool = require("../controllers/dbConfig")
 var teacherDB = {
     getStudentProgress: function (callback) {
       console.log("function CALLED---------")
-      const sql = `SELECT "public"."Student"."studentID","public"."Student"."name", "public"."Student"."streaks", "public"."Student"."mazeLvl","public"."Student"."totalPts","public"."quiz"."attempt"
-      FROM "public"."Student"
-      INNER JOIN "public"."quiz" ON "public"."Student"."studentID"="public"."quiz"."studentID";`;
+      const sql = `SELECT "public"."Student"."studentID","public"."Student"."name", "public"."Student"."streaks", "public"."Student"."mazeLvl","public"."Student"."totalPts"
+      FROM "public"."Student";`;
 
         pool.query(sql, (err, result) => {
           if (err) {

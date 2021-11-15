@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
+import {Button,Card} from 'react-bootstrap';
 
 export default class TeacherViewStudentProgress extends React.Component {
     state = {
@@ -21,6 +21,19 @@ export default class TeacherViewStudentProgress extends React.Component {
         return (
             <div className="viewReward">
             <h3 className="p-3 text-center">Student Progress</h3>
+
+            <Card style={{ width: '18rem' }}>
+  <Card.Body>
+    <Card.Title>Card Title</Card.Title>
+    <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+    <Card.Text>
+      Some quick example text to build on the card title and make up the bulk of
+      the card's content.
+    </Card.Text>
+    <Card.Link href="#">Card Link</Card.Link>
+    <Card.Link href="#">Another Link</Card.Link>
+  </Card.Body>
+</Card>
         
             <table className="table table-striped table-bordered">
                 <thead>
@@ -29,7 +42,7 @@ export default class TeacherViewStudentProgress extends React.Component {
                         <th>Streaks</th>
                         <th>Maze Level</th>
                         <th>Total Points</th>
-                        <th>Quiz Attempted</th>
+                    
                     </tr>
                 </thead>
                 <tbody>
@@ -42,7 +55,7 @@ export default class TeacherViewStudentProgress extends React.Component {
                             <td>{item.streaks}</td>
                             <td>{item.mazeLvl}</td>
                             <td>{item.totalPts}</td>
-                            <td>{item.attempt}</td>
+                      
 
                          
                         </tr>
