@@ -17,9 +17,10 @@ const app = express();
 // Web Server
 const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 app.use(express.static(buildPath));
+app.use(express.static(basename));
 app.use(cors());
 
-app.get(basename + '/*', function (req, res) {
+app.get(basename + '*', function (req, res) {
     res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
 });
 
