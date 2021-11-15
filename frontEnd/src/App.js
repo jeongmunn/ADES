@@ -9,6 +9,7 @@ import RewardAdmin from './components/RewardAdmin';
 import RewardAdminEdit from './components/RewardAdminEdit';
 // import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
 import StudentDashboard from './components/StudentDashboard';
+import StreakSlider from './components/Streak';
 
 import {
   onAuthStateChanged,
@@ -33,6 +34,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/streak" element={<StreakSlider/>}></Route>
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>

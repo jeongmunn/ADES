@@ -2,35 +2,60 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
+
 import { Progress } from 'antd';
 import { Stepper, Step } from 'react-form-stepper';
-import Slider from '@mui/material/Slider';
-
-
-
-import Box from '@mui/material/Box';
-
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-
-import Typography from '@mui/material/Typography';
-import TickSlider from 'react-tick-slider';
-
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/styles';
+import Slider from '@material-ui/core/Slider';
 
 
 import '../styling.css'
 
 
 
+const styles = theme => ({
+    root: {
+        paddingTop: '100px',
+        color: 'green'
+    },
+});
+
+const marks = [
+    {
+      value: 0,
+      label: '0',
+    },
+    {
+      value: 1,
+      label: '1',
+    },
+    {
+      value: 2,
+      label: '2',
+    },
+    {
+      value: 3,
+      label: '3',
+    },
+    {
+      value: 4,
+      label: '4',
+    },
+    {
+      value: 5,
+      label: '5',
+    }
+  ];
+
 // const { Step } = Steps
 
-export default class StudentDashboard extends React.Component {
+class StudentDashboard extends React.Component {
     state = {
         data: [],
         streaks: 0,
         totalPts: [],
         redeemedPts: [],
-
         name: [],
 
         progress: 0,
@@ -110,14 +135,13 @@ export default class StudentDashboard extends React.Component {
     }
 
 
+
     render() {
         const data = this.state.data;
+        const { classes } = this.props;
         return (
 
-
-            <Container className="toatalContainer " fluid>
-
-
+            <Container className="toatalContainer" fluid>
 
                 <Row xs={1} className="row">
                     <Col md={4} className="c1 column">
@@ -228,6 +252,17 @@ export default class StudentDashboard extends React.Component {
                     </Col>
                     <Col md={3} className=" box3 column">
                         <Col>
+
+                            <Slider
+                                className={classes.root}
+                                aria-label="Always visible"
+                                value={this.state.streaks}
+                                step={1}
+                                min={0}
+                                max={5}
+                                marks={marks}
+                                valueLabelDisplay="on"
+                            />
                             <input type="range"
                                 value={this.state.streaks}
                                 width="80px"
@@ -243,10 +278,9 @@ export default class StudentDashboard extends React.Component {
 
 
                             <h5>{this.state.streaks} </h5>
-{/* 
-                       <RenderComponent {...this.props} />; */}
 
-                            {/* <StreakSlider/> */}
+
+
 
                         </Col>
 
@@ -323,16 +357,11 @@ export default class StudentDashboard extends React.Component {
     }
 }
 
-function RenderComponent(props) {
+
+StudentDashboard.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
   
-  
-    return (
-        <Slider
-        aria-label="Streaks"
-        defaultValue={10}
-        step={10}
-        valueLabelDisplay="auto"
-        marks={30}
-      />
-    );
-}
+  export default withStyles(styles)(StudentDashboard);
+
+
