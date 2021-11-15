@@ -13,6 +13,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 var student = require('../model/student');
 var badge = require('../model/badge');
+var teacher = require('../model/teacher');
 ;
 const path = require('path');
 
@@ -81,17 +82,17 @@ app.use(jsonParser);
 app.options('*', cors());
 app.use(cors());
 
-const storage = multer.diskStorage({
-    destination: "../public/images",
-    filename: function(req, file, cb){
-        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: "../public/images",
+//     filename: function(req, file, cb){
+//         cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+//     }
+// });
 
-const upload = multer({
-    storage: storage,
-    limits:{fileSize: 1000000},
-}).single("myImage");
+// const upload = multer({
+//     storage: storage,
+//     limits:{fileSize: 1000000},
+// }).single("myImage");
 
 
 app.get('/students/',printDebugInfo, function (req, res) {
