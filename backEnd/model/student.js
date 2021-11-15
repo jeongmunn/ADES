@@ -79,8 +79,27 @@ var studentDB = {
           })
           
     },
+    upadateStudentPointsBasedOnStreaks: function (id,callback) {
+      console.log("function CALLED---------")
+ 
+      const sql = `UPDATE "public"."Student" SET "totalPts"="totalPts"+20 , "redeemedPts"="redeemedPts"+20 where "Student"."studentID"=$1;`;
+      const values = [id]
+        pool.query(sql,values, (err, result) => {
+          if (err) {
+            console.log(err);
+            return callback(err.null);
+        } else {
+            console.log("its over HEREEEE")
+            return callback(null, result);
+        }
+           // pool.end()
+          })
+          
+    },
+   
+   
 
-    //---------------- to view student's process--------------
+    //---------------- to view student's progress--------------
     // get all student process
     getStudentProcess: function (callback) {
       console.log("function CALLED---------")

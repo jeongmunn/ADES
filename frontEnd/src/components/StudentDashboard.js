@@ -5,7 +5,7 @@ import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, Li
 import { Progress } from 'antd';
 import { Stepper, Step } from 'react-form-stepper';
 
-// import { Slider } from '@material-ui/core';
+import { Slider } from '@material-ui/core';
 
 import Box from '@mui/material/Box';
 
@@ -42,7 +42,7 @@ export default class StudentDashboard extends React.Component {
                 this.setState({ data: res.data });
             })
 
-        axios.get('http://localhost:8081/students/streaks/' + 1)
+        axios.get('http://localhost:8081/students/streaks/' + 2)
             .then(res => {
                 console.log("number of streak " + res.data[0].streaks)
                 const streaks = res.data[0].streaks;
@@ -92,6 +92,8 @@ export default class StudentDashboard extends React.Component {
                 this.setState({ name });
 
             })
+
+
 
 
     }
@@ -163,10 +165,10 @@ export default class StudentDashboard extends React.Component {
                             >
 
                                 <div className="sidebar-sticky"></div>
-                                <Nav.Item className="navItem "    activeClassName="active" >
+                                <Nav.Item className="navItem " activeClassName="active" >
                                     <Nav.Link className="linkCustomise" href="/home">Dashboard</Nav.Link>
                                 </Nav.Item>
-                                <Nav.Item  className="navItem">
+                                <Nav.Item className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-1">Reward</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
@@ -227,7 +229,7 @@ export default class StudentDashboard extends React.Component {
                         <Col>
                             <input type="range"
                                 value={this.state.streaks}
-                               width="80px"
+                                width="80px"
 
                                 max="5"
                                 min="0"
@@ -240,7 +242,16 @@ export default class StudentDashboard extends React.Component {
 
 
                             <h5>{this.state.streaks} </h5>
-                           
+
+                            <Slider
+                                aria-label="Custom marks"
+                                defaultValue={20}
+                                getAriaValueText={this.state.streaks}
+                                step={10}
+                                valueLabelDisplay="auto"
+                                marks={this.state.streaks}
+                            />
+
 
                         </Col>
 
@@ -303,7 +314,7 @@ export default class StudentDashboard extends React.Component {
             //                     </Progress>
 
 
-           
+
 
 
 
