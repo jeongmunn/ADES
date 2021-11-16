@@ -365,4 +365,17 @@ app.post('/newStudent', function (req, res) {
     });
 });
 
+// getTypeOfUser for (sign in and redirecting)
+app.get('/userType/:Uid', function (req, res) {
+
+    var Uid = req.params.Uid;
+    user.getTypeOfUser(Uid, function (err, result) {
+        if (!err) {
+            res.status(200).send(result[0]);
+        } else {
+            res.status(500).send("Error ! Cannot get user type!");
+        }
+    })
+})
+
 module.exports = app;

@@ -5,17 +5,18 @@ console.log("---------------------------------------------------------");
 const pool = require("../controllers/dbconfig");
 
 var user = {
-    // getTypeOfUser: function (callback) {
-    //     const sql = `SELECT "type" FROM public."Student" WHERE uid`;
-    //     pool.query('SELECT "type" FROM public."Student"', (err, result) => {
-    //         if (err) {
-    //             console.log(err);
-    //             return callback(err.null);
-    //         } else {
-    //             return callback(null, result);
-    //         }
-    //     })
-    // }
+    getTypeOfUser: function (Uid, callback) {
+        console.log("get type of user");
+        const sql = `SELECT "type" FROM public."Student" WHERE "Uid" = $1`;
+        pool.query(sql, [Uid], (err, result) => {
+            if (err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                return callback(null, result.rows);
+            }
+        })
+    },
 }
 
 // ----------------------------------------------------------------------------

@@ -44,12 +44,12 @@ const SignIn = () => {
                     console.log(res);
                     console.log(res.data);
                     navigate('/studentDashboard');
-            })
+                })
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.log(errorCode);
-            console.log(errorMessage);
+            console.log(JSON.stringify(errorCode));
+            console.log(JSON.stringify(errorMessage));
         }
     };
 
@@ -60,8 +60,22 @@ const SignIn = () => {
                 email,
                 password
             );
-            var uid = JSON.stringify(user.user.uid);
-            navigate('/studentDashboard');
+            const config = {
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }
+            var uid = JSON.parse(JSON.stringify(user.user.uid));
+            axios.get(`http://localhost:8081/api/userType/` + uid, config)
+                .then(res => {
+                    if (res.data.type == 1) {
+                        navigate('/studentDashboard');
+                    } else if (res.data.type == 2) {
+                        navigate('/teacherAdmin');
+                    } else {
+                        navigate('/');
+                    }
+                })
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
