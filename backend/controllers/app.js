@@ -346,8 +346,12 @@ app.post('/newStudent', function (req, res) {
     var data = {
         name: req.body.name,
         Uid: req.body.Uid,
-        lastLogin: req.body.lastLogin,
-        type: req.body.type
+        streaks: req.body.streaks,
+        totalPts: req.body.totalPts, 
+        mazeLvl: req.body.mazeLvl, 
+        redeemedPts: req.body.redeemedPts,
+        type: req.body.type,
+        lastLogin: req.body.lastLogin
     };
     console.log("student Points  function called.")
     console.log("Student Points: " + JSON.stringify(data));

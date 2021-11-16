@@ -2,15 +2,20 @@ import logo from '../logo.svg';
 import '../App.css';
 import React from 'react'
 import { auth } from '../firebase.js';
+import { useNavigate } from 'react-router-dom';
 import {
     onAuthStateChanged,
     signOut
 } from "firebase/auth";
 
 const Home = () => {
+    let navigate = useNavigate();
     const logout = async () => {
         await signOut(auth);
+        navigate('/');
     };
+    // const user = auth.currentUser;
+    // console.log(JSON.stringify(user));
     return (
         <div>
             <header className="App-header">

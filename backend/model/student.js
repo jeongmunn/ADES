@@ -40,13 +40,17 @@ var student = {
 
     newUser: function(student, callback) {
         console.log("create new user");
-        const sql = `INSERT INTO public."Student" ("name", "Uid", "lastLogin", "type")
-        VALUES ($1,$2,$3,$4)`; 
+        const sql = `INSERT INTO public."Student" ("name", "Uid", "streaks", "totalPts", "mazeLvl", "redeemedPts", "type", "lastLogin")
+        VALUES ($1,$2,$3,$4,$5,$6,$7,$8)`; 
         var name = student.name;
         var Uid = student.Uid;
-        var lastLogin = student.lastLogin;
+        var streaks = student.streaks;
+        var totalPts = student.totalPts;
+        var mazeLvl = student.mazeLvl;
+        var redeemedPts = student.redeemedPts;
         var type = student.type;
-        const values = [name, Uid, lastLogin, type]
+        var lastLogin = student.lastLogin;
+        const values = [name, Uid, streaks, totalPts, mazeLvl, redeemedPts, type, lastLogin]
         pool.query(sql, values,(err) => {
             if (err) {
                 console.log(err);
