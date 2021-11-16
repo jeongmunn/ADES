@@ -38,6 +38,25 @@ var student = {
         })
     },
 
+    newUser: function(student, callback) {
+        console.log("create new user");
+        const sql = `INSERT INTO public."Student" ("name", "Uid", "lastLogin", "type")
+        VALUES ($1,$2,$3,$4)`; 
+        var name = student.name;
+        var Uid = student.Uid;
+        var lastLogin = student.lastLogin;
+        var type = student.type;
+        const values = [name, Uid, lastLogin, type]
+        pool.query(sql, values,(err) => {
+            if (err) {
+                console.log(err);
+                return callback(err);
+            } else {
+                return callback(null);
+            }
+        })
+    },
+
 };
 
 // ----------------------------------------------------------------------------

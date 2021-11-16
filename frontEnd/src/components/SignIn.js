@@ -4,6 +4,7 @@ import {
     signInWithEmailAndPassword
 } from "firebase/auth";
 import { auth } from '../firebase.js';
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'
 
 const SignIn = () => {
@@ -17,7 +18,6 @@ const SignIn = () => {
                 email,
                 password
             );
-            
         } catch (error) {
             const errorCode = error.code;
             const errorMessage = error.message;
@@ -33,6 +33,7 @@ const SignIn = () => {
                 email,
                 password
             );
+            
             console.log(JSON.stringify(user.user.uid));
     
         } catch (error) {

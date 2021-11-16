@@ -9,6 +9,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const multer = require('multer');
+var user = require('../model/user');
 var student = require('../model/student');
 var badge = require('../model/badge');
 var maze = require('../model/maze');
@@ -326,7 +327,6 @@ app.post('/studentPoints', function (req, res) {
     var data = {
         pointsEarned: req.body.pointsEarned,
         studentID: req.body.studentID
-
     };
     console.log("student Points  function called.")
     console.log("Student Points: " + JSON.stringify(data));
@@ -336,6 +336,27 @@ app.post('/studentPoints', function (req, res) {
             res.send('');
         } else {
             res.status(500).send("Error ! Cannot get Quiz");
+        }
+    });
+});
+
+
+// sign up new student (CREATION)
+app.post('/newStudent', function (req, res) {
+    var data = {
+        name: req.body.name,
+        Uid: req.body.Uid,
+        lastLogin: req.body.lastLogin,
+        type: req.body.type
+    };
+    console.log("student Points  function called.")
+    console.log("Student Points: " + JSON.stringify(data));
+    student.newUser(data, function (err, result) {
+        console.log("newUser called.");
+        if (!err) {
+            res.status(201).send('');
+        } else {
+            res.status(500).send("Error ! Cannot get details for new student to be created!");
         }
     });
 });
