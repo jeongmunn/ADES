@@ -15,7 +15,7 @@ export default class BadgeAdmin extends React.Component {
 
     componentDidMount() {
 
-        axios.get(`http://localhost:8081/api/quiz`)
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
             .then(res => {
                 console.log(res.data.length);
                 this.setState({ data: res.data });

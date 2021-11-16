@@ -9,7 +9,7 @@ export default class RewardAdmin extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:8081/api/rewards')
+        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
         .then(res => {
             this.setState({ data : res.data });
         })

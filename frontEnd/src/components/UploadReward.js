@@ -37,7 +37,7 @@ export default class UploadReward extends React.Component {
             }
         }
 
-        axios.post('http://localhost:8081/api/rewards', reward, config)
+        axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

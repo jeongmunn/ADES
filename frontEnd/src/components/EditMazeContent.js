@@ -26,7 +26,7 @@ export default class EditMazeContent extends React.Component {
             }
         }
         const lvl = window.location.href.split('/')[3].slice(20);
-        const baseUrl = "http://localhost:8081/api";
+        const baseUrl = "https://ades-ca1-project.herokuapp.com/api";
 
 
         axios.put(`${baseUrl}/mazeContent/${lvl}`, mazeContent, config)
