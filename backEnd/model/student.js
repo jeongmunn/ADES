@@ -82,7 +82,7 @@ var studentDB = {
     upadateStudentPointsBasedOnStreaks: function (id,callback) {
       console.log("function CALLED---------")
  
-      const sql = `UPDATE "public"."Student" SET "totalPts"="totalPts"+20 , "redeemedPts"="redeemedPts"+20 where "Student"."studentID"=$1;`;
+      const sql = `UPDATE "public"."Student" SET "totalPts"="streaks"*20, "redeemedPts"="redeemedPts"+"streaks"*20 where "Student"."studentID"=$1;`;
       const values = [id]
         pool.query(sql,values, (err, result) => {
           if (err) {
@@ -130,6 +130,23 @@ var studentDB = {
               }
           })
   },
+
+  
+  updateLastLoginStreak: function(id,lastLogin,callback) {
+    console.log(" update last login and streak function called");
+  
+        const sql = `UPDATE "public"."Student" SET "lastLogin"=$1, "streaks"="streaks"+1  where "Student"."studentID"=$2;`;
+         const values = [lastLogin,id]
+        pool.query(sql,values,(err, result) => {
+            if(err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                console.log("result : " + result.rows);
+                return callback(null,result.rows);
+            }
+        })
+},
 
    
    

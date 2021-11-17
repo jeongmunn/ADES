@@ -28,27 +28,27 @@ const styles = theme => ({
 const marks = [
     {
         value: 0,
-        label: '0',
+        label: '',
     },
     {
         value: 1,
-        label: '1',
+        label: '',
     },
     {
         value: 2,
-        label: '2',
+        label: '',
     },
     {
         value: 3,
-        label: '3',
+        label: '',
     },
     {
         value: 4,
-        label: '4',
+        label: '',
     },
     {
         value: 5,
-        label: '5',
+        label: '',
     }
 ];
 
@@ -75,7 +75,7 @@ class StudentDashboard extends React.Component {
     }
 
     componentDidMount() {
-        
+
 
         axios.get('http://localhost:8081/students/topStudents/')
             .then(res => {
@@ -92,27 +92,6 @@ class StudentDashboard extends React.Component {
 
                 this.setState({ streaks });
 
-                // let progress = 0;
-                // if (this.state.streaks === 1) {
-                //     progress += 20
-                //     this.setState({ progress: progress })
-                // }
-                // if (this.state.streaks === 2) {
-                //     progress += 40
-                //     this.setState({ progress: progress })
-                // }
-                // if (this.state.streaks === 3) {
-                //     progress += 60
-                //     this.setState({ progress: progress })
-                // }
-                // if (this.state.streaks === 4) {
-                //     progress += 80
-                //     this.setState({ progress: progress })
-                // }
-                // if (this.state.streaks === 5) {
-                //     progress += 100
-                //     this.setState({ progress: progress })
-                // }
 
 
             })
@@ -141,33 +120,44 @@ class StudentDashboard extends React.Component {
 
                 this.setState({ lastLoginData: res.data[0].lastLogin })
 
-                // const i = parseInt(new Date().getTime());
-
-                // console.log("before : " + i)
-                // console.log("after : " + parseInt(i))
-                // const currentLogin = parseInt(i)
-
-                // this.setState({ currentLogin })
-
-
-                // console.log("Current login: " + currentLogin)
                 console.log("Current login stored: " + this.state.currentLogin)
                 console.log("Last login stored: " + this.state.lastLoginData)
-                
+
                 var diffTime = this.state.currentLogin - this.state.lastLoginData;
+                var streak=this.state.streaks;
                 const config = {
                     headers: {
                         'content-type': 'application/json'
                     }
                 }
-                
+
                 const lastLog = {
                     lastLogin: this.state.currentLogin
                 }
 
+
                 if (diffTime >= 28800000 && diffTime <= 86400000) {
                     console.log("Yassss");
                     // AXIOS PUT STREAK + NEW LOGIN TIME
+                    axios.put('http://localhost:8081/students/lastLoginStreak/' + 4, lastLog, config)
+                    .then(res => {
+                        console.log("RESULTS: " + res);
+                        console.log(res);
+                        console.log("RESULT: " + res.data);
+                    })
+
+                    axios.put('http://localhost:8081/students/updatePoints/' + 4)
+                    .then(res => {
+                        console.log("RESULTS: " + res);
+                        console.log(res);
+                        console.log("RESULT: " + res.data);
+                    })
+
+
+                  
+
+
+                    
                 } else {
                     console.log("BYE");
                     axios.put('http://localhost:8081/students/lastLogin/' + 4, lastLog, config)
@@ -175,37 +165,12 @@ class StudentDashboard extends React.Component {
                             console.log("RESULTS: " + res);
                             console.log(res);
                             console.log("RESULT: " + res.data);
-                    })
+                        })
+
+
                 }
 
             })
-
-        // async function data() {
-        //     const lastLoginData = this.state.lastLoginData;
-        //     console.log(lastLoginData);
-        //     return lastLoginData
-        // }
-
-        
-
-
-
-        
-
-
-
-
-        
-
-
-
-
-
-
-
-
-        
-
 
 
     }
@@ -230,7 +195,7 @@ class StudentDashboard extends React.Component {
             <Container className="toatalContainer" fluid>
 
                 <Row xs={1} className="row">
-                    <Col md={4} className="c1 column">
+                    <Col md={3} className="c1 column">
 
 
                         <h4 className="mt-5 mb-5">{this.state.name}</h4>
@@ -290,6 +255,9 @@ class StudentDashboard extends React.Component {
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-2">Streak</Nav.Link>
+                                </Nav.Item>
+                                <Nav.Item  onClick={logout} className="navItem">
+                                    <Nav.Link className="linkCustomise" eventKey="link-2">Sign Out</Nav.Link>
                                 </Nav.Item>
                             </Nav>
 
@@ -359,8 +327,8 @@ class StudentDashboard extends React.Component {
                                     <h6>Streaks: {this.state.streaks} </h6>
                                 </Col>
                             </Row>
-
-                            <button onClick={logout}>Sign Out</button>
+{/* 
+                            <button onClick={logout}>Sign Out</button> */}
 
 
 

@@ -165,6 +165,50 @@ app.put('/students/lastLogin/:studentID', printDebugInfo,function (req, res) {
 });
 
 
+app.put('/students/lastLoginStreak/:studentID', printDebugInfo,function (req, res) {
+
+    var id=req.params.studentID
+
+    var lastLogin = req.body.lastLogin ;
+
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLoginStreak(id, lastLogin,function (err, result) {
+
+        console.log(" student.updateLastLoginStreak called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+app.put('/students/updatePoints/:studentID', printDebugInfo,function (req, res) {
+
+    var id=req.params.studentID
+
+
+
+    console.log("id : " + id);
+   
+
+
+    student.upadateStudentPointsBasedOnStreaks(id, function (err, result) {
+
+        console.log(" student.updateLastLoginStreak called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+
 
 
 
