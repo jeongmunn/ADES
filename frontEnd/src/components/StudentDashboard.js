@@ -4,9 +4,6 @@ import { Link } from 'react-router-dom';
 import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
-
-import { Progress } from 'antd';
-import { Stepper, Step } from 'react-form-stepper';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/styles';
 import Slider from '@material-ui/core/Slider';
