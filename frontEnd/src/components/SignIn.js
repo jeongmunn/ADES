@@ -1,6 +1,7 @@
 import '../SignIn.css';
 import {
     createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
     signInWithEmailAndPassword
 } from "firebase/auth";
 import { auth } from '../firebase.js';
@@ -10,16 +11,19 @@ import axios from 'axios';
 
 
 const SignIn = () => {
+    const [registerEmail, setRegisterEmail] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     let navigate = useNavigate();
 
     const register = async () => {
         try {
             const user = await createUserWithEmailAndPassword(
                 auth,
-                email,
-                password
+                registerEmail,
+                registerPassword
             );
             const config = {
                 headers: {
@@ -57,8 +61,8 @@ const SignIn = () => {
         try {
             const user = await signInWithEmailAndPassword(
                 auth,
-                email,
-                password
+                loginEmail,
+                loginPassword
             );
             const config = {
                 headers: {
@@ -84,25 +88,44 @@ const SignIn = () => {
         }
     };
 
+    const forgotPassword = async () => {
+        try {
+            const user = await sendPasswordResetEmail(
+                auth,
+                email);
+        } catch(error) {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(JSON.stringify(errorCode));
+            console.log(JSON.stringify(errorMessage));
+        }
+    };
+
     return (
         <div className="signin">
             <h1>Sign in</h1>
             <input placeholder="email" type="email" onChange={(event) => {
-                setEmail(event.target.value);
+                setLoginEmail(event.target.value);
             }} />
             <input placeholder="password" type="password" onChange={(event) => {
-                setPassword(event.target.value);
+                setLoginPassword(event.target.value);
             }} />
             <button onClick={login}> Sign In</button>
 
             <h1>Sign up</h1>
             <input placeholder="email" type="email" onChange={(event) => {
-                setEmail(event.target.value);
+                setRegisterEmail(event.target.value);
             }} />
             <input placeholder="password" type="password" onChange={(event) => {
-                setPassword(event.target.value);
+                setRegisterPassword(event.target.value);
             }} />
             <button onClick={register}>Sign Up</button>
+
+            <h1>Forgot Password</h1>
+            <input placeholder="email" type="email" onChange={(event) => {
+                setEmail(event.target.value);
+            }} />
+            <button onClick={forgotPassword}>Forgot Password</button>
         </div>
     )
 }
