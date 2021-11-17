@@ -1,4 +1,4 @@
-import '../SignIn.css';
+import '../styling2.css';
 import {
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
