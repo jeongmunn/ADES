@@ -1,16 +1,20 @@
 import React from 'react';
 import axios from 'axios';
-
-import '../css/pop-up.css';
-
+import Button from 'react-bootstrap/Button';
+import '../css/quiz.css';
+ import ModalPopup from './Modal';  
 
 export default class BadgeAdmin extends React.Component {
   state = {
     data: [],
 
   }
-
-
+  constructor() {  
+    super();  
+    this.state = {  
+      showModalPopup: false  
+    }  
+  }  
   componentDidMount() {
 
     axios.get(`http://localhost:8081/quiz`)
@@ -33,10 +37,12 @@ export default class BadgeAdmin extends React.Component {
 
   }
   handleButton = event => {
+    let status =true
+    this.setState({ showModalPopup: status });  
     event.preventDefault();
     console.log("BUTTON CLICKED");
-    // Get the modal
-    var modal = document.getElementById("myModal");
+ 
+  
     const quizID = event.target.getAttribute("data-index");
     const totalMarks = event.target.getAttribute("data-mark");
     const totalPoints = event.target.getAttribute("data-points");
@@ -74,26 +80,14 @@ export default class BadgeAdmin extends React.Component {
         console.log("AXIOS PUTTING")
       })
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
 
-    // When the user clicks the button, open the modal 
-
-    modal.style.display = "block";
-
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-      modal.style.display = "none";
-    }
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  }
+   }
 
   //NEED TO GET STUDENT ID!
 
-
+  handleClose = () => {
+    this.props.onPopupClose(false);
+}
 
 
 
@@ -113,7 +107,7 @@ export default class BadgeAdmin extends React.Component {
 
 
         </div>
-        <div>
+        {/* <div>
 
 
 
@@ -127,23 +121,26 @@ export default class BadgeAdmin extends React.Component {
             </div>
           </div>
 
-        </div>
+        </div> */}
         <table class="table">
 
           {data && data.map(item =>
             <tr key={item.quizID} id='tableRow' class="spaceUnder">
-              <td>Quiz {item.quizID}</td>
-              <td>Total Marks: {item.totalMarks}</td>
-              <td>Total Points:{item.totalPoints}</td>
+              <td className="quizTitle">Quiz {item.quizID}</td>
+              <td  className="marks">Total Marks: {item.totalMarks}</td>
+              <td  className="points">Total Points:{item.totalPoints}</td>
 
               <td>
-                <button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Open Modal</button>
+                <Button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Do Quiz!</Button>
 
               </td>
             </tr>
           )}
         </table>
-
+        <ModalPopup  
+          showModalPopup={this.state.showModalPopup}  
+          onPopupClose={this.isShowPopup}  
+        ></ModalPopup>  
       </div>
     )
   }
