@@ -10,6 +10,7 @@ import MazeAdmin from './components/MazeAdmin';
 import EditMaze from './components/EditMazeContent';
 import EditBadge from './components/EditBadge';
 import Quiz from './components/Quiz';
+import MapOfMaze from './components/MapOfMaze';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -40,7 +41,8 @@ function App() {
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
         <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
         <Route path="/EditBadge" element={<EditBadge/>}></Route>
-        <Route path="/Quiz" element={<Quiz/>}></Route>
+        <Route path="/Quiz" element={<Quiz/>}></Route>\
+        <Route path="/MapOfMaze" element={<MapOfMaze/>}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,122 @@
+#container {
+    
+    background-image: url("https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center; 
+    position: relative;
+  
+    height:100vh;
+    width:100vw
+  }
+  #maze{
+    background-color: rgba(255, 255, 255, 0.473);
+    height:90vh;
+    width:90vw;
+    position: relative;
+    border-radius: 40px;
+    top:2vw;
+    margin-left:4vw;
+    margin-right: 4vw;
+  }
+  #animate {
+    width: 3vw;
+    height: 3vh;
+    position: absolute;
+    
+    /* background-image: url('wisp.png'); */
+  }
+  #imgAnimate{
+    width: 7vw;
+    height: 7vw;
+  }
+  #mazeButton{
+top: 90px;
+position: absolute;
+  }
+  #img{
+    width: 200px;
+    height: 200px;
+  }
+  #cloud1{
+    position: absolute;
+    top:1vw;
+    left:1.5vw;
+    
+  }
+  #cloud1img{
+    width:16vw;
+  }
+  #cloud2{
+    position: absolute;
+    top: 15vw;
+    left:1.5vw;
+  }
+  #cloud2img{
+    width:16vw;
+  }
+  
+  #cloud3{
+    position: absolute;
+    top: 24vw;
+    left:17vw;
+  }
+  #cloud3img{
+    width:20vw;
+  }
+  
+  #cloud4{
+    position: absolute;
+    top: 1vw;
+    left:30vw;
+  }
+  #cloud4img{
+    width:23vw;
+  
+  }
+  #cloud5{
+    position: absolute;
+    top: 20vw;
+    left:42vw;
+  }
+  #cloud5img{
+    width:18vw;
+  
+  }
+  #cloud6{
+    position: absolute;
+    top: 1vw;
+    left:60vw;
+  }
+  #cloud6img{
+    width:19vw;
+  
+  }
+  #cloud7{
+    position: absolute;
+    top: 15vw;
+    left:65vw;
+  }
+  #cloud7img{
+    width:16vw;
+  
+  }
+  #cloud8{
+    position: absolute;
+    top: 28vw;
+    left:70vw;
+  }
+  #cloud8img{
+    width:16vw;
+  
+  }
+#title{
+  position: relative;
+  float: left;
+}
+  #exit{
+   position: relative;
+   float:right;
+  
+  }

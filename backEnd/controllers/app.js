@@ -238,6 +238,20 @@ app.put('/mazeContent/:lvl',printDebugInfo, function (req, res) {
         }
     });
 });
+
+// getting mazelvl of a sertain student
+app.get('/mapOfMaze/:studentID', function (req, res) {
+
+    var studentID = req.params.studentID;
+   maze.getMazeByStudentID(studentID, function (err, result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else {
+            res.status(500).send("Error ! cannot find!");
+        }
+    })
+})
+
 // rewards
 
 app.get('/rewards', function (req, res) {

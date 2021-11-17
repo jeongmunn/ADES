@@ -24,6 +24,9 @@
   },
   "homepage": "https://github.com/jeongmunn/ADES#readme",
   "dependencies": {
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/material": "^5.1.1",
     "axios": "^0.24.0",
     "body-parser": "^1.19.0",
     "concurrently": "^6.3.0",
