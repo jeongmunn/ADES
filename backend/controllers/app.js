@@ -8,7 +8,7 @@ console.log("---------------------------------------------------------");
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const multer = require('multer');
+// const multer = require('multer');
 var user = require('../model/user');
 var student = require('../model/student');
 var points = require('../model/points');
@@ -20,17 +20,17 @@ var cors = require('cors');
 const path = require('path');
 
 
-const storage = multer.diskStorage({
-    destination: "../public/images",
-    filename: function (req, file, cb) {
-        cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
-    }
-});
+// const storage = multer.diskStorage({
+//     destination: "../public/images",
+//     filename: function (req, file, cb) {
+//         cb(null, "IMAGE-" + Date.now() + path.extname(file.originalname));
+//     }
+// });
 
-const upload = multer({
-    storage: storage,
-    limits: { fileSize: 1000000 },
-}).single("myImage");
+// const upload = multer({
+//     storage: storage,
+//     limits: { fileSize: 1000000 },
+// }).single("myImage");
 
 
 //-------------------------------------------------------------------------
