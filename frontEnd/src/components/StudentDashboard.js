@@ -130,7 +130,7 @@ class StudentDashboard extends React.Component {
                     lastLogin: this.state.currentLogin
                 }
 
-diffTime=86400001
+
                 if (diffTime >= 28800000 && diffTime <= 86400000) {
                     console.log("Yassss");
                     // AXIOS PUT STREAK + NEW LOGIN TIME
