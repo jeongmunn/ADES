@@ -65,10 +65,8 @@ class StudentDashboard extends React.Component {
         name: [],
         showStreak: false,
         lastLoginData: [],
-        currentLogin: new Date().getTime()
-
-
-
+        currentLogin: new Date().getTime(),
+        Uid: 0
     }
 
     componentDidMount() {
