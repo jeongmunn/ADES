@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+
 import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
@@ -130,7 +130,7 @@ class StudentDashboard extends React.Component {
                     lastLogin: this.state.currentLogin
                 }
 
-
+diffTime=86400001
                 if (diffTime >= 28800000 && diffTime <= 86400000) {
                     console.log("Yassss");
                     // AXIOS PUT STREAK + NEW LOGIN TIME
@@ -153,7 +153,18 @@ class StudentDashboard extends React.Component {
 
 
                     
-                } else {
+                } 
+                else if(diffTime>86400000){
+                    console.log("harooo");
+                    axios.put('http://localhost:8081/students/lastLoginLostStreak/' + 4, lastLog, config)
+                        .then(res => {
+                            console.log("RESULTS: " + res);
+                            console.log(res);
+                            console.log("RESULT: " + res.data);
+                        })
+
+                }
+                else {
                     console.log("BYE");
                     axios.put('http://localhost:8081/students/lastLogin/' + 4, lastLog, config)
                         .then(res => {

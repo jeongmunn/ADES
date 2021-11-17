@@ -118,7 +118,7 @@ var studentDB = {
     updateLastLogin: function(id,lastLogin,callback) {
       console.log(" edit reward by ID function called");
     
-          const sql = `UPDATE "public"."Student" SET "lastLogin"=$1  where "Student"."studentID"=$2;`;
+          const sql = `UPDATE "public"."Student" SET "lastLogin"=$1 where "Student"."studentID"=$2;`;
            const values = [lastLogin,id]
           pool.query(sql,values,(err, result) => {
               if(err) {
@@ -130,6 +130,24 @@ var studentDB = {
               }
           })
   },
+
+     
+  updateLastLoginStreakLost: function(id,lastLogin,callback) {
+    console.log(" edit reward by ID function called");
+  
+        const sql = `UPDATE "public"."Student" SET "lastLogin"=$1,"streaks"=0 where "Student"."studentID"=$2;`;
+         const values = [lastLogin,id]
+        pool.query(sql,values,(err, result) => {
+            if(err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                console.log("result : " + result.rows);
+                return callback(null,result.rows);
+            }
+        })
+},
+
 
   
   updateLastLoginStreak: function(id,lastLogin,callback) {

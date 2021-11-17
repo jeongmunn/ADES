@@ -165,6 +165,31 @@ app.put('/students/lastLogin/:studentID', printDebugInfo,function (req, res) {
 });
 
 
+app.put('/students/lastLoginLostStreak/:studentID', printDebugInfo,function (req, res) {
+
+    var id=req.params.studentID
+
+    var lastLogin = req.body.lastLogin ;
+
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLoginStreakLost(id, lastLogin,function (err, result) {
+
+        console.log(" student.updateLastLogin called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+
+
+
+
 app.put('/students/lastLoginStreak/:studentID', printDebugInfo,function (req, res) {
 
     var id=req.params.studentID
@@ -210,8 +235,6 @@ app.put('/students/updatePoints/:studentID', printDebugInfo,function (req, res) 
 
 
 
-
-
 app.get('/students/topStudents/',printDebugInfo, function (req, res) {
   
     console.log("ITS IN HERE")
@@ -225,6 +248,9 @@ app.get('/students/topStudents/',printDebugInfo, function (req, res) {
         }
     });
 });
+
+
+
 
  //---------------- to view student's process--------------
 app.get('/students/process/',printDebugInfo, function (req, res) {
@@ -439,67 +465,67 @@ app.post('/rewards', upload, function(req,res) {
 
 //teacher view student progress
 
-app.get('/studentProgress', function (req, res) {
+// app.get('/studentProgress', function (req, res) {
     
-    teacher.getStudentProgress(function (err, result) {
-        console.log("teacher.studentprogress called");
-        if (!err) {
-            res.send(result.rows);
-        } else {
-            res.status(500).send("Error ! Cannot get reward");
-        }
-    });
-});
+//     teacher.getStudentProgress(function (err, result) {
+//         console.log("teacher.studentprogress called");
+//         if (!err) {
+//             res.send(result.rows);
+//         } else {
+//             res.status(500).send("Error ! Cannot get reward");
+//         }
+//     });
+// });
 
 
 //student dashboard
 
 
 
-app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
-    var studentID=req.params.studentID;
-    console.log("ITS IN HERE")
-    student.getStudentStreakByID(studentID,function (err, result) {
-        console.log("OVER HERE")
-        if (!err) {
+// app.get('/students/streaks/:studentID',printDebugInfo, function (req, res) {
+//     var studentID=req.params.studentID;
+//     console.log("ITS IN HERE")
+//     student.getStudentStreakByID(studentID,function (err, result) {
+//         console.log("OVER HERE")
+//         if (!err) {
 
-            res.send(result.rows);
-        } else {
-            res.status(500).send("Some error");
-        }
-    });
-});
-
-
-app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
-    var studentID=req.params.studentID;
-    console.log("ITS IN HERE")
-    student.getStudentPointByID(studentID,function (err, result) {
-        console.log("OVER HERE")
-        if (!err) {
-
-            res.send(result);
-        } else {
-            res.status(500).send("Some error");
-        }
-    });
-});
+//             res.send(result.rows);
+//         } else {
+//             res.status(500).send("Some error");
+//         }
+//     });
+// });
 
 
+// app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
+//     var studentID=req.params.studentID;
+//     console.log("ITS IN HERE")
+//     student.getStudentPointByID(studentID,function (err, result) {
+//         console.log("OVER HERE")
+//         if (!err) {
 
-app.get('/students/topStudents/',printDebugInfo, function (req, res) {
+//             res.send(result);
+//         } else {
+//             res.status(500).send("Some error");
+//         }
+//     });
+// });
+
+
+
+// app.get('/students/topStudents/',printDebugInfo, function (req, res) {
   
-    console.log("ITS IN HERE")
-    student.getTopStudents(function (err, result) {
-        console.log("OVER HERE")
-        if (!err) {
+//     console.log("ITS IN HERE")
+//     student.getTopStudents(function (err, result) {
+//         console.log("OVER HERE")
+//         if (!err) {
 
-            res.send(result.rows);
-        } else {
-            res.status(500).send("Some error");
-        }
-    });
-});
+//             res.send(result.rows);
+//         } else {
+//             res.status(500).send("Some error");
+//         }
+//     });
+// });
 
 
 module.exports = app;
