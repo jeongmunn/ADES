@@ -96,6 +96,42 @@ var studentDB = {
           })
           
     },
+    getLastLoginByID: function (id,callback) {
+      console.log("function CALLED---------")
+ 
+      const sql = `SELECT "public"."Student"."lastLogin" FROM "public"."Student" WHERE "studentID"=$1;`;
+      const values = [id]
+        pool.query(sql,values, (err, result) => {
+          if (err) {
+            console.log(err);
+            return callback(err.null);
+        } else {
+            console.log("its over HEREEEE")
+            return callback(null, result);
+        }
+           // pool.end()
+          })
+          
+    },
+
+    
+    updateLastLogin: function(id,lastLogin,callback) {
+      console.log(" edit reward by ID function called");
+    
+          const sql = `UPDATE "public"."Student" SET "lastLogin"=$1  where "Student"."studentID"=$2;`;
+           const values = [lastLogin,id]
+          pool.query(sql,values,(err, result) => {
+              if(err) {
+                  console.log(err);
+                  return callback(err.null);
+              } else {
+                  console.log("result : " + result.rows);
+                  return callback(null,result.rows);
+              }
+          })
+  },
+
+   
    
    
 

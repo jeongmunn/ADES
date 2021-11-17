@@ -129,6 +129,45 @@ app.get('/students/points/:studentID',printDebugInfo, function (req, res) {
 });
 
 
+app.get('/students/lastLogin/:studentID',printDebugInfo, function (req, res) {
+    var studentID=req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getLastLoginByID(studentID,function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.put('/students/lastLogin/:studentID', printDebugInfo,function (req, res) {
+
+    var id=req.params.studentID
+
+    var lastLogin = req.body.lastLogin ;
+
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLogin(id, lastLogin,function (err, result) {
+
+        console.log(" student.updateLastLogin called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+
+
+
 app.get('/students/topStudents/',printDebugInfo, function (req, res) {
   
     console.log("ITS IN HERE")
@@ -417,7 +456,6 @@ app.get('/students/topStudents/',printDebugInfo, function (req, res) {
         }
     });
 });
-
 
 
 module.exports = app;

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Button, Container, Row, Col, Glyphicon, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 
 import { Progress } from 'antd';
 import { Stepper, Step } from 'react-form-stepper';
@@ -17,44 +19,48 @@ import '../styling.css'
 const styles = theme => ({
     root: {
         // paddingTop: '100px',
-        marginTop:"60px",
-       
-      
+        marginTop: "60px",
 
-        width:"250px",
-      
-        marginLeft:"40px",
-    
-      
+
+
+        width: "250px",
+
+        marginLeft: "40px",
+
+
     },
 });
 
 const marks = [
     {
-      value: 0,
-      label: '0',
+        value: 0,
+        label: '0',
     },
     {
-      value: 1,
-      label: '1',
+        value: 1,
+        label: '1',
     },
     {
-      value: 2,
-      label: '2',
+        value: 2,
+        label: '2',
     },
     {
-      value: 3,
-      label: '3',
+        value: 3,
+        label: '3',
     },
     {
-      value: 4,
-      label: '4',
+        value: 4,
+        label: '4',
     },
     {
-      value: 5,
-      label: '5',
+        value: 5,
+        label: '5',
     }
-  ];
+];
+
+const logout = async () => {
+    await signOut(auth);
+};
 
 // const { Step } = Steps
 
@@ -66,13 +72,17 @@ class StudentDashboard extends React.Component {
         totalPts: [],
         redeemedPts: [],
         name: [],
-        showStreak:false,
+        showStreak: false,
+        lastLogin: [],
+        currentLogin: parseInt(new Date().getTime())
 
-        progress: 0,
+
 
     }
 
     componentDidMount() {
+    
+
         axios.get('http://localhost:8081/students/topStudents/')
             .then(res => {
                 this.setState({ data: res.data });
@@ -113,7 +123,7 @@ class StudentDashboard extends React.Component {
 
             })
 
-        axios.get('http://localhost:8081/students/points/' + 2)
+        axios.get('http://localhost:8081/students/points/' + 4)
             .then(res => {
                 console.log("number of streak " + res.data[0].totalPts)
                 console.log("number of streak " + res.data[0].redeemedPts)
@@ -129,8 +139,72 @@ class StudentDashboard extends React.Component {
 
             })
 
+                
+        axios.get('http://localhost:8081/students/lastLogin/' + 4)
+        .then(res => {
+            console.log("LAST LOGIN " + res.data[0].lastLogin)
+
+            
+            this.setState({ lastLogin:res.data[0].lastLogin})
+
+            const i = parseInt(new Date().getTime());
+
+            console.log("before : " + i)
+            console.log("after : " + parseInt(i))
+            const currentLogin = parseInt(i)
+
+            this.setState({ currentLogin })
 
         
+            console.log("Current login: " + currentLogin)
+            console.log("Current login stored: " + this.state.currentLogin)
+            console.log("Last login stored: " + this.state.lastLogin)
+
+
+
+        })
+
+        const lastLoginData =this.state.lastLogin;
+
+        console.log("------ last login "+lastLoginData+"-------")
+
+            const lastLog = {
+                lastLogin : this.state.currentLogin
+            }
+       
+
+
+          
+            console.log("------"+JSON.stringify(lastLog.lastLogin)+"-------")
+            console.log("------"+JSON.stringify(this.state.currentLogin)+"-------")
+            console.log("------"+JSON.stringify(this.state.lastLogin)+"-------")
+
+
+          
+         
+           
+      
+        
+            const config = {
+              headers: {
+                'content-type': 'application/json'
+              }
+            }
+          
+
+        axios.put('http://localhost:8081/students/lastLogin/' + 4,  lastLog, config)
+            .then(res => {
+              
+                console.log("Current login stored in put function: " + this.state.currentLogin)
+
+
+                console.log("RESULTS: "+res);
+                console.log(res);
+                console.log("RESULT: "+res.data);
+            })
+
+
+
 
 
 
@@ -157,7 +231,7 @@ class StudentDashboard extends React.Component {
 
                 <Row xs={1} className="row">
                     <Col md={4} className="c1 column">
-                        
+
 
                         <h4 className="mt-5 mb-5">{this.state.name}</h4>
 
@@ -265,37 +339,39 @@ class StudentDashboard extends React.Component {
                     <Col md={3} className=" box3 column">
                         <Col>
 
-                           <Row className="sliderStreak">
-                               <Col>
-                            <Slider
-                                className={classes.root}
-                                aria-label="Always visible"
-                                value={this.state.streaks}
-                                step={1}
-                                min={0}
-                                max={5}
-                                marks={marks}
-                            
+                            <Row className="sliderStreak">
+                                <Col>
+                                    <Slider
+                                        className={classes.root}
+                                        aria-label="Always visible"
+                                        value={this.state.streaks}
+                                        step={1}
+                                        min={0}
+                                        max={5}
+                                        marks={marks}
 
-                                valueLabelDisplay="off"
-                            />
-                            </Col>
-                            <Col className="streakNum">
-                          
-                            <h6>Streaks: {this.state.streaks} </h6>
-                            </Col>
+
+                                        valueLabelDisplay="off"
+                                    />
+                                </Col>
+                                <Col className="streakNum">
+
+                                    <h6>Streaks: {this.state.streaks} </h6>
+                                </Col>
                             </Row>
-                           
+
+                            <button onClick={logout}>Sign Out</button>
 
 
-                        
+
+
 
 
 
 
                         </Col>
-                      
-                        <Card   className="leaderBoardBox"  >
+
+                        <Card className="leaderBoardBox"  >
                             <Card.Header className="leaderBoardTitle">
                                 Leaderboard
                             </Card.Header>
@@ -371,8 +447,8 @@ class StudentDashboard extends React.Component {
 
 StudentDashboard.propTypes = {
     classes: PropTypes.object.isRequired,
-  };
-  
-  export default withStyles(styles)(StudentDashboard);
+};
+
+export default withStyles(styles)(StudentDashboard);
 
 
