@@ -73,14 +73,13 @@ var badge = {
 
         pool.query(sql, data, (err, result) => {
             if (err) {
-               
+        
                 console.log(err);
                 return callback(err.null);
             } else {
                
                 return callback(null, result);
             }
-            // pool.end()
         })
     }
 

@@ -20,14 +20,8 @@ const styles = theme => ({
     root: {
         // paddingTop: '100px',
         marginTop: "60px",
-
-
-
         width: "250px",
-
         marginLeft: "40px",
-
-
     },
 });
 
@@ -73,15 +67,15 @@ class StudentDashboard extends React.Component {
         redeemedPts: [],
         name: [],
         showStreak: false,
-        lastLogin: [],
-        currentLogin: parseInt(new Date().getTime())
+        lastLoginData: [],
+        currentLogin: new Date().getTime()
 
 
 
     }
 
     componentDidMount() {
-    
+        
 
         axios.get('http://localhost:8081/students/topStudents/')
             .then(res => {
@@ -139,72 +133,78 @@ class StudentDashboard extends React.Component {
 
             })
 
-                
+
         axios.get('http://localhost:8081/students/lastLogin/' + 4)
-        .then(res => {
-            console.log("LAST LOGIN " + res.data[0].lastLogin)
-
-            
-            this.setState({ lastLogin:res.data[0].lastLogin})
-
-            const i = parseInt(new Date().getTime());
-
-            console.log("before : " + i)
-            console.log("after : " + parseInt(i))
-            const currentLogin = parseInt(i)
-
-            this.setState({ currentLogin })
-
-        
-            console.log("Current login: " + currentLogin)
-            console.log("Current login stored: " + this.state.currentLogin)
-            console.log("Last login stored: " + this.state.lastLogin)
-
-
-
-        })
-
-        const lastLoginData =this.state.lastLogin;
-
-        console.log("------ last login "+lastLoginData+"-------")
-
-            const lastLog = {
-                lastLogin : this.state.currentLogin
-            }
-       
-
-
-          
-            console.log("------"+JSON.stringify(lastLog.lastLogin)+"-------")
-            console.log("------"+JSON.stringify(this.state.currentLogin)+"-------")
-            console.log("------"+JSON.stringify(this.state.lastLogin)+"-------")
-
-
-          
-         
-           
-      
-        
-            const config = {
-              headers: {
-                'content-type': 'application/json'
-              }
-            }
-          
-
-        axios.put('http://localhost:8081/students/lastLogin/' + 4,  lastLog, config)
             .then(res => {
-              
-                console.log("Current login stored in put function: " + this.state.currentLogin)
+                console.log("LAST LOGIN " + res.data[0].lastLogin)
 
 
-                console.log("RESULTS: "+res);
-                console.log(res);
-                console.log("RESULT: "+res.data);
+                this.setState({ lastLoginData: res.data[0].lastLogin })
+
+                // const i = parseInt(new Date().getTime());
+
+                // console.log("before : " + i)
+                // console.log("after : " + parseInt(i))
+                // const currentLogin = parseInt(i)
+
+                // this.setState({ currentLogin })
+
+
+                // console.log("Current login: " + currentLogin)
+                console.log("Current login stored: " + this.state.currentLogin)
+                console.log("Last login stored: " + this.state.lastLoginData)
+                
+                var diffTime = this.state.currentLogin - this.state.lastLoginData;
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                
+                const lastLog = {
+                    lastLogin: this.state.currentLogin
+                }
+
+                if (diffTime >= 28800000 && diffTime <= 86400000) {
+                    console.log("Yassss");
+                    // AXIOS PUT STREAK + NEW LOGIN TIME
+                } else {
+                    console.log("BYE");
+                    axios.put('http://localhost:8081/students/lastLogin/' + 4, lastLog, config)
+                        .then(res => {
+                            console.log("RESULTS: " + res);
+                            console.log(res);
+                            console.log("RESULT: " + res.data);
+                    })
+                }
+
             })
 
+        // async function data() {
+        //     const lastLoginData = this.state.lastLoginData;
+        //     console.log(lastLoginData);
+        //     return lastLoginData
+        // }
+
+        
 
 
+
+        
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
 
 
 
