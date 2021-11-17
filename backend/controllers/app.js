@@ -11,6 +11,7 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 var user = require('../model/user');
 var student = require('../model/student');
+var points = require('../model/points');
 var badge = require('../model/badge');
 var maze = require('../model/maze');
 var reward = require('../model/reward');
@@ -193,23 +194,17 @@ app.get('/mazeContent', printDebugInfo, function (req, res) {
 
 
 app.put('/mazeContent/:lvl', printDebugInfo, function (req, res) {
-
     var lvl = parseInt(req.params.lvl);
-
-
     if (isNaN(lvl)) {
         console.log(lvl)
         res.status(400).send();
         return;
     }
-
     var data = {
         points: req.body.points,
 
     };
     // to extract data
-
-
     maze.editMazeContent(lvl, data, function (err, result) {
         if (!err) {
             var output = {
@@ -224,8 +219,8 @@ app.put('/mazeContent/:lvl', printDebugInfo, function (req, res) {
     });
 });
 
+// Get All Rewards
 app.get('/rewards', function (req, res) {
-
     reward.getReward(function (err, result) {
         console.log("reward.getReward called");
         if (!err) {
@@ -236,20 +231,90 @@ app.get('/rewards', function (req, res) {
     });
 });
 
-app.post('/rewards', upload, function (req, res) {
+// Get Rewards By Id
+app.get('/rewards/:id', function (req, res) {
+    var rewardID = req.params.id;
+
+    reward.getRewardById(rewardID,function (err, result) {
+        console.log("reward.getRewardById called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+// Insert New Reward
+app.post('/rewards', function(req,res) {
     var data = {
-        rewardName: req.body.rewardName,
-        ptsRequired: req.body.ptsRequired,
-        url: req.file.filename
+        rewardName : req.body.rewardName ,
+        ptsRequired : req.body.ptsRequired ,
+        url : req.body.url
+    };
+    console.log("post data : " + JSON.stringify(data));
+    reward.createReward(data,function(err,result) {
+        console.log("reward.createReward called");
+        if(!err){
+            res.status(201).send(result);
+        }else {
+            res.status(500).send("Error ! Cannot post reward");
+        }
+    });
+});
+
+// Edit Reward By Id
+app.put('/rewards/:id', function (req, res) {
+    var rewardID = req.params.id;
+    
+    if(isNaN(rewardID)) {
+        res.status(400).send();
+        return;
+    }
+
+    var data = {
+        rewardName : req.body.rewardName,
+        ptsRequired : req.body.ptsRequired,
+        url : req.body.url
     };
 
-    console.log("post rewards function called.")
-    console.log("post data : " + JSON.stringify(data));
-    console.log("url : " + JSON.stringify(req.file));
-
-    reward.createReward(data, function (err, result) {
+    reward.editReward(rewardID, data,function (err, result) {
+        console.log("reward.editReward called");
         if (!err) {
-            res.status(201).send("");
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+// Delete Reward By Id
+app.delete('/rewards/:id', function (req, res) {
+    var rewardID = req.params.id;
+ 
+    reward.deleteReward(rewardID,function (err, result) {
+        console.log("reward.deleteReward called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+// Insert Reward History By Id
+app.post('/rewardHistory', function (req, res) {
+    var data = {
+        rewardID: req.body.rewardID,
+        studentID: req.body.studentID
+    };
+
+    console.log("post data : " + JSON.stringify(data));
+
+    reward.insertRewardHistory(data, function (err, result) {
+        console.log("reward.insertRewardHistory called");
+        if (!err) {
+            res.status(201).send(result);
         } else {
             res.status(500).send("Error ! Cannot post reward");
         }
@@ -257,7 +322,6 @@ app.post('/rewards', upload, function (req, res) {
 });
 
 app.get('/leaderboard', function (req, res) {
-
     student.getLeaderboard(function (err, result) {
         if (!err) {
             res.send(result);
@@ -265,17 +329,42 @@ app.get('/leaderboard', function (req, res) {
             res.status(500).send("Error ! Cannot get leaderboard");
         }
     })
+})
 
+app.get('/allLeaderboard', function (req, res) {
+    student.getAllLeaderboard(function (err, result) {
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get leaderboard");
+        }
+    })
 })
 
 app.get('/ptsHistory/:id', function (req, res) {
     var id = req.params.id;
-
     student.getPtsHistory(id, function (err, result) {
         if (!err) {
             res.send(result);
         } else {
             res.status(500).send("Error ! Cannot get points history");
+        }
+    })
+})
+
+// Insert Points History
+app.post('/ptsHistory/:id', function (req,res) {
+    var data = {
+        studentID : req.params.id,
+        ptsAwarded : req.body.ptsAwarded,
+        eventID : req.body.eventID
+    }
+    points.insertPtsHistory(data, function (err, result){
+        console.log("points.insertPtsHistory called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot insert points history");
         }
     })
 })
@@ -314,11 +403,6 @@ app.post('/quiz', function (req, res) {
             res.status(500).send("Error ! Cannot get Quiz");
         }
     });
-
-
-
-
-
 });
 
 
@@ -347,8 +431,8 @@ app.post('/newStudent', function (req, res) {
         name: req.body.name,
         Uid: req.body.Uid,
         streaks: req.body.streaks,
-        totalPts: req.body.totalPts, 
-        mazeLvl: req.body.mazeLvl, 
+        totalPts: req.body.totalPts,
+        mazeLvl: req.body.mazeLvl,
         redeemedPts: req.body.redeemedPts,
         type: req.body.type,
         lastLogin: req.body.lastLogin
@@ -367,7 +451,6 @@ app.post('/newStudent', function (req, res) {
 
 // getTypeOfUser for (sign in and redirecting)
 app.get('/userType/:Uid', function (req, res) {
-
     var Uid = req.params.Uid;
     user.getIdAndTypeOfUser(Uid, function (err, result) {
         if (!err) {
@@ -376,6 +459,275 @@ app.get('/userType/:Uid', function (req, res) {
             res.status(500).send("Error ! Cannot get user type!");
         }
     })
+});
+
+//---------------- to view student's process--------------
+app.get('/students/process/', printDebugInfo, function (req, res) {
+
+    console.log("ITS IN HERE process student")
+    student.getStudentProcess(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/process/:studentID', printDebugInfo, function (req, res) {
+    var studentID = req.params.studentID;
+    console.log("ITS IN HERE student processby id")
+    student.getStudentProcessByID(studentID, function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+app.get('/students/streaks/:studentID', printDebugInfo, function (req, res) {
+    var studentID = req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentStreakByID(studentID, function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/points/:studentID', printDebugInfo, function (req, res) {
+    var studentID = req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getStudentPointByID(studentID, function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.get('/students/lastLogin/:studentID', printDebugInfo, function (req, res) {
+    var studentID = req.params.studentID;
+    console.log("ITS IN HERE")
+    student.getLastLoginByID(studentID, function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+app.put('/students/lastLogin/:studentID', printDebugInfo, function (req, res) {
+    var id = req.params.studentID
+    var lastLogin = req.body.lastLogin;
+
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLogin(id, lastLogin, function (err, result) {
+
+        console.log(" student.updateLastLogin called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+app.put('/students/lastLoginStreak/:studentID', printDebugInfo, function (req, res) {
+
+    var id = req.params.studentID
+    var lastLogin = req.body.lastLogin;
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLoginStreak(id, lastLogin, function (err, result) {
+
+        console.log(" student.updateLastLoginStreak called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+
+app.put('/students/updatePoints/:studentID', printDebugInfo, function (req, res) {
+    var id = req.params.studentID
+    console.log("id : " + id);
+    student.upadateStudentPointsBasedOnStreaks(id, function (err, result) {
+
+        console.log(" student.updateLastLoginStreak called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
+
+app.get('/students/topStudents/', printDebugInfo, function (req, res) {
+    console.log("ITS IN HERE")
+    student.getTopStudents(function (err, result) {
+        console.log("OVER HERE")
+        if (!err) {
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
+
+
+//updating the student table
+app.put('/studentPoints', function (req, res) {
+    var data = {
+        pointsEarned: req.body.pointsEarned,
+        studentID: req.body.studentID
+    };
+    console.log("student Points  function called.")
+    console.log("Student Points: " + JSON.stringify(data));
+    quiz.UpdatePoints(data, function (err, result) {
+        console.log("quiz UpdatePoints called");
+        if (!err) {
+            res.send('');
+        } else {
+            res.status(500).send("Error ! Cannot get Quiz");
+        }
+    });
+});
+
+
+// Get Summary of Points & Marks By Quiz
+app.get('/summary/:qid/:uid', function (req, res) {
+    var quizID = req.params.qid;
+    var studentID = req.params.uid;
+    points.getQuizPts(studentID, quizID, function (err, result) {
+        console.log("points.getQuizPts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get summary of points and marks");
+        }
+    })
 })
+
+// Get Points By Maze Lvl
+app.get('/maze/:lvl', function (req, res) {
+    var mazeLvl = req.params.lvl;
+    points.getMazePts(mazeLvl, function (err, result) {
+        console.log("points.getMazePts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get points of maze level");
+        }
+    })
+})
+
+// Update Current and Total Points, and Maze Level
+app.put('/maze/:id', function (req,res) {
+    var studentID = req.params.id ;
+    var data = {
+        currentPts : req.body.currentPts,
+        totalPts : req.body.totalPts,
+        level : req.body.level
+    };
+    maze.updatePtsnLvl(studentID, data, function (err, result){
+        console.log("maze.updatePtsnLvl called");
+        if(!err) {
+            res.send(result);
+        }else{
+            res.status(500).send("Error ! Cannot update points and maze level");
+        }
+    })
+})
+
+// Get Current Points and Total Points
+app.get('/points/:id', function (req, res) {
+    var studentID = req.params.id;
+    points.getPts(studentID, function (err, result) {
+        console.log("points.getPts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get current points");
+        }
+    })
+})
+
+// Update Current Points ( redeemed rewards )
+app.put('/point/:id', function (req, res) {
+    var studentID = req.params.id;
+    var currentPts = req.body.points;
+    points.updateCurrentPts(studentID, currentPts, function (err, result) {
+        console.log("points.updateCurrentPts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot update points");
+        }
+    });
+});
+
+
+// Update Current and Total Points ( get points )
+app.put('/points/:id', function (req, res) {
+    var studentID = req.params.id;
+    var data = {
+        currentPts: req.body.currentPts,
+        totalPts: req.body.totalPts
+    };
+
+    points.updatePts(studentID, data, function (err, result) {
+        console.log("points.updatePts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot update points");
+        }
+    })
+})
+
+
+app.put('/students/lastLoginLostStreak/:studentID', printDebugInfo, function (req, res) {
+    var id = req.params.studentID
+    var lastLogin = req.body.lastLogin;
+    console.log("id : " + id);
+    console.log("last Login : " + lastLogin);
+
+    student.updateLastLoginStreakLost(id, lastLogin, function (err, result) {
+
+        console.log(" student.updateLastLogin called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
+        }
+    });
+});
 
 module.exports = app;

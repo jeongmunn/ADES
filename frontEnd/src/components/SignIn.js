@@ -43,7 +43,7 @@ const SignIn = () => {
                 type: 1,
                 lastLogin: dateData
             };
-            axios.post('https://ades-ca1-project.herokuapp.com/api/newStudent', personalDetails, config)
+            axios.post('http://localhost:8081/api/newStudent', personalDetails, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);

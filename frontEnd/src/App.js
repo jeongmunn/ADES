@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
+import StudentDashboard from './components/StudentDashboard';
 import TeacherAdministration from './components/TeacherHome';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
@@ -29,10 +30,9 @@ function App() {
   });
 
   return (
-    // {user ? <Home />:<SignIn />}
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
-        <Route path="/studentDashboard" element={<Home />}></Route>
+        <Route path="/studentDashboard" element={<StudentDashboard />}></Route>
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
