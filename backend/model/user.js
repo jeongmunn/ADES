@@ -5,9 +5,9 @@ console.log("---------------------------------------------------------");
 const pool = require("../controllers/dbconfig");
 
 var user = {
-    getTypeOfUser: function (Uid, callback) {
+    getIdAndTypeOfUser: function (Uid, callback) {
         console.log("get type of user");
-        const sql = `SELECT "type" FROM public."Student" WHERE "Uid" = $1`;
+        const sql = `SELECT "studentID", "type" FROM public."Student" WHERE "Uid" = $1`;
         pool.query(sql, [Uid], (err, result) => {
             if (err) {
                 console.log(err);

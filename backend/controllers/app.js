@@ -369,7 +369,7 @@ app.post('/newStudent', function (req, res) {
 app.get('/userType/:Uid', function (req, res) {
 
     var Uid = req.params.Uid;
-    user.getTypeOfUser(Uid, function (err, result) {
+    user.getIdAndTypeOfUser(Uid, function (err, result) {
         if (!err) {
             res.status(200).send(result[0]);
         } else {
