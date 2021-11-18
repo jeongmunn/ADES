@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.cd097eca.chunk.css",
+    "main.css": "/static/css/main.556d5c64.chunk.css",
     "main.js": "/static/js/main.891d59e1.chunk.js",
     "main.js.map": "/static/js/main.891d59e1.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.880409f4.js",
@@ -12,7 +12,7 @@
     "static/js/3.42a13366.chunk.js.map": "/static/js/3.42a13366.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.a75f5a2c.chunk.css.map": "/static/css/2.a75f5a2c.chunk.css.map",
-    "static/css/main.cd097eca.chunk.css.map": "/static/css/main.cd097eca.chunk.css.map",
+    "static/css/main.556d5c64.chunk.css.map": "/static/css/main.556d5c64.chunk.css.map",
     "static/js/2.8e3deb5c.chunk.js.LICENSE.txt": "/static/js/2.8e3deb5c.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/static/media/VisbyRound-Regular.212d29c3.otf"
   },
@@ -20,7 +20,7 @@
     "static/js/runtime-main.880409f4.js",
     "static/css/2.a75f5a2c.chunk.css",
     "static/js/2.8e3deb5c.chunk.js",
-    "static/css/main.cd097eca.chunk.css",
+    "static/css/main.556d5c64.chunk.css",
     "static/js/main.891d59e1.chunk.js"
   ]
 }
