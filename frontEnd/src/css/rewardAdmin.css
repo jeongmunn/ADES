@@ -1,0 +1,110 @@
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(./fonts/Galey-RoundedExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(./fonts/Galey-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
+#body {
+    background-image: url('https://ocfaustralia.org/wp-content/uploads/2018/04/blue-sky-background.gif');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+}
+
+#addReward {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-top: 60px;
+    padding: 30px;
+    margin-left: 60px;
+    margin-right: 60px;
+    border-radius: 40px;
+}
+
+#divForm {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    margin: 10px;
+    padding-top: 10px;
+    height: 140px;
+}
+
+h1 {
+    font-family: Visby-Round;
+    color: white;
+    margin: 10px;
+}
+
+form {
+    padding-top: 20px;
+}
+
+input {
+    width: 130px;
+    margin: 20px;
+}
+
+#add {
+    float: left;
+    padding-left: 50px
+}
+
+table {
+    border-color: white;
+}
+
+#tableRow {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+#viewRewards {
+    margin-top: 20px;
+}
+
+/* td {
+      border: solid 1px #000;
+      border-style: solid none;
+      padding: 10px;
+      
+  }
+  td:first-child {
+      border-left-style: solid;
+      border-top-left-radius: 10px; 
+      border-bottom-left-radius: 10px;
+  }
+  td:last-child {
+      border-right-style: solid;
+      border-bottom-right-radius: 10px; 
+      border-top-right-radius: 10px; 
+  }
+  .table {
+      border-collapse:separate;
+      border-spacing:0 15px;
+  }
+  tr.spaceUnder>td {
+      padding-bottom: 1em;
+    } */
