@@ -53,17 +53,17 @@
     height: 140px;
 }
 
-h1 {
+.rewardAdmin > h1 {
     font-family: Visby-Round;
     color: black;
     margin: 10px;
 }
 
-form {
+.rewardAdmin > form {
     padding-top: 20px;
 }
 
-input {
+.rewardAdmin > input {
     width: 130px;
     margin: 20px;
 }
@@ -73,7 +73,7 @@ input {
     padding-left: 50px
 }
 
-table {
+.rewardAdmin > table {
     border-color: white;
 }
 

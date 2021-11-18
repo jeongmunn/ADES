@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import '../css/Table&Add.css';
-export default class RewardAdmin extends React.Component {
+export default class MazeAdmin extends React.Component {
 
     state = {
         data: []

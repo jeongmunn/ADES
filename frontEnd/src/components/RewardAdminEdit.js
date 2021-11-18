@@ -72,7 +72,7 @@ export default class EditReward extends React.Component {
 
     render() {
         return (
-            <div id="bodyEdit">
+            <div className="rewardEdit" id="bodyEdit">
                 <div id="divEdit">
                     <div className="editReward">
                         <h1>Edit Reward</h1>

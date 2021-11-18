@@ -10,12 +10,11 @@ const pool = require("../controllers/dbconfig")
 // ----------------------------------------------------------------------------
 
 
-var teacherDB = {
+var teacher = {
     getStudentProgress: function (callback) {
       console.log("function CALLED---------")
       const sql = `SELECT "public"."Student"."studentID","public"."Student"."name", "public"."Student"."streaks", "public"."Student"."mazeLvl","public"."Student"."totalPts"
       FROM "public"."Student";`;
-
         pool.query(sql, (err, result) => {
           if (err) {
             console.log(err);
@@ -24,7 +23,6 @@ var teacherDB = {
             console.log("its over HEREEEE")
             return callback(null, result);
         }
-           // pool.end()
           })
           
     },
@@ -34,4 +32,4 @@ var teacherDB = {
 // ----------------------------------------------------------------------------
 // exports
 // ----------------------------------------------------------------------------
-module.exports = teacherDB;
+module.exports = teacher;

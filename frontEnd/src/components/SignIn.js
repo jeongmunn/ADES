@@ -127,7 +127,7 @@ const SignIn = () => {
                     if (res.data.type === 1) {
                         navigate('/studentDashboard');
                     } else if (res.data.type === 2) {
-                        navigate('/teacherAdmin');
+                        navigate('/teacherDashboard');
                     } else {
                         navigate('/');
                     }

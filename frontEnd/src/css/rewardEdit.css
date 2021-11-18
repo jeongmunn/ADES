@@ -18,7 +18,7 @@
 
   }
 
-  h1 {
+ .rewardEdit > h1 {
     font-family: Visby-Round;
     color: white;
     margin-left: 1000px;
@@ -34,7 +34,7 @@
     align-items: center;
     
   }
-  .label{
+ .rewardEdit > .label{
       padding:10px;
       font-size: 20px;
   }

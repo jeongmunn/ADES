@@ -5,10 +5,10 @@ import SignIn from './components/SignIn';
 import StudentDashboard from './components/StudentDashboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
 import Profile from './components/Profile';
-import TeacherAdministration from './components/TeacherHome';
+import TeacherDashboard from './components/TeacherDashboard';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
-import UploadReward from './components/UploadReward';
+import EditReward from './components/RewardAdminEdit';
 import MazeAdmin from './components/MazeAdmin';
 import EditMaze from './components/EditMazeContent';
 import EditBadge from './components/EditBadge';
@@ -37,10 +37,10 @@ function App() {
         <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
         <Route path="/studentPoints" element={<StudentPointsHistory/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
-        <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
+        <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
-        <Route path="/uploadReward" element={<UploadReward/>}></Route>
+        <Route path="/editReward" element={<EditReward/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
         <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
         <Route path="/EditBadge" element={<EditBadge/>}></Route>

@@ -84,7 +84,7 @@ export default class viewReward extends React.Component {
     render() {
         const data = this.state.data;
         return (
-            <div id="body">
+            <div className="rewardAdmin" id="body">
                 <div id="addReward">
                     <h1>Reward Administration</h1>
                     <div id="divForm">

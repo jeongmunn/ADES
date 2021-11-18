@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import $ from 'jquery';
 
 
-export default class BadgeAdmin extends React.Component {
+export default class Quiz extends React.Component {
     state = {
         data: [],
 

@@ -10,6 +10,7 @@ const app = express();
 const bodyParser = require('body-parser');
 // const multer = require('multer');
 var user = require('../model/user');
+var teacher = require('../model/teacher');
 var student = require('../model/student');
 var points = require('../model/points');
 var badge = require('../model/badge');
@@ -521,6 +522,19 @@ app.put('/email/:Uid', function (req, res) {
             res.status(204);
         } else {
             res.status(500).send("Error ! Cannot update points");
+        }
+    });
+});
+
+//teacher view student progress
+app.get('/studentProgress', function (req, res) {
+    
+    teacher.getStudentProgress(function (err, result) {
+        console.log("teacher.studentprogress called");
+        if (!err) {
+            res.send(result.rows);
+        } else {
+            res.status(500).send("Error ! Cannot get reward");
         }
     });
 });
