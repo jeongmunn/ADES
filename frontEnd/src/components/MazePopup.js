@@ -19,7 +19,7 @@ export default class ModalPopup extends Component {
     componentDidMount(){
         // Get student's points data'
         //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + studentID)
-        axios.get('http://localhost:8081/points/' + this.state.studentID)
+        axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
         .then(res => {
             this.setState({ currentPts : res.data[0].redeemedPts });
             this.setState({ totalPts : res.data[0].totalPts});
@@ -61,7 +61,7 @@ export default class ModalPopup extends Component {
             }
         }
 
-        axios.put('http://localhost:8081/points/' + this.state.studentID, data, config)
+        axios.put('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID, data, config)
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -73,7 +73,7 @@ export default class ModalPopup extends Component {
         }
 
         // Insert points history
-        axios.post('http://localhost:8081/ptsHistory/' + this.state.studentID, points, config)
+        axios.post('https://ades-ca1-heroku.herokuapp.com/api/ptsHistory/' + this.state.studentID, points, config)
         .then(res => {
             console.log(res);
             console.log(res.data);

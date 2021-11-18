@@ -26,7 +26,7 @@ export default class MapOfMaze extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8081/mazeContent`)
+    axios.get(`https://ades-ca1-heroku.herokuapp.com/api/mazeContent`)
       .then(res => {
         console.log(res.data.length);
         this.setState({ data: res.data });
@@ -37,7 +37,7 @@ export default class MapOfMaze extends React.Component {
     var studentID = 1;
     //GET STUDENT ID HERE
     //maze lvl
-    axios.get(`http://localhost:8081/mapOfMaze/` + studentID)
+    axios.get(`https://ades-ca1-heroku.herokuapp.com/api/mapOfMaze/` + studentID)
       .then(res => {
         this.setState({ maze: res.data[0].mazeLvl });
         console.log(JSON.stringify(this.state.maze) + "HERE");
