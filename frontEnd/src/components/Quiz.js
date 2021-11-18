@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';  
-import ModalPopup from './Modal';  
+import ModalPopup from './QuizPopup';  
 import Button from 'react-bootstrap/Button';
   
 class App extends React.Component {  
@@ -15,7 +15,7 @@ class App extends React.Component {
   render() {  
     return (  
       <Fragment>  
-        <h3 align="center">Assignment</h3>  
+        <h3 align="center">Quiz Dummy Page</h3>  
         <header align="center">  
           <Fragment>  
             <Button onClick={() => this.isShowPopup(true)}>Submit</Button> 

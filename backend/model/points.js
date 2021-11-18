@@ -26,6 +26,24 @@ var points = {
         })
     },
 
+    insertPtsHistory: function(maze,callback) {
+        console.log(" insert points history function called");
+        var studentID = maze.studentID ;
+        var ptsAwarded = maze.ptsAwarded ;
+        var eventID = maze.eventID ;
+
+            const sql = `INSERT INTO public."studentHistory" ("studentID", "pointsAwarded", "eventID") VALUES ($1,$2,$3) `;
+            const values = [studentID, ptsAwarded, eventID];
+            pool.query(sql,values,(err, result) => {
+                if(err) {
+                    console.log(err);
+                    return callback(err.null);
+                } else {
+                    return callback(null,result.rows);
+                }
+            })
+    },
+
     getPts: function(studentID, callback) {
         console.log("get points function called");
 

@@ -12,7 +12,6 @@ var rewards = {
     
     createReward: function (reward, callback) {
         console.log(" create reward function called");
-        console.log(" reward data = " + JSON.stringify(reward));
         var rewardName = reward.rewardName ;
         var ptsRequired = reward.ptsRequired ;
         var url = reward.url ;
@@ -44,11 +43,11 @@ var rewards = {
             })
     },
 
-    getRewardById: function(id, callback) {
+    getRewardById: function(rewardID, callback) {
         console.log(" get reward by ID function called");
       
             const sql = `SELECT * FROM "public"."Rewards" WHERE"Rewards"."rewardID"=$1`;
-            const values = [id]
+            const values = [rewardID]
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
@@ -59,14 +58,14 @@ var rewards = {
             })
     },
 
-    editReward: function(id,reward,callback) {
+    editReward: function(rewardID,reward,callback) {
         console.log(" edit reward by ID function called");
             var rewardName = reward.rewardName ;
             var ptsRequired = reward.ptsRequired ;
             var url = reward.url ;
       
             const sql = `UPDATE "public"."Rewards" SET "rewardName" = $1, "ptsRequired"=$2, url= $3 WHERE "Rewards"."rewardID"=$4;`;
-            const values = [rewardName, ptsRequired, url, id]
+            const values = [rewardName, ptsRequired, url, rewardID]
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
@@ -77,11 +76,11 @@ var rewards = {
             })
     },
 
-    deleteReward: function(id,callback) {
+    deleteReward: function(rewardID,callback) {
         console.log(" edit reward by ID function called");
       
             const sql = ` DELETE FROM "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;
-            const values = [id]
+            const values = [rewardID]
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);

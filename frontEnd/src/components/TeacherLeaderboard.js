@@ -7,8 +7,8 @@ export default class ViewLeaderboard extends React.Component {
     }
 
     componentDidMount(){
-        //axios.get('https://ades-ca1-heroku.herokuapp.com/api/leaderboard')
-        axios.get('http://localhost:8081/api/leaderboard')
+        //axios.get('https://ades-ca1-heroku.herokuapp.com/api/allLeaderboard')
+        axios.get('http://localhost:8081/api/allLeaderboard')
         .then(res => {
             this.setState({ data : res.data });
         })

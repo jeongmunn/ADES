@@ -10,6 +10,8 @@ const path = require('path');
 var leaderboard = require('../model/leaderboard.js');
 var points = require('../model/points.js');
 var reward = require('../model/reward.js');
+var maze = require('../model/maze.js');
+const student = require('../model/student.js');
 const app = express();
 
 //--------------------------- Middleware functions ------------------------------
@@ -174,6 +176,24 @@ app.get('/ptsHistory/:id', function (req,res) {
     })
 })
 
+// Insert Points History
+app.post('/ptsHistory/:id', function (req,res) {
+    var data = {
+        studentID : req.params.id,
+        ptsAwarded : req.body.ptsAwarded,
+        eventID : req.body.eventID
+    }
+
+    points.insertPtsHistory(data, function (err, result){
+        console.log("points.insertPtsHistory called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot insert points history");
+        }
+    })
+})
+
 // Get Summary of Points & Marks By Quiz
 app.get('/summary/:qid/:uid', function (req,res) {
     var quizID = req.params.qid ;
@@ -189,7 +209,7 @@ app.get('/summary/:qid/:uid', function (req,res) {
     })    
 })
 
-// Get Current Points
+// Get Current Points and Total Points
 app.get('/points/:id', function (req,res) {
     var studentID = req.params.id;
 
@@ -232,6 +252,41 @@ app.put('/points/:id', function (req, res) {
             res.send(result);
         } else {
             res.status(500).send("Error ! Cannot update points");
+        }
+    })
+})
+
+// ---------------------------------- Maze -------------------------------------------
+
+// Get Points By Maze Lvl
+app.get('/maze/:lvl', function (req,res) {
+    var mazeLvl = req.params.lvl ;
+
+    maze.getMazePts(mazeLvl, function (err, result){
+        console.log("points.getMazePts called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get points of maze level");
+        }
+    })
+})
+
+// Update Current and Total Points, and Maze Level
+app.put('/maze/:id', function (req,res) {
+    var studentID = req.params.id ;
+    var data = {
+        currentPts : req.body.currentPts,
+        totalPts : req.body.totalPts,
+        level : req.body.level
+    };
+
+    maze.updatePtsnLvl(studentID, data, function (err, result){
+        console.log("maze.updatePtsnLvl called");
+        if(!err) {
+            res.send(result);
+        }else{
+            res.status(500).send("Error ! Cannot update points and maze level");
         }
     })
 })
