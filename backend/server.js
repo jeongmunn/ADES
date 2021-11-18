@@ -7,6 +7,7 @@ console.log("--------------------------------------");
 // --------------------------
 //imports
 //---------------------------
+const open = require('open');
 const express=require("express");
 const cors = require('cors');
 const path = require("path");
@@ -51,5 +52,6 @@ var server_host = process.env.YOUR_HOST || '0.0.0.0' ;
 // standard for express
 app.listen(server_port,server_host, function () {
     console.log(`App listening on port` , server_port);
+    open('https://ades-ca1-heroku.herokuapp.com/quizment');
 });
 
