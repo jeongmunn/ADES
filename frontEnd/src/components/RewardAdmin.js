@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom' ;
 import {getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Button from 'react-bootstrap/Button';
+import '../css/rewardAdmin.css';
 
 export default class viewReward extends React.Component {
   state = {
@@ -84,11 +85,12 @@ export default class viewReward extends React.Component {
   render() {
       const data = this.state.data;
     return (
-        <div>
+        <div id="body">
+            <div id="addReward">
             <h1>Reward Administration</h1>
-            <div className="addReward">
-            <h2>Add Reward</h2>
-            <form onSubmit={this.handleSubmit}>
+            <div id="divForm">
+            {/* <h2>Add Reward</h2> */}
+            <form onSubmit={this.handleSubmit} id="form">
             <label>
             Reward Name :
             <input type="text" name="rewardName" onChange={this.handleName} />
@@ -101,22 +103,32 @@ export default class viewReward extends React.Component {
             Picture URL :
             <input type="file" name="url" onChange={this.handleURL} />
             </label>
-            <button type="submit">Add</button>
+            <Button type="submit">Add</Button>
             </form>
             </div>
-            <div className="viewRewards">
-            {data && data.map(item =>
-                        <tr key={item.rewardID}>
-                            <td>{item.rewardName}</td>
-                            <td>{item.ptsRequired}</td>
-                            <td><img src={item.url} style={{height: 200, width: 200}}></img></td>
-                            {/* <td><Link to={`/RewardAdminEdit?id=${item.rewardID}`}><Button>Edit</Button></Link></td> */}
-                            <td><Button id={item.rewardID} onClick={this.handleDelete}>Delete</Button></td>
-                        </tr>
-                    )}
+            <div id="viewRewards">
+            {/* <h2>View Rewards</h2> */}
+            <table class="table">
+              <tr>
+                <th>Name</th>
+                <th>Points</th>
+                <th>Picture</th>
+                <th>Edit?</th>
+                <th>Delete?</th>
+              </tr>
+              {data && data.map(item =>
+                <tr key={item.rewardID}>
+                  <td>{item.rewardName}</td>
+                  <td>{item.ptsRequired}</td>
+                  <td><img src={item.url} style={{height: 230, width: 230}}></img></td>
+                  <td><button type="button" class="btn btn-outline-warning">Edit</button></td>
+                  <td><button type="button" class="btn btn-outline-danger" id={item.rewardID} onClick={this.handleDelete}>Delete</button></td>
+                </tr>
+              )}
+            </table>
+            </div>
             </div>
       </div>
-      
     )
 }
 }

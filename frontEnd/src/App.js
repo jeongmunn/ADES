@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+//import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import ReactNotification from 'react-notifications-component';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
-import Quiz from './components/Quiz';
 import RewardAdmin from './components/RewardAdmin';
-// import RewardAdminEdit from './components/RewardAdminEdit';
+import RewardAdminEdit from './components/RewardAdminEdit';
 import TeacherLeaderboard from './components/TeacherLeaderboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
 import StudentReward from './components/StudentReward';
@@ -17,7 +16,6 @@ import {
 import { auth } from './firebase.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-notifications-component/dist/theme.css';
-import Maze from './components/Maze';
 
 function App() {
   const [user, setUser] = useState({});
@@ -46,7 +44,7 @@ function App() {
     // </BrowserRouter>
     <div className="App">
       <ReactNotification />
-      <Maze />
+      <RewardAdminEdit />
     </div>
   );
 }
