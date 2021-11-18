@@ -20,16 +20,17 @@ export default class BadgeAdmin extends React.Component {
     axios.get(`https://ades-ca1-project.herokuapp.com/api/badges`)
       .then(res => {
         console.log(res.data.length);
+
         this.setState({ data: res.data });
       })
 
     axios.get(`https://ades-ca1-project.herokuapp.com/api/badgeClass`)
       .then(res => {
         console.log(res.data.length);
+
         this.setState({ class: res.data });
       })
   }
-
 
   handleName = event => {
     this.setState({ name: event.target.value });

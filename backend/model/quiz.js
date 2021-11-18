@@ -31,7 +31,6 @@ var quiz = {
         var studentID = quiz.studentID;
         var pointsEarned = quiz.pointsEarned;
         var marksEarned = quiz.marksEarned;
-        //  var badgeClassID = parseInt(badgeCID);
         var data = [quizID, studentID, pointsEarned, marksEarned];
         var data2 = [studentID, pointsEarned]
         var sql = ` INSERT INTO public."quizHistory"("quizID", "studentID", "pointsEarned", "marksEarned")
@@ -48,7 +47,6 @@ var quiz = {
 
                 return callback(null, result);
             }
-            // pool.end()
         })
         pool.query(sql2, data2, (err, result) => {
             if (err) {

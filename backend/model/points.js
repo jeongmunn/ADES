@@ -28,7 +28,7 @@ var points = {
     },
     getPts: function(studentID, callback) {
         console.log("get points function called");
-        const sql = `SELECT "totalPts", "redeemedPts" FROM public."Student" WHERE "studentID" = $1`;
+        const sql = `SELECT "totalPts", "redeemedPts", "mazeLvl" FROM public."Student" WHERE "studentID" = $1`;
         const value = [studentID];
         pool.query(sql,value,(err,result) => {
             if(err){
@@ -69,9 +69,9 @@ var points = {
         console.log("update points function called");
         var totalPts = points.totalPts ;
         var currentPts = points.currentPts ;
-        
-        const sql = `UPDATE public."Student" SET "totalPts"= $1, "redeemedPts"= $2 WHERE "studentID"= $3`;
-        const value = [totalPts, currentPts, studentID];
+        var newLvl=points.mazeLvl;
+        const sql = `UPDATE public."Student" SET "totalPts"= $1, "redeemedPts"= $2 ,"mazeLvl"=$3 WHERE "studentID"= $4`;
+        const value = [totalPts, currentPts,newLvl, studentID];
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
@@ -80,7 +80,7 @@ var points = {
                 return callback(null,result.rows);
             }
         })
-    },
+    }
 };
 
 // ----------------------------------------------------------------------------

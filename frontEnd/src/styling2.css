@@ -24,7 +24,7 @@
     src: local('VisbyRound'), url(./fonts/VisbyRound-DemiBold.otf) format('opentype');
   }
 
-.signin, .profile {
+.signin {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -34,9 +34,26 @@
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
 }
 
-.signin > h1, .profile {
+.profile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+}
+
+.signin > h1 {
     font-family: VisbyRound, Arial, sans-serif;
     font-weight: DemiBold;
     padding-top: 10px;
     text-align: center;
+}
+
+.profile > h1 {
+  font-family: VisbyRound, Arial, sans-serif;
+  font-weight: DemiBold;
+  padding-top: 10px;
+  text-align: center;
 }

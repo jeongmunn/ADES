@@ -15,8 +15,6 @@ const pool = require("../controllers/dbconfig")
 
 var badge = {
     getBadges: function (callback) {
-
-
         pool.query('SELECT * FROM public.badge  INNER JOIN public."badgeClass" ON  badge."badgeClassID" = public."badgeClass"."badgeClassID"', (err, result) => {
             if (err) {
                 console.log(err);
@@ -24,14 +22,10 @@ var badge = {
             } else {
                 return callback(null, result);
             }
-            // pool.end()
         })
-
     },
 
     getBadgeClass: function (callback) {
-
-
         pool.query('SELECT * FROM public."badgeClass"', (err, result) => {
             if (err) {
                 console.log(err);
@@ -39,19 +33,14 @@ var badge = {
             } else {
                 return callback(null, result);
             }
-            // pool.end()
         })
 
     },
-
-
-
     insertBadge: function (badge, callback) {
         var name = badge.name;
         var requirements = badge.requirements;
         var pic = badge.pic_url;
         var badgeCID = badge.badgeClassID;
-        console.log(badgeCID + 'HELLOO');
         var badgeClassID = parseInt(badgeCID);
 
         var data = [name, requirements, pic, badgeClassID];
@@ -78,11 +67,7 @@ var badge = {
         var requirements = badge.requirements;
         var pic = badge.pic_url;
         var badgeCID = badge.badgeClassID;
-
         var badgeClassID = parseInt(badgeCID);
-
-
-
         var data = [name, requirements, pic, badgeClassID, badgeID];
 
         var sql = ` UPDATE
@@ -97,17 +82,13 @@ var badge = {
 
         pool.query(sql, data, (err, result) => {
             if (err) {
-
                 console.log(err);
                 return callback(err.null);
             } else {
-
                 return callback(null, result);
             }
-            // pool.end()
         })
     }
-
 };
 
 // ----------------------------------------------------------------------------

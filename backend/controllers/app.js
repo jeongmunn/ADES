@@ -48,7 +48,6 @@ function printDebugInfo(req, res, next) {
     // console.log("> req.myOwnDebugIssue:"+JSON.stringify(req.myOwnDebugInfo));
     console.log("-----------------[Debug Info Ends]----------");
     console.log();
-
     next();
 
 }
@@ -193,6 +192,53 @@ app.get('/mazeContent', printDebugInfo, function (req, res) {
 });
 
 
+// Get Points By Maze Lvl
+app.get('/maze/:lvl', function (req,res) {
+    var mazeLvl = req.params.lvl ;
+
+    maze.getMazePts(mazeLvl, function (err, result){
+        console.log("points.getMazePts called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get points of maze level");
+        }
+    })
+})
+
+// Update Current and Total Points, and Maze Level
+app.put('/maze/:id', function (req,res) {
+    var studentID = req.params.id ;
+    var data = {
+        currentPts : req.body.currentPts,
+        totalPts : req.body.totalPts,
+        mazeLvl : req.body.mazeLvl
+    };
+
+    maze.updatePtsnLvl(studentID, data, function (err, result){
+        console.log("maze.updatePtsnLvl called");
+        if(!err) {
+            res.send(result);
+        }else{
+            res.status(500).send("Error ! Cannot update points and maze level");
+        }
+    })
+})
+
+// getting mazelvl of a sertain student
+app.get('/mapOfMaze/:studentID', function (req, res) {
+
+    var studentID = req.params.studentID;
+   maze.getMazeByStudentID(studentID, function (err, result) {
+        if (!err) {
+            res.status(200).send(result);
+        } else {
+            res.status(500).send("Error ! cannot find!");
+        }
+    })
+})
+
+
 app.put('/mazeContent/:lvl', printDebugInfo, function (req, res) {
     var lvl = parseInt(req.params.lvl);
     if (isNaN(lvl)) {
@@ -202,7 +248,6 @@ app.put('/mazeContent/:lvl', printDebugInfo, function (req, res) {
     }
     var data = {
         points: req.body.points,
-
     };
     // to extract data
     maze.editMazeContent(lvl, data, function (err, result) {
@@ -474,8 +519,8 @@ app.get('/email/:Uid', function (req, res) {
 });
 
 // Update email
-app.put('/email/:id', function (req, res) {
-    var Uid = req.params.id;
+app.put('/email/:Uid', function (req, res) {
+    var Uid = req.params.Uid;
     var email = req.body.email;
     points.updateCurrentPts(Uid, email, function (err, result) {
         if (!err) {
@@ -724,7 +769,8 @@ app.put('/points/:id', function (req, res) {
     var studentID = req.params.id;
     var data = {
         currentPts: req.body.currentPts,
-        totalPts: req.body.totalPts
+        totalPts: req.body.totalPts,
+        mazeLvl: req.body.mazeLvl
     };
 
     points.updatePts(studentID, data, function (err, result) {

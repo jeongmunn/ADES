@@ -95,7 +95,7 @@ const SignIn = () => {
                 type: 1,
                 lastLogin: dateData
             };
-            axios.post('http://localhost:8081/api/newStudent', personalDetails, config)
+            axios.post('https://ades-ca1-project.herokuapp.com/api/newStudent', personalDetails, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -122,7 +122,7 @@ const SignIn = () => {
                 }
             }
             var uid = JSON.parse(JSON.stringify(user.user.uid));
-            axios.get(`http://localhost:8081/api/userType/` + uid, config)
+            axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + uid, config)
                 .then(res => {
                     if (res.data.type === 1) {
                         navigate('/studentDashboard');
