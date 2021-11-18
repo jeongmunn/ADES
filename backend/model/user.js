@@ -6,7 +6,7 @@ const pool = require("../controllers/dbconfig");
 
 var user = {
     getIdAndTypeOfUser: function (Uid, callback) {
-        console.log("get type of user");
+        console.log("get id & type of user");
         const sql = `SELECT "studentID", "type" FROM public."Student" WHERE "Uid" = $1`;
         pool.query(sql, [Uid], (err, result) => {
             if (err) {
@@ -17,6 +17,31 @@ var user = {
             }
         })
     },
+    getEmail: function (Uid, callback) {
+        console.log("get email of user");
+        const sql = `SELECT "name" FROM public."Student" WHERE "Uid" = $1`;
+        pool.query(sql, [Uid], (err, result) => {
+            if (err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                return callback(null, result.rows);
+            }
+        })
+    },
+    updateEmail: function (Uid, email, callback) {
+        console.log("get email of user");
+        const value = [email, Uid];
+        const sql = `UPDATE public."Student" SET "name"= $1 WHERE "Uid" = $2`;
+        pool.query(sql, [value], (err, result) => {
+            if (err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                return callback(null, result.rows);
+            }
+        })
+    }
 }
 
 // ----------------------------------------------------------------------------
