@@ -13,7 +13,8 @@ export default class Quiz extends React.Component {
     super();  
     this.state = {  
       showModalPopup: false ,
-      data: [] 
+      data: [] ,
+
     }  
   }  
   componentDidMount() {
@@ -37,6 +38,11 @@ export default class Quiz extends React.Component {
 
 
   }
+  handleClose =() =>{
+    let status =false
+    this.setState({ showModalPopup: status }); 
+  }
+
   handleButton = event => {
     let status =true
     this.setState({ showModalPopup: status });  
@@ -86,9 +92,9 @@ export default class Quiz extends React.Component {
 
   //NEED TO GET STUDENT ID!
 
-  handleClose = () => {
-    this.props.onPopupClose(false);
-}
+//   handleClose = () => {
+//     this.props.onPopupClose(false);
+// }
 
 
 
@@ -140,7 +146,7 @@ export default class Quiz extends React.Component {
         </table>
         <ModalPopup  
           showModalPopup={this.state.showModalPopup}  
-          onPopupClose={this.isShowPopup}  
+          onPopupClose={this.handleClose}  
         ></ModalPopup>  
       </div>
     )

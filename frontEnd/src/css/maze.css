@@ -21,11 +21,11 @@
     margin-right: 4vw;
   }
   #animate {
-    width: 3vw;
-    height: 3vh;
+    width: 7vw;
+    height: 7vw;
     position: absolute;
+    animation: myWisp 5s infinite;
     
-    /* background-image: url('wisp.png'); */
   }
   #imgAnimate{
     width: 7vw;
@@ -39,22 +39,31 @@ position: absolute;
     width: 200px;
     height: 200px;
   }
+  .cloud{
+    animation-name: cloud-animation;
+    animation-fill-mode: forwards;
+    animation-duration: 5s;
+    animation-direction:  alternate;
+    animation-iteration-count: infinite;
+  }
   #cloud1{
     position: absolute;
-    top:1vw;
+    top:0vw;
     left:1.5vw;
     
   }
   #cloud1img{
-    width:16vw;
+    width:22vw;
   }
   #cloud2{
     position: absolute;
     top: 15vw;
     left:1.5vw;
+     animation-delay: 0.5s;
   }
   #cloud2img{
     width:16vw;
+   
   }
   
   #cloud3{
@@ -63,22 +72,24 @@ position: absolute;
     left:17vw;
   }
   #cloud3img{
-    width:20vw;
+    width:22vw;
   }
   
   #cloud4{
     position: absolute;
-    top: 1vw;
+    top: 0.5vw;
     left:30vw;
+    animation-delay: 0.8s;
   }
   #cloud4img{
-    width:23vw;
+    width:25vw;
   
   }
   #cloud5{
     position: absolute;
     top: 20vw;
     left:42vw;
+    animation-delay: 0.4s;
   }
   #cloud5img{
     width:18vw;
@@ -97,6 +108,7 @@ position: absolute;
     position: absolute;
     top: 15vw;
     left:65vw;
+    animation-delay: 0.4s;
   }
   #cloud7img{
     width:16vw;
@@ -104,11 +116,12 @@ position: absolute;
   }
   #cloud8{
     position: absolute;
-    top: 28vw;
-    left:70vw;
+    top: 25vw;
+    left:68vw;
+    animation-delay: 0.8s;
   }
   #cloud8img{
-    width:16vw;
+    width:20vw;
   
   }
 #title{
@@ -119,4 +132,21 @@ position: absolute;
    position: relative;
    float:right;
   
+  }
+
+  @keyframes cloud-animation {
+    from {
+      transform: translateX(-3vw);
+    }
+    to {
+      transform: translateX(3vw);
+    }
+  }
+
+  @keyframes myWisp {
+    0% {transform: rotate(0deg);}
+     25% {transform: rotate(20deg);}
+     50% {transform: rotate(0deg);}
+     75% {transform: rotate(-20deg);}
+      100% {transform: rotate(0deg);}
   }

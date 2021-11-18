@@ -9,17 +9,24 @@ import cloud5 from '../img/cloud5.png';
 import cloud6 from '../img/cloud6.png';
 import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
-
+import ModalPopup from './MazePopup';
 import '../css/maze.css';
 
 
 export default class BadgeAdmin extends React.Component {
 
-  state = {
-    data: [],
-    maze: ''
-  }
 
+
+  constructor() {
+    super();
+    this.state = {
+      showModalPopup: false,
+      level: 0,
+      points: 0,
+      data: [],
+      maze: ''
+    }
+  }
 
   componentDidMount() {
 
@@ -35,41 +42,82 @@ export default class BadgeAdmin extends React.Component {
 
       });
 
-    var studentID = 3;
+    var studentID = 1;
     //GET STUDENT ID HERE
+    //maze lvl
     axios.get(`http://localhost:8081/mapOfMaze/` + studentID)
       .then(res => {
 
         this.setState({ maze: res.data[0].mazeLvl });
         console.log(JSON.stringify(this.state.maze) + "HERE");
         var mazeLvl = JSON.stringify(this.state.maze);
-         disableMaze(mazeLvl);
-         return lvl1(mazeLvl);
-      })
+        disableMaze(mazeLvl);
+        var lvl = parseInt(mazeLvl);
+        //making sure it had a starting postition
+        if (lvl === 1) {
+          lvl1(mazeLvl)
+        }
+        else if (lvl === 2) {
+          lvl2(mazeLvl);
+        }
+        else if (lvl === 3) {
+          lvl3(mazeLvl);
+        }
+        else if( lvl ===4){
+          lvl4(mazeLvl);
+        }
+        else if( lvl ===5){
+          lvl5(mazeLvl);
+        }
+        else if( lvl ===6){
+          lvl6(mazeLvl);
+        }
+        else if( lvl ===7){
+          console.log(lvl+"HELLO")
+          lvl7(mazeLvl);
+        }
+        else if( lvl ===8){
+          lvl8(mazeLvl);
+        }
+
+      }
+
+      )
 
 
     function disableMaze(mazeLvl) {
-      console.log("HERE BITHC" + mazeLvl)
-      if (!(mazeLvl > 7)) {
+
+      var NextMazeLvl = parseInt(mazeLvl) + 1;
+      var currentLvl = parseInt(mazeLvl)
+      console.log(mazeLvl)
+
+      if (!(NextMazeLvl > 7)) {
         document.getElementById("cloud8img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud8').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 6)) {
+      if (!(NextMazeLvl > 6)) {
         document.getElementById("cloud7img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud7').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 5)) {
+      if (!(NextMazeLvl > 5)) {
         document.getElementById("cloud6img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud6').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 4)) {
+      if (!(NextMazeLvl > 4)) {
         document.getElementById("cloud5img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud5').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 3)) {
+      if (!(NextMazeLvl > 3)) {
         document.getElementById("cloud4img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud4').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 2)) {
+      if (!(NextMazeLvl > 2)) {
         document.getElementById("cloud3img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud3').style.pointerEvents = 'none';
       }
-      if (!(mazeLvl > 1)) {
+      if (!(NextMazeLvl > 1)) {
         document.getElementById("cloud2img").style.filter = "grayscale(100%)";
+        document.getElementById('cloud2').style.pointerEvents = 'none';
       }
     }
 
@@ -95,7 +143,7 @@ export default class BadgeAdmin extends React.Component {
           }
 
         } else {
-          pos++; console.log("move1 calleD" + pos);
+          pos++; //console.log("move1 calleD" + pos);
           elem.style.top = pos + "px";
           elem.style.left = pos + "px";
         }
@@ -116,7 +164,7 @@ export default class BadgeAdmin extends React.Component {
             setTimeout(lvl3(mazeLvl), 2);
           }
         } else {
-          pos++; console.log("move2 calleD" + pos);
+          pos++;// console.log("move2 calleD" + pos);
           elem.style.top = pos + "px";
 
         }
@@ -140,7 +188,7 @@ export default class BadgeAdmin extends React.Component {
           posT++;
           posL++;
           elem.style.top = posT + "px";
-          elem.style.left = posL + "px"; console.log(posT); console.log(posL)
+          elem.style.left = posL + "px"; //console.log(posT); console.log(posL)
 
         }
       }
@@ -161,7 +209,8 @@ export default class BadgeAdmin extends React.Component {
         } else {
           posT--;
           posL++;
-          elem.style.top = posT + "px"; console.log(posT); console.log(posL)
+          elem.style.top = posT + "px";
+          // console.log(posT); console.log(posL)
           elem.style.left = posL + "px";
         }
       }
@@ -179,7 +228,8 @@ export default class BadgeAdmin extends React.Component {
             setTimeout(lvl6(mazeLvl), 2);
           }
         } else {
-          pos++; console.log("move2 calleD" + pos);
+          pos++;
+          // console.log("move2 calleD" + pos);
           elem.style.top = pos + "px";
 
         }
@@ -206,7 +256,8 @@ export default class BadgeAdmin extends React.Component {
           posT--;
           posL++;
           elem.style.top = posT + "px";
-          elem.style.left = posL + "px"; console.log(posL); console.log(posT)
+          elem.style.left = posL + "px";
+          console.log(posL); console.log(posT)
         }
       }
     }
@@ -215,6 +266,7 @@ export default class BadgeAdmin extends React.Component {
       let id = null;
       const elem = document.getElementById("animate");
       let pos = 40;
+      elem.style.left = 830 + "px";
 
 
       clearInterval(id);
@@ -255,14 +307,30 @@ export default class BadgeAdmin extends React.Component {
       }
     }
 
-    
+
 
 
 
 
   }
 
+  isShowPopup = (status, levels) => {
+    if (parseInt(this.state.maze) >= levels) {
+      this.setState({ showModalPopup: false });
+      window.alert("Level Already completed!")
+    } else {
+      this.setState({ showModalPopup: status });
+      this.setState({ level: levels });
 
+      axios.get(`http://localhost:8081/maze/${levels}`)
+        .then(res => {
+
+          this.setState({ points: res.data[0].points });
+          console.log("points :" + JSON.stringify(res.data[0].points));
+        })
+    }
+
+  };
 
 
 
@@ -275,34 +343,34 @@ export default class BadgeAdmin extends React.Component {
 
       <div id="container">
 
-      <p id="title">Map Of Maze</p>
-      {/* add exit button here! */}
-      <p id="exit" >x</p>
+        <p id="title">Map Of Maze</p>
+        {/* add exit button here! */}
+        <p id="exit" >x</p>
         <div id="maze">
 
-          <div id='cloud1' onClick={this.handlePopUp}>
+          <div id='cloud1' className="cloud" onClick={() => this.isShowPopup(true, 1)}>
 
             <img id='cloud1img' alt="" src={cloud1} />
           </div>
-          <div id='cloud2' onClick={this.handlePopUp}  >
+          <div id='cloud2' className="cloud" onClick={() => this.isShowPopup(true, 2)}  >
             <img id='cloud2img' alt="" src={cloud2} />
           </div>
-          <div id='cloud3' onClick={this.handlePopUp} >
+          <div id='cloud3' className="cloud" onClick={() => this.isShowPopup(true, 3)} >
             <img id='cloud3img' alt="" src={cloud3} />
           </div>
-          <div id='cloud4' onClick={this.handlePopUp}>
+          <div id='cloud4' className="cloud" onClick={() => this.isShowPopup(true, 4)} >
             <img id='cloud4img' alt="" src={cloud4} />
           </div>
-          <div id='cloud5' onClick={this.handlePopUp}>
+          <div id='cloud5' className="cloud" onClick={() => this.isShowPopup(true, 5)}>
             <img id='cloud5img' alt="" src={cloud5} />
           </div>
-          <div id='cloud6' onClick={this.handlePopUp}>
+          <div id='cloud6' className="cloud" onClick={() => this.isShowPopup(true, 6)}>
             <img id='cloud6img' alt="" src={cloud6} />
           </div>
-          <div id='cloud7' onClick={this.handlePopUp} >
+          <div id='cloud7' className="cloud" onClick={() => this.isShowPopup(true, 7)} >
             <img id='cloud7img' alt="" src={cloud7} />
           </div>
-          <div id='cloud8' onClick={this.handlePopUp} >
+          <div id='cloud8' className="cloud" onClick={() => this.isShowPopup(true, 8)} >
             <img id='cloud8img' alt="" src={cloud8} />
           </div>
 
@@ -317,7 +385,12 @@ export default class BadgeAdmin extends React.Component {
 
 
         </div>
-
+        <ModalPopup
+          showModalPopup={this.state.showModalPopup}
+          onPopupClose={this.isShowPopup}
+          level={this.state.level}
+          point={this.state.points}
+        ></ModalPopup>
       </div>
 
     )

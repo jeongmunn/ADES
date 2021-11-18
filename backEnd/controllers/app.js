@@ -16,7 +16,7 @@ var badge = require('../model/badge');
 var maze = require('../model/maze');
 var reward = require('../model/reward');
 var quiz = require('../model/quiz');
-
+var points = require('../model/points');
 var cors = require('cors');
 
 
@@ -239,6 +239,40 @@ app.put('/mazeContent/:lvl',printDebugInfo, function (req, res) {
     });
 });
 
+// Get Points By Maze Lvl
+app.get('/maze/:lvl', function (req,res) {
+    var mazeLvl = req.params.lvl ;
+
+    maze.getMazePts(mazeLvl, function (err, result){
+        console.log("points.getMazePts called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get points of maze level");
+        }
+    })
+})
+
+// Update Current and Total Points, and Maze Level
+app.put('/maze/:id', function (req,res) {
+    var studentID = req.params.id ;
+    var data = {
+        currentPts : req.body.currentPts,
+        totalPts : req.body.totalPts,
+        mazeLvl : req.body.mazeLvl
+    };
+
+    maze.updatePtsnLvl(studentID, data, function (err, result){
+        console.log("maze.updatePtsnLvl called");
+        if(!err) {
+            res.send(result);
+        }else{
+            res.status(500).send("Error ! Cannot update points and maze level");
+        }
+    })
+})
+
+
 // getting mazelvl of a sertain student
 app.get('/mapOfMaze/:studentID', function (req, res) {
 
@@ -354,6 +388,101 @@ quiz.UpdatePoints(data,function (err, result) {
 
 
 });
+// ---------------------------------- Points -------------------------------------------
+//ALL JWS ONE UNDER!
+// Get Points History By Id
+app.get('/ptsHistory/:id', function (req,res) {
+    var studentID = req.params.id ;
 
+    points.getPtsHistory(studentID,function (err, result){
+        console.log("points.getPtsHistory called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get points history");
+        }
+    })
+})
+
+// Insert Points History
+app.post('/ptsHistory/:id', function (req,res) {
+    var data = {
+        studentID : req.params.id,
+        ptsAwarded : req.body.ptsAwarded,
+        eventID : req.body.eventID
+    }
+
+    points.insertPtsHistory(data, function (err, result){
+        console.log("points.insertPtsHistory called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot insert points history");
+        }
+    })
+})
+
+// Get Summary of Points & Marks By Quiz
+app.get('/summary/:qid/:uid', function (req,res) {
+    var quizID = req.params.qid ;
+    var studentID = req.params.uid ;
+
+    points.getQuizPts(studentID, quizID, function (err, result){
+        console.log("points.getQuizPts called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get summary of points and marks");
+        }
+    })    
+})
+
+// Get Current Points and Total Points
+app.get('/points/:id', function (req,res) {
+    var studentID = req.params.id;
+
+    points.getPts(studentID, function (err, result) { 
+        console.log("points.getPts called");
+        if(!err) {
+            res.send(result);
+        }else {
+            res.status(500).send("Error ! Cannot get current points");
+        }
+    })
+})
+
+// Update Current Points ( redeemed rewards )
+app.put('/point/:id', function (req, res) {
+    var studentID = req.params.id;
+    var currentPts = req.body.points;
+
+    points.updateCurrentPts(studentID, currentPts,function (err, result) {
+        console.log("points.updateCurrentPts called");
+        if (!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot update points");
+        }
+    });
+});
+
+// Update Current and Total Points ( get points )
+app.put('/points/:id', function (req, res) { 
+    var studentID = req.params.id;
+    var data = {
+        currentPts : req.body.currentPts,
+        totalPts : req.body.totalPts,
+        mazeLvl: req.body.mazeLvl
+    };
+
+    points.updatePts(studentID,data, function (err, result) {
+        console.log("points.updatePts called");
+        if(!err) {
+            res.send(result);
+        } else {
+            res.status(500).send("Error ! Cannot update points");
+        }
+    })
+})
 
 module.exports = app;
