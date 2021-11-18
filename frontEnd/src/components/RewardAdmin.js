@@ -14,7 +14,6 @@ export default class viewReward extends React.Component {
     }
 
     componentDidMount() {
-        //axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
         axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
             .then(res => {
                 this.setState({ data: res.data });

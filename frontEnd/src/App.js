@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import SignIn from './components/SignIn';
 import StudentDashboard from './components/StudentDashboard';
+import StudentPointsHistory from './components/StudentPointsHistory';
 import Profile from './components/Profile';
 import TeacherAdministration from './components/TeacherHome';
 import BadgeAdmin from './components/BadgeAdmin';
@@ -33,7 +34,8 @@ function App() {
   return (
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
-        <Route path="/studentDashboard" element={<StudentDashboard />}></Route>
+        <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
+        <Route path="/studentPoints" element={<StudentPointsHistory/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
