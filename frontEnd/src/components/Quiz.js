@@ -4,15 +4,16 @@ import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
  import ModalPopup from './Modal';  
 
-export default class BadgeAdmin extends React.Component {
-  state = {
-    data: [],
+export default class Quiz extends React.Component {
+  // state = {
+  //   ,
 
-  }
+  // }
   constructor() {  
     super();  
     this.state = {  
-      showModalPopup: false  
+      showModalPopup: false ,
+      data: [] 
     }  
   }  
   componentDidMount() {
