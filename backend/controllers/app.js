@@ -143,16 +143,12 @@ app.post('/newBadge', printDebugInfo, function (req, res) {
 
 
 app.put('/editBadge/:badgeID', printDebugInfo, function (req, res) {
-
     var badgeID = parseInt(req.params.badgeID);
-
-
     if (isNaN(badgeID)) {
         console.log(badgeID)
         res.status(400).send();
         return;
     }
-
     var data = {
         name: req.body.name,
         requirements: req.body.requirements,
@@ -160,8 +156,6 @@ app.put('/editBadge/:badgeID', printDebugInfo, function (req, res) {
         badgeClassID: req.body.badgeClassID,
     };
     // to extract data
-
-
     badge.editBadge(badgeID, data, function (err, result) {
         if (!err) {
             var output = {
