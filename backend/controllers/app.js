@@ -517,9 +517,9 @@ app.get('/email/:Uid', function (req, res) {
 app.put('/email/:Uid', function (req, res) {
     var Uid = req.params.Uid;
     var email = req.body.email;
-    points.updateCurrentPts(Uid, email, function (err, result) {
+    user.updateEmail(Uid, email, function (err, result) {
         if (!err) {
-            res.status(204);
+            res.status(200).send("Email is updated on backend!");
         } else {
             res.status(500).send("Error ! Cannot update points");
         }

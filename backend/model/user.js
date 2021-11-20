@@ -31,9 +31,9 @@ var user = {
     },
     updateEmail: function (Uid, email, callback) {
         console.log("get email of user");
-        const value = [email, Uid];
-        const sql = `UPDATE public."Student" SET "name"= $1 WHERE "Uid" = $2`;
-        pool.query(sql, [value], (err, result) => {
+        const value = [Uid, email];
+        const sql = `UPDATE public."Student" SET "name"= $2 WHERE "Uid" = $1`;
+        pool.query(sql, value, (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err.null);

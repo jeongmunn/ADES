@@ -122,7 +122,7 @@ const SignIn = () => {
                 }
             }
             var uid = JSON.parse(JSON.stringify(user.user.uid));
-            axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + uid, config)
+            axios.get(`http://localhost:8081/api/userType/` + uid, config)
                 .then(res => {
                     if (res.data.type === 1) {
                         navigate('/studentDashboard');

@@ -1,6 +1,5 @@
 import '../styling2.css';
-import React, { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     onAuthStateChanged,
     signOut,
@@ -13,35 +12,48 @@ import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
 export default function Profile() {
-    const emailData = useRef("");
+    // const emailData = useRef("");
     const passwordData = useRef("");
+    const [uidOfUser, setUid] = useState();
+    const [emailData, setEmail] = useState("");
     const [user, setUser] = useState({});
-    onAuthStateChanged(auth, (currentUser) => {
-        if (user) {
-            setUser(currentUser);
-        } else {
-            console.log("error")
-            signOut(auth);
-            navigate('/');
-        }
+
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            if (user) {
+                setUser(currentUser);
+                setEmail(user.email);
+                setUid(user.uid);
+            } else {
+                console.log("error")
+                signOut(auth);
+                window.location.replace('http://localhost:8081/quizment');
+            }
+        });
     });
-    let navigate = useNavigate();
+
+
+    const handleChange = (event) => {
+        setEmail(event.target.value);
+    };
     const logout = async () => {
         await signOut(auth);
-        navigate('/');
+        window.location.replace('http://localhost:8081/quizment');
     };
-    const emailOfUser = user.email;
-    console.log(emailOfUser);
-    const uidOfUser = user.uid;
     const updateEmailFunction = async () => {
-        updateEmail(user, emailData.current.value).then(() => {
+        updateEmail(user, emailData).then(() => {
             console.log("Update Of Email Successful!");
             const config = {
                 headers: {
                     'content-type': 'application/json'
                 }
             }
-            axios.put('https://ades-ca1-project.herokuapp.com/api/email/' + uidOfUser, emailData.current.value, config)
+            const emailDetails = {
+                email: emailData
+            };
+            console.log(emailDetails.email);
+            axios.put('http://localhost:8081/api/email/' + uidOfUser, emailDetails, config)
                 .then(res => {
                     console.log(res);
                     window.location.reload();
@@ -71,20 +83,18 @@ export default function Profile() {
     return (
         <div className="profile">
             <h1>Profile Administration</h1>
-            <p></p>
             <TextField
                 required
                 fullWidth
-                inputRef={emailData}
-                id="outlined-required"
+                id="filled-required" 
                 label="Email"
                 margin="dense"
                 type="email"
-                defaultValue={emailOfUser}
+                value={emailData}
+                onChange={handleChange}
             />
             <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', margin: '10px', width: '100%' }} variant="contained" onClick={updateEmailFunction}> Update Email</Button>
             <TextField
-            
                 required
                 fullWidth
                 inputRef={passwordData}
