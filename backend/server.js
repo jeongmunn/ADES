@@ -19,11 +19,11 @@ const app = express();
 const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 app.use(express.static(buildPath));
 // so that the frontend content will be served via the /quizment directory when hosted
-app.use('/quizment', express.static(basename));
+// app.use('/quizment', express.static(basename));
 app.use(cors());
 
 // getting of frontend pages, for eg. /quizment/pageName
-app.get(basename + '*', function (req, res) {
+app.get('/', function (req, res) {
     // since React uses index.html we use the following code below to get the content from index.html which is updated by the
     // component js files in the frontEnd folder
     res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));

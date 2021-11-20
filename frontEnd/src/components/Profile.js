@@ -28,7 +28,7 @@ export default function Profile() {
             } else {
                 console.log("error")
                 signOut(auth);
-                window.location.replace('http://localhost:8081/quizment');
+                window.location.replace('https://ades-ca1-project.herokuapp.com');
             }
         });
     });
@@ -39,7 +39,7 @@ export default function Profile() {
     };
     const logout = async () => {
         await signOut(auth);
-        window.location.replace('http://localhost:8081/quizment');
+        window.location.replace('https://ades-ca1-project.herokuapp.com');
     };
     const updateEmailFunction = async () => {
         updateEmail(user, emailData).then(() => {
@@ -53,7 +53,7 @@ export default function Profile() {
                 email: emailData
             };
             console.log(emailDetails.email);
-            axios.put('http://localhost:8081/api/email/' + uidOfUser, emailDetails, config)
+            axios.put('https://ades-ca1-project.herokuapp.com/api/email/' + uidOfUser, emailDetails, config)
                 .then(res => {
                     console.log(res);
                     window.location.reload();

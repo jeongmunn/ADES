@@ -32,6 +32,9 @@ export default function TeacherDashboard() {
           <Button onClick={() => {
             navigate('/leaderboardAdmin');
           }}>Leaderboard Administration</Button>
+          <Button onClick={() => {
+            navigate('/profile');
+          }}>Profile</Button>
           <Button onClick={logout}>Sign Out</Button>
         </div>
     );

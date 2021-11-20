@@ -77,7 +77,7 @@ export default class EditBadge extends React.Component {
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
-                    window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/badgesAdmin')
+                    window.location.replace('https://ades-ca1-project.herokuapp.com/badgesAdmin')
                 })
         });
     }
