@@ -1,5 +1,6 @@
 {
   "name": "ades",
+  "homepage": "https://ades-ca1-project.herokuapp.com/quizment",
   "version": "0.1.0",
   "private": true,
   "engines": {

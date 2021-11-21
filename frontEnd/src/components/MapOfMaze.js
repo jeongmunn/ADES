@@ -297,7 +297,7 @@ export default class MapOfMaze extends React.Component {
     } else {
       this.setState({ showModalPopup: status });
       this.setState({ level: levels });
-      axios.get(`http://localhost:8081/maze/${levels}`)
+      axios.get(`https://ades-ca1-heroku.herokuapp.com/api/maze/${levels}`)
         .then(res => {
           this.setState({ points: res.data[0].points });
           console.log("points :" + JSON.stringify(res.data[0].points));
