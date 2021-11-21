@@ -14,6 +14,7 @@ import EditMaze from './components/EditMazeContent';
 import EditBadge from './components/EditBadge';
 import Quiz from './components/Quiz';
 import MapOfMaze from './components/MapOfMaze';
+import ReactNotification from 'react-notifications-component';
 import {
   onAuthStateChanged,
 } from "firebase/auth";
@@ -34,6 +35,8 @@ function App() {
   });
 
   return (
+    <>
+    <ReactNotification />
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
@@ -49,6 +52,7 @@ function App() {
         <Route path="/quiz" element={<Quiz/>}></Route>
         <Route path="/mapOfMaze" element={<MapOfMaze/>}></Route>
       </Routes>
+    </>
   );
 }
 
