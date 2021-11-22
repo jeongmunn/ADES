@@ -4,6 +4,7 @@ import Home from './components/Home';
 import SignIn from './components/SignIn';
 import StudentDashboard from './components/StudentDashboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
+import StudentReward from './components/StudentReward';
 import Profile from './components/Profile';
 import TeacherDashboard from './components/TeacherDashboard';
 import BadgeAdmin from './components/BadgeAdmin';
@@ -35,12 +36,11 @@ function App() {
   });
 
   return (
-    <>
-    <ReactNotification />
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
         <Route path="/studentPoints" element={<StudentPointsHistory/>}></Route>
+        <Route path="/studentReward" element={<StudentReward/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
@@ -52,7 +52,6 @@ function App() {
         <Route path="/quiz" element={<Quiz/>}></Route>
         <Route path="/mapOfMaze" element={<MapOfMaze/>}></Route>
       </Routes>
-    </>
   );
 }
 

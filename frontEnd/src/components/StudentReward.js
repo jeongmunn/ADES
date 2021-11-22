@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { store } from 'react-notifications-component';
 import { Link } from 'react-router-dom' ;
 import Button from 'react-bootstrap/Button';
 
@@ -14,27 +15,55 @@ export default class viewReward extends React.Component {
   }
 
   componentDidMount(){
-    // Get rewards data
-    //axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
+    // Get all rewards data
     axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
     .then(res => {
         this.setState({ data : res.data });
     })
     
     // Get student's points data
-    //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + studentID)
     axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
     .then(res => {
         this.setState({ currentPts : res.data[0].redeemedPts });
     })
 }
 
+  notiRedeemSuccess(rewardName){
+    store.addNotification({
+      title:"Success",
+      message:"Congratulations! You've successfully redeemed " + rewardName + " !",
+      type:"success",
+      insert:"top",
+      container:"top-center",
+      animationIn:["animated","fadeIn"],
+      animationOut:["animated","fadeOut"],
+      dismiss: {duration:2000},
+      dismissable: {click:true}
+    });
+  }  
+
+  notifRedeemFail(){
+    store.addNotification({
+      title:"Error",
+      message:"You've insufficient points to redeem this reward. Work harder!",
+      type:"danger",
+      insert:"top",
+      container:"top-center",
+      animationIn:["animated","bounceIn"],
+      animationOut:["animated","bounceOut"],
+      dismiss: {duration:2000},
+      dismissable: {click:true}
+    });
+  }  
+
   handleRedeem = event => {
 
     // Get the data
     const rewardID = event.target.getAttribute("data-index");
     const ptsRequired = event.target.getAttribute("data-points");
+    const rewardName = event.target.getAttribute("data-name");
     console.log("rewardID = " + rewardID);
+    console.log("rewardName = " + rewardName);
     console.log("points = " + ptsRequired);
 
     // Store student's points
@@ -73,13 +102,13 @@ export default class viewReward extends React.Component {
       .then(res => {
         console.log(res);
         console.log(res.data);
+        this.notiRedeemSuccess(rewardName);
         window.alert("Reward redeemed successfully");
       })
 
     // ELSE student dont have enough points
     }else{
-      // notifications
-
+      this.notifRedeemFail();
       window.alert("Insufficient points ! Work harder and earn more points !");
     }
   
@@ -96,7 +125,7 @@ export default class viewReward extends React.Component {
                             <td>{item.rewardName}</td>
                             <td>{item.ptsRequired}</td>
                             <td><img src={item.url} style={{height: 200, width: 200}}></img></td>
-                            <td><Button onClick={this.handleRedeem} data-index={item.rewardID} data-points={item.ptsRequired}>Redeem</Button></td>
+                            <td><Button onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button></td>
                         </tr>
                     )}
             </div>
