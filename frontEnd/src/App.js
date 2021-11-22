@@ -37,6 +37,7 @@ function App() {
 
   return (
     <>
+    <ReactNotification />
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         <Route path="/loading" element={<Loading />}></Route>

@@ -186,10 +186,10 @@ class StudentDashboard extends React.Component {
                                     <Nav.Link className="linkCustomise" href="/quizment/studentDashboard">Dashboard</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
-                                    <Nav.Link className="linkCustomise" eventKey="link-1">Reward</Nav.Link>
+                                    <Nav.Link className="linkCustomise" href="/quizment/studentReward">Reward</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
-                                    <Nav.Link className="linkCustomise" eventKey="link-2">Maze</Nav.Link>
+                                    <Nav.Link className="linkCustomise" href="/quizment/mapOfMaze">Maze</Nav.Link>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-2">Badges</Nav.Link>
