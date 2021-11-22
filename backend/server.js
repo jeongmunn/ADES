@@ -15,17 +15,30 @@ const basename = "/quizment";
 const app = express();
 
 // Web Server
+
+// dummy path to for heroku app to go to the redirect index page 
+const dummyPath = path.join(__dirname, '..');
+
 // hosting path for frontend
 const buildPath = path.join(__dirname, '../frontEnd' , 'build');
-app.use(express.static(buildPath));
+
+// let '/' which is where heroku starts from when you open the app open the root folder which contains the redirect inde page
+app.use(express.static(dummyPath));
+
 // so that the frontend content will be served via the /quizment directory when hosted
-// app.use('/quizment', express.static(basename));
+app.use(basename, express.static(buildPath));
 app.use(cors());
 
-// getting of frontend pages, for eg. /quizment/pageName
+// redirecting the starting position to redirect page as the root index.html will lead user's to the frontEnd via the redirect.
 app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', 'index.html'));
+});
+
+// getting of frontend pages, for eg. /quizment/pageName
+app.get(basename + '*', function (req, res) {
     // since React uses index.html we use the following code below to get the content from index.html which is updated by the
     // component js files in the frontEnd folder
+    console.log("Reached frontEnd");
     res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
 });
 
