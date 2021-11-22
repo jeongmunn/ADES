@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/quizment/static/css/main.1dd29841.chunk.css",
-    "main.js": "/quizment/static/js/main.22f49bc6.chunk.js",
-    "main.js.map": "/quizment/static/js/main.22f49bc6.chunk.js.map",
+    "main.css": "/quizment/static/css/main.73de350a.chunk.css",
+    "main.js": "/quizment/static/js/main.c501402f.chunk.js",
+    "main.js.map": "/quizment/static/js/main.c501402f.chunk.js.map",
     "runtime-main.js": "/quizment/static/js/runtime-main.f2b35d99.js",
     "runtime-main.js.map": "/quizment/static/js/runtime-main.f2b35d99.js.map",
     "static/css/2.a75f5a2c.chunk.css": "/quizment/static/css/2.a75f5a2c.chunk.css",
@@ -12,7 +12,7 @@
     "static/js/3.f3dae78e.chunk.js.map": "/quizment/static/js/3.f3dae78e.chunk.js.map",
     "index.html": "/quizment/index.html",
     "static/css/2.a75f5a2c.chunk.css.map": "/quizment/static/css/2.a75f5a2c.chunk.css.map",
-    "static/css/main.1dd29841.chunk.css.map": "/quizment/static/css/main.1dd29841.chunk.css.map",
+    "static/css/main.73de350a.chunk.css.map": "/quizment/static/css/main.73de350a.chunk.css.map",
     "static/js/2.974f8ae2.chunk.js.LICENSE.txt": "/quizment/static/js/2.974f8ae2.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/VisbyRound-Regular.212d29c3.otf",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
@@ -23,14 +23,14 @@
     "static/media/cloud6.c1163dfc.png": "/quizment/static/media/cloud6.c1163dfc.png",
     "static/media/cloud7.72b4c8f5.png": "/quizment/static/media/cloud7.72b4c8f5.png",
     "static/media/cloud8.be23d40f.png": "/quizment/static/media/cloud8.be23d40f.png",
-    "static/media/logoLoading.fcc3004c.mp4": "/quizment/static/media/logoLoading.fcc3004c.mp4",
+    "static/media/logoLoading.448f5c5e.webm": "/quizment/static/media/logoLoading.448f5c5e.webm",
     "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
   },
   "entrypoints": [
     "static/js/runtime-main.f2b35d99.js",
     "static/css/2.a75f5a2c.chunk.css",
     "static/js/2.974f8ae2.chunk.js",
-    "static/css/main.1dd29841.chunk.css",
-    "static/js/main.22f49bc6.chunk.js"
+    "static/css/main.73de350a.chunk.css",
+    "static/js/main.c501402f.chunk.js"
   ]
 }

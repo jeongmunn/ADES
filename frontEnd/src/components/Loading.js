@@ -1,12 +1,12 @@
 import '../App.css';
-import sample from '../logoLoading.mp4';
+import sample from '../logoLoading.webm';
 import React from 'react'
 
 const Loading = () => {
     return (
         <div>
             <video className='videoTag' autoPlay loop muted>
-                <source src={sample} type='video/mp4' />
+                <source src={sample} type='video/webm' />
             </video>
         </div>
     )

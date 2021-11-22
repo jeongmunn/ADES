@@ -24,3 +24,8 @@
   src: local('VisbyRound'), url(./fonts/VisbyRound-DemiBold.otf) format('opentype');
 }
 
+video {
+  width: 100%    !important;
+  height: auto   !important;
+}
+
