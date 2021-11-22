@@ -36,6 +36,7 @@ function App() {
   });
 
   return (
+    <>
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
         <Route path="/loading" element={<Loading />}></Route>
@@ -53,6 +54,7 @@ function App() {
         <Route path="/quiz" element={<Quiz/>}></Route>
         <Route path="/mapOfMaze" element={<MapOfMaze/>}></Route>
       </Routes>
+    </>
   );
 }
 

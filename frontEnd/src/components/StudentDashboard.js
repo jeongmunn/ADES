@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
 import { Button, Container, Row, Col, Sidebar, Nav, NavItem, Card, ListGroup } from 'react-bootstrap';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
@@ -183,10 +183,10 @@ class StudentDashboard extends React.Component {
                             >
                                 <div className="sidebar-sticky"></div>
                                 <Nav.Item className="navItem " activeClassName="active" >
-                                    <Nav.Link className="linkCustomise" href="/quizment/studentDashboard">Dashboard</Nav.Link>
+                                    <NavLink to="/studentDashboard" className="linkCustomise">Dashboard</NavLink>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
-                                    <Nav.Link className="linkCustomise" eventKey="link-1">Reward</Nav.Link>
+                                    <NavLink to="/studentReward" className="linkCustomise">Reward</NavLink>
                                 </Nav.Item>
                                 <Nav.Item className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-2">Maze</Nav.Link>
