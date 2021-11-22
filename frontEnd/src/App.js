@@ -21,6 +21,7 @@ import {
 } from "firebase/auth";
 import { auth } from './firebase.js';
 import 'bootstrap/dist/css/bootstrap.css';
+import 'react-notifications-component/dist/theme.css';
 
 function App() {
   const [user, setUser] = useState({});
