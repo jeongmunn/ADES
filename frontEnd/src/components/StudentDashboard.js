@@ -67,7 +67,7 @@ class StudentDashboard extends React.Component {
     }
 
     componentDidMount() {
-    
+
         auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("User is Signed IN ");
@@ -78,97 +78,97 @@ class StudentDashboard extends React.Component {
                     }
                 }
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
-                .then(res => {
-                    if (res.data.type === 1) {
-                        this.setState({id: res.data.studentID})
-                    } else if (res.data.type === 2) {
-                        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');               
-                    } else {
-                        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');                    
-                    }
-                })
+                    .then(res => {
+                        if (res.data.type === 1) {
+                            this.setState({ id: res.data.studentID })
+
+                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + this.state.id)
+                                .then(res => {
+                                    console.log("number of streak " + res.data[0].streaks)
+                                    const streaks = res.data[0].streaks;
+                                    this.setState({ streaks });
+                                })
+
+                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + this.state.id)
+                                .then(res => {
+                                    console.log("number of streak " + res.data[0].totalPts)
+                                    console.log("number of streak " + res.data[0].redeemedPts)
+                                    const totalPts = res.data[0].totalPts;
+                                    const redeemedPts = res.data[0].redeemedPts;
+                                    const name = res.data[0].name;
+                                    this.setState({ totalPts });
+                                    this.setState({ redeemedPts });
+                                    this.setState({ name });
+                                })
+
+                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id)
+                                .then(res => {
+                                    console.log("LAST LOGIN " + res.data[0].lastLogin)
+                                    this.setState({ lastLoginData: res.data[0].lastLogin })
+                                    console.log("Current login stored: " + this.state.currentLogin)
+                                    console.log("Last login stored: " + this.state.lastLoginData)
+                                    var diffTime = this.state.currentLogin - this.state.lastLoginData;
+                                    var streak = this.state.streaks;
+                                    const config = {
+                                        headers: {
+                                            'content-type': 'application/json'
+                                        }
+                                    }
+                                    const lastLog = {
+                                        lastLogin: this.state.currentLogin
+                                    }
+                                    if (diffTime >= 28800000 && diffTime <= 86400000) {
+                                        console.log("Yassss");
+                                        // AXIOS PUT STREAK + NEW LOGIN TIME
+                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + this.state.id, lastLog, config)
+                                            .then(res => {
+                                                console.log("RESULTS: " + res);
+                                                console.log(res);
+                                                console.log("RESULT: " + res.data);
+                                            })
+
+                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + this.state.id)
+                                            .then(res => {
+                                                console.log("RESULTS: " + res);
+                                                console.log(res);
+                                                console.log("RESULT: " + res.data);
+                                            })
+
+                                    } else if (diffTime > 86400000) {
+                                        console.log("harooo");
+                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + this.state.id, lastLog, config)
+                                            .then(res => {
+                                                console.log("RESULTS: " + res);
+                                                console.log(res);
+                                                console.log("RESULT: " + res.data);
+                                            })
+
+                                    } else {
+                                        console.log("BYE");
+                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id, lastLog, config)
+                                            .then(res => {
+                                                console.log("RESULTS: " + res);
+                                                console.log(res);
+                                                console.log("RESULT: " + res.data);
+                                            })
+                                    }
+                                })
+                        } else if (res.data.type === 2) {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                        } else {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                        }
+                    })
             } else {
-              console.log("THERE IS NO USER");
-              signOut(auth);
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                console.log("THERE IS NO USER");
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
             }
         });
-        
+
         axios.get('https://ades-ca1-project.herokuapp.com/api/students/topStudents/')
             .then(res => {
                 this.setState({ data: res.data });
-            })
-        const idValue = this.state.id
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + idValue)
-            .then(res => {
-                console.log("number of streak " + res.data[0].streaks)
-                const streaks = res.data[0].streaks;
-                this.setState({ streaks });
-            })
-
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + idValue)
-            .then(res => {
-                console.log("number of streak " + res.data[0].totalPts)
-                console.log("number of streak " + res.data[0].redeemedPts)
-                const totalPts = res.data[0].totalPts;
-                const redeemedPts = res.data[0].redeemedPts;
-                const name = res.data[0].name;
-                this.setState({ totalPts });
-                this.setState({ redeemedPts });
-                this.setState({ name });
-            })
-
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + idValue)
-            .then(res => {
-                console.log("LAST LOGIN " + res.data[0].lastLogin)
-                this.setState({ lastLoginData: res.data[0].lastLogin })
-                console.log("Current login stored: " + this.state.currentLogin)
-                console.log("Last login stored: " + this.state.lastLoginData)
-                var diffTime = this.state.currentLogin - this.state.lastLoginData;
-                var streak=this.state.streaks;
-                const config = {
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                }
-                const lastLog = {
-                    lastLogin: this.state.currentLogin
-                }
-                if (diffTime >= 28800000 && diffTime <= 86400000) {
-                    console.log("Yassss");
-                    // AXIOS PUT STREAK + NEW LOGIN TIME
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + idValue, lastLog, config)
-                    .then(res => {
-                        console.log("RESULTS: " + res);
-                        console.log(res);
-                        console.log("RESULT: " + res.data);
-                    })
-
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + idValue)
-                    .then(res => {
-                        console.log("RESULTS: " + res);
-                        console.log(res);
-                        console.log("RESULT: " + res.data);
-                    })
-                    
-                } else if (diffTime>86400000) {
-                    console.log("harooo");
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + idValue, lastLog, config)
-                        .then(res => {
-                            console.log("RESULTS: " + res);
-                            console.log(res);
-                            console.log("RESULT: " + res.data);
-                        })
-
-                } else {
-                    console.log("BYE");
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + idValue, lastLog, config)
-                        .then(res => {
-                            console.log("RESULTS: " + res);
-                            console.log(res);
-                            console.log("RESULT: " + res.data);
-                        })
-                }
             })
     }
 
@@ -207,7 +207,7 @@ class StudentDashboard extends React.Component {
                             <hr />
                             <Nav className="col-md-12 d-none d-md-block sidebar navCustomise sideNavItem"
                                 activeKey="/home"
-                                // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
+                            // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
                             >
                                 <div className="sidebar-sticky"></div>
                                 <Nav.Item className="navItem " activeClassName="active" >
@@ -225,7 +225,7 @@ class StudentDashboard extends React.Component {
                                 <Nav.Item className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-2">Streak</Nav.Link>
                                 </Nav.Item>
-                                <Nav.Item  onClick={logout} className="navItem">
+                                <Nav.Item onClick={logout} className="navItem">
                                     <Nav.Link className="linkCustomise" eventKey="link-2">Sign Out</Nav.Link>
                                 </Nav.Item>
                             </Nav>
