@@ -83,7 +83,6 @@ const SignIn = () => {
                             navigate('/studentDashboard');
                         } else if (res.data.type === 2) {
                             navigate('/teacherDashboard');
-                        } else {
                         }
                     });
             }
