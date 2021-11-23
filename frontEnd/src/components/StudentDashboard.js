@@ -72,7 +72,6 @@ class StudentDashboard extends React.Component {
             if (user) {
                 console.log("User is Signed IN ");
                 this.setState({ uid: user.uid });
-                console.log(this.state.uid);
                 const config = {
                     headers: {
                         'content-type': 'application/json'
@@ -81,9 +80,7 @@ class StudentDashboard extends React.Component {
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                 .then(res => {
                     if (res.data.type === 1) {
-                        console.log(res.data.studentID);
                         this.setState({id: res.data.studentID})
-                        console.log(this.state.id);
                     } else if (res.data.type === 2) {
                         window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');               
                     } else {
@@ -101,15 +98,15 @@ class StudentDashboard extends React.Component {
             .then(res => {
                 this.setState({ data: res.data });
             })
-
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + this.state.id)
+        const idValue = this.state.id
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + idValue)
             .then(res => {
                 console.log("number of streak " + res.data[0].streaks)
                 const streaks = res.data[0].streaks;
                 this.setState({ streaks });
             })
 
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + this.state.id)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + idValue)
             .then(res => {
                 console.log("number of streak " + res.data[0].totalPts)
                 console.log("number of streak " + res.data[0].redeemedPts)
@@ -121,7 +118,7 @@ class StudentDashboard extends React.Component {
                 this.setState({ name });
             })
 
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + idValue)
             .then(res => {
                 console.log("LAST LOGIN " + res.data[0].lastLogin)
                 this.setState({ lastLoginData: res.data[0].lastLogin })
@@ -140,14 +137,14 @@ class StudentDashboard extends React.Component {
                 if (diffTime >= 28800000 && diffTime <= 86400000) {
                     console.log("Yassss");
                     // AXIOS PUT STREAK + NEW LOGIN TIME
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + this.state.id, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + idValue, lastLog, config)
                     .then(res => {
                         console.log("RESULTS: " + res);
                         console.log(res);
                         console.log("RESULT: " + res.data);
                     })
 
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + this.state.id)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + idValue)
                     .then(res => {
                         console.log("RESULTS: " + res);
                         console.log(res);
@@ -156,7 +153,7 @@ class StudentDashboard extends React.Component {
                     
                 } else if (diffTime>86400000) {
                     console.log("harooo");
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + this.state.id, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + idValue, lastLog, config)
                         .then(res => {
                             console.log("RESULTS: " + res);
                             console.log(res);
@@ -165,7 +162,7 @@ class StudentDashboard extends React.Component {
 
                 } else {
                     console.log("BYE");
-                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + idValue, lastLog, config)
                         .then(res => {
                             console.log("RESULTS: " + res);
                             console.log(res);
