@@ -16,13 +16,13 @@ export default class viewReward extends React.Component {
 
   componentDidMount(){
     // Get all rewards data
-    axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
+    axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
     .then(res => {
         this.setState({ data : res.data });
     })
     
     // Get student's points data
-    axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
+    axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.studentID)
     .then(res => {
         this.setState({ currentPts : res.data[0].redeemedPts });
     })
@@ -87,7 +87,7 @@ export default class viewReward extends React.Component {
         }
       }
 
-      axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewardHistory', IDs, config)
+      axios.post('https://ades-ca1-project.herokuapp.com/api/rewardHistory', IDs, config)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -98,7 +98,7 @@ export default class viewReward extends React.Component {
         points : currentPts
       }
 
-      axios.put('https://ades-ca1-heroku.herokuapp.com/api/point/' + this.state.studentID, points, config )
+      axios.put('https://ades-ca1-project.herokuapp.com/api/point/' + this.state.studentID, points, config )
       .then(res => {
         console.log(res);
         console.log(res.data);

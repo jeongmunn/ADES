@@ -11,113 +11,190 @@ import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
 import ModalPopup from './MazePopup';
 import '../css/maze.css';
+import moment from 'moment';
 
 
 export default class MapOfMaze extends React.Component {
+
+
+
   constructor() {
+
     super();
     this.state = {
       showModalPopup: false,
+      isNewLevel: false,
       level: 0,
       points: 0,
-      data: [],
-      maze: ''
+      maze: 0,
+      currentDate: '',
+      setCurrentDate: ''
     }
   }
 
   componentDidMount() {
-    axios.get(`https://ades-ca1-heroku.herokuapp.com/api/mazeContent`)
-      .then(res => {
-        console.log(res.data.length);
-        this.setState({ data: res.data });
-        console.log(res.data.length);
-        this.setState({ data: res.data });
-      });
+    //call maze animation
+    this.mazeAnimation(false)
 
-    var studentID = 1;
-    //GET STUDENT ID HERE
-    //maze lvl
-    axios.get(`https://ades-ca1-heroku.herokuapp.com/api/mapOfMaze/` + studentID)
+    const queryString = window.location.search;
+    console.log(queryString + "QUERY STRING");
+    let todayDate = moment().format('DD/MM/YYYY, hh:mm a');
+
+    const colours = [
+      ['#ffc7ae', '#f6b18a', '#fc82b2'],
+      ['#4C669F', '#37528d', '#101d42'],
+      ['#fffbb6', '#fffbb6', '#ffd68a'],
+      ['#fffbc6', '#b0e8ff'],
+      ['#dff4ff', '#9cdbff'],
+    ];
+
+
+    var minTimer = moment(todayDate.slice(12, 20), 'h:mm a').diff(moment().startOf('day'), 'minutes');
+    var gradientColour;
+    const elem = document.getElementById("container");
+
+    //setting background colour according to time
+    if (minTimer >= 1170) {
+      gradientColour = colours[1]; //works
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    } else if (minTimer >= 1110) {
+      gradientColour = colours[0];
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    } else if (minTimer >= 660) {
+      gradientColour = colours[4]; //works
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    } else if (minTimer >= 480) {
+      gradientColour = colours[3]; //works
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    } else if (minTimer >= 410) {
+      gradientColour = colours[2];
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    } else {
+      gradientColour = colours[1]; //works
+      elem.style.background = "linear-gradient(" + gradientColour + ")"
+    }
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+
+    if (prevState.isNewLevel !== this.state.isNewLevel && prevState.isNewLevel === false && this.state.isNewLevel === true) {
+      //THERE IS A CHANGE
+      this.mazeAnimation(true);
+    }
+  }
+
+  //enabling the clouds
+  ableMaze = (mazeLvl) => {
+
+    var cloudLvl = parseInt(mazeLvl);
+
+    if ((cloudLvl > 0)) {
+      document.getElementById("cloud2img").style.filter = "unset";
+      document.getElementById('cloud2').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 1)) {
+      document.getElementById("cloud3img").style.filter = "unset";
+      document.getElementById('cloud3').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 2)) {
+      document.getElementById("cloud4img").style.filter = "unset";
+      document.getElementById('cloud4').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 3)) {
+      document.getElementById("cloud5img").style.filter = "unset";
+      document.getElementById('cloud5').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 4)) {
+      document.getElementById("cloud6img").style.filter = "unset";
+      document.getElementById('cloud6').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 5)) {
+      document.getElementById("cloud7img").style.filter = "unset";
+      document.getElementById('cloud7').style.pointerEvents = 'unset';
+    }
+    if ((cloudLvl > 6)) {
+      document.getElementById("cloud8img").style.filter = "unset";
+      document.getElementById('cloud8').style.pointerEvents = 'unset';
+    }
+  }
+
+  //to get the students current Lvl
+  studentLevel = (callback) => {
+    var studentID = 18;
+    axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + studentID)
       .then(res => {
+
         this.setState({ maze: res.data[0].mazeLvl });
-        console.log(JSON.stringify(this.state.maze) + "HERE");
+        //  console.log(JSON.stringify(this.state.maze) + "HERE");
         var mazeLvl = JSON.stringify(this.state.maze);
-        disableMaze(mazeLvl);
-        var lvl = parseInt(mazeLvl);
-        //making sure it had a starting postition
-        if (lvl === 1) {
-          lvl1(mazeLvl)
-        }
-        else if (lvl === 2) {
-          lvl2(mazeLvl);
-        }
-        else if (lvl === 3) {
-          lvl3(mazeLvl);
-        }
-        else if( lvl ===4){
-          lvl4(mazeLvl);
-        }
-        else if( lvl ===5){
-          lvl5(mazeLvl);
-        }
-        else if( lvl ===6){
-          lvl6(mazeLvl);
-        }
-        else if( lvl ===7){
-          console.log(lvl+"HELLO")
-          lvl7(mazeLvl);
-        }
-        else if( lvl ===8){
-          lvl8(mazeLvl);
-        }
-
+        this.ableMaze(mazeLvl);
+        //making sure that the isNewLevel is false
+        this.setState({ isNewLevel: false })
+        callback(mazeLvl);
       }
 
       )
+  }
 
 
-    function disableMaze(mazeLvl) {
+  mazeAnimation = (status) => {
 
-      var NextMazeLvl = parseInt(mazeLvl) + 1;
-      var currentLvl = parseInt(mazeLvl)
-      console.log(mazeLvl)
+    if (status === false) {
+      this.studentLevel(function (mazeLvl) {
+        if (mazeLvl > 0) {
+          lvl1(mazeLvl);
 
-      if (!(NextMazeLvl > 7)) {
-        document.getElementById("cloud8img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud8').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 6)) {
-        document.getElementById("cloud7img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud7').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 5)) {
-        document.getElementById("cloud6img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud6').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 4)) {
-        document.getElementById("cloud5img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud5').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 3)) {
-        document.getElementById("cloud4img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud4').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 2)) {
-        document.getElementById("cloud3img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud3').style.pointerEvents = 'none';
-      }
-      if (!(NextMazeLvl > 1)) {
-        document.getElementById("cloud2img").style.filter = "grayscale(100%)";
-        document.getElementById('cloud2').style.pointerEvents = 'none';
-      }
+        } else {
+
+        }
+      });
+
+    } else {
+      this.studentLevel(function (mazeLvl) {
+
+        var updated = parseInt(mazeLvl);
+
+        if (updated === 1) {
+          console.log("LEVEL 1")
+          lvl1(mazeLvl);
+        } else if (updated === 2) {
+          console.log("LEVEL 2")
+          lvl2(mazeLvl);
+        }
+        else if (updated === 3) {
+          lvl3(mazeLvl);
+          console.log("LEVEL 3")
+        }
+        else if (updated === 4) {
+          lvl4(mazeLvl);
+          console.log("LEVEL 4")
+        }
+        else if (updated === 5) {
+          lvl5(mazeLvl);
+          console.log("LEVEL 5")
+        }
+        else if (updated === 6) {
+          console.log("LEVEL 6")
+          lvl6(mazeLvl);
+        }
+        else if (updated === 7) {
+          console.log("HELLO7")
+          lvl7(mazeLvl);
+        }
+        else if (updated === 8) {
+          console.log("LEVEL 8")
+          lvl8(mazeLvl);
+        }
+
+      });
+      // }
+      // else 
+
     }
 
-    // };
 
 
-    // handleButton = event => {
-    //   event.preventDefault();
-    // var mazeLvl = JSON.stringify(this.state.maze);
 
     function lvl1(mazeLvl) {
 
@@ -125,29 +202,30 @@ export default class MapOfMaze extends React.Component {
       const elem = document.getElementById("animate");
       let pos = 0;
       clearInterval(id);
-      id = setInterval(frame, 10);
+      id = setInterval(frame, 50);
       function frame() {
-        if (pos === 70) {
+        if (pos === 12) {
           clearInterval(id);
           if (mazeLvl > 1) {
             setTimeout(lvl2(mazeLvl), 2);
           }
 
         } else {
-          pos++; //console.log("move1 calleD" + pos);
-          elem.style.top = pos + "px";
-          elem.style.left = pos + "px";
+          pos++;
+          elem.style.top = pos + "%";
+          elem.style.left = pos + "%";
         }
       }
     }
     function lvl2(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
-      let pos = 70;
+      let pos = 12;
+      elem.style.left = pos + "%";
       clearInterval(id);
-      id = setInterval(frame, 2);
+      id = setInterval(frame, 50);
       function frame() {
-        if (pos === 260) {
+        if (pos === 50) {
           clearInterval(id);
           console.log(mazeLvl);
           if (mazeLvl > 2) {
@@ -155,8 +233,8 @@ export default class MapOfMaze extends React.Component {
             setTimeout(lvl3(mazeLvl), 2);
           }
         } else {
-          pos++;// console.log("move2 calleD" + pos);
-          elem.style.top = pos + "px";
+          pos++;
+          elem.style.top = pos + "%";
 
         }
       }
@@ -165,12 +243,12 @@ export default class MapOfMaze extends React.Component {
     function lvl3(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
-      let posT = 260;
-      let posL = 70;
+      let posT = 50;
+      let posL = 12;
       clearInterval(id);
-      id = setInterval(frame, 6);
+      id = setInterval(frame, 50);
       function frame() {
-        if (posT === 450 || posL === 240) {
+        if (posL === 30) {
           clearInterval(id);
           if (mazeLvl > 3) {
             setTimeout(lvl4(mazeLvl), 2);
@@ -178,8 +256,8 @@ export default class MapOfMaze extends React.Component {
         } else {
           posT++;
           posL++;
-          elem.style.top = posT + "px";
-          elem.style.left = posL + "px"; //console.log(posT); console.log(posL)
+          elem.style.top = posT + "%";
+          elem.style.left = posL + "%";
 
         }
       }
@@ -187,84 +265,100 @@ export default class MapOfMaze extends React.Component {
     function lvl4(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
-      let posT = 430;
-      let posL = 240;
+      let posT = 68;
+      let posL = 30;
       clearInterval(id);
-      id = setInterval(frame, 2);
+      id = setInterval(frame, 50);
       function frame() {
-        if (posT === 150 || posL === 800) {
+        if (posL === 50) {
           clearInterval(id);
           if (mazeLvl > 4) {
             setTimeout(lvl5(mazeLvl), 2);
           }
         } else {
-          posT--;
+
+          posT -= 3
           posL++;
-          elem.style.top = posT + "px";
-          // console.log(posT); console.log(posL)
-          elem.style.left = posL + "px";
+          elem.style.top = posT + "%";
+          console.log(posT); console.log(posL)
+          elem.style.left = posL + "%";
         }
       }
     }
     function lvl5(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
-      let pos = 150;
+      let posT = 8;
+      let posL = 50;
+      elem.style.left = posL + "%";
       clearInterval(id);
-      id = setInterval(frame, 2);
+      id = setInterval(frame, 50);
       function frame() {
-        if (pos === 350) {
+        if (posT === 60) {
           clearInterval(id);
           if (mazeLvl > 5) {
+
             setTimeout(lvl6(mazeLvl), 2);
           }
         } else {
-          pos++;
-          // console.log("move2 calleD" + pos);
-          elem.style.top = pos + "px";
+          posT++
+          posL++;
+
+          elem.style.top = posT + "%";
 
         }
       }
     }
 
     function lvl6(mazeLvl) {
+
       let id = null;
       const elem = document.getElementById("animate");
-      let posT = 350;
-      let posL = 520;
+      let posT = 60;
+      let posL = 50;
+      elem.style.top = posT + "%";
+      elem.style.left = posL + "%";
       clearInterval(id);
-      id = setInterval(frame, 2);
+      id = setInterval(frame, 50);
       function frame() {
-        if (posT === 40) {
+        if (posT === 10) {
           clearInterval(id);
           if (mazeLvl > 6) {
             setTimeout(lvl7(mazeLvl), 2);
           }
+
         } else {
-          posT--;
+          posT -= 2
           posL++;
-          elem.style.top = posT + "px";
-          elem.style.left = posL + "px";
-          console.log(posL); console.log(posT)
+          elem.style.top = posT + "%";
+          elem.style.left = posL + "%";
+
         }
       }
     }
     function lvl7(mazeLvl) {
+
       let id = null;
       const elem = document.getElementById("animate");
-      let pos = 40;
-      elem.style.left = 830 + "px";
+
+      let posT = 10;
+      let posL = 75;
+      elem.style.top = posT + "%";
+      elem.style.left = posL + "%";
+
       clearInterval(id);
-      id = setInterval(frame, 4);
+      id = setInterval(frame, 50);
       function frame() {
-        if (pos === 250) {
+        if (posT === 50) {
           clearInterval(id);
           if (mazeLvl > 7) {
             setTimeout(lvl8(mazeLvl), 2);
           }
+
         } else {
-          pos++;
-          elem.style.top = pos + "px";
+
+          posT++;
+          elem.style.top = posT + "%";
 
         }
       }
@@ -272,50 +366,69 @@ export default class MapOfMaze extends React.Component {
     function lvl8() {
       let id = null;
       const elem = document.getElementById("animate");
-      let posT = 250;
-      let posL = 830;
+      let posT = 50;
+      let posL = 75;
+      elem.style.top = posT + "%";
+      elem.style.left = posL + "%";
+
       clearInterval(id);
-      id = setInterval(frame, 6);
+      id = setInterval(frame, 50);
       function frame() {
-        if (posT > 400) {
+        if (posL === 85) {
           clearInterval(id);
+
         } else {
-          posT++;
+          posT += 2;
           posL++;
-          elem.style.top = posT + "px";
-          elem.style.left = posL + "px";
+
+          elem.style.top = posT + "%";
+          elem.style.left = posL + "%";
 
         }
       }
+
+
     }
+
   }
 
   isShowPopup = (status, levels) => {
+    console.log(levels + " THIS IS LEVEL CLICKED")
     if (parseInt(this.state.maze) >= levels) {
       this.setState({ showModalPopup: false });
       window.alert("Level Already completed!")
     } else {
       this.setState({ showModalPopup: status });
+
       this.setState({ level: levels });
-      axios.get(`https://ades-ca1-heroku.herokuapp.com/api/maze/${levels}`)
+
+      axios.get(`https://ades-ca1-project.herokuapp.com/api/maze/${levels}`)
         .then(res => {
+
           this.setState({ points: res.data[0].points });
           console.log("points :" + JSON.stringify(res.data[0].points));
         })
     }
 
-  };
 
+  };
+  handleNewLevel = (status) => {
+    this.setState({ isNewLevel: status });
+  }
 
 
   render() {
     return (
+
       <div id="container">
-        <p id="title">Map Of Maze</p>
+        <div className="bgclouds"></div>
+
         {/* add exit button here! */}
-        <p id="exit" >x</p>
+        {/* <p id="exit" >x</p> */}
         <div id="maze">
+          <p id="title">Map Of Maze</p>
           <div id='cloud1' className="cloud" onClick={() => this.isShowPopup(true, 1)}>
+
             <img id='cloud1img' alt="" src={cloud1} />
           </div>
           <div id='cloud2' className="cloud" onClick={() => this.isShowPopup(true, 2)}  >
@@ -339,17 +452,26 @@ export default class MapOfMaze extends React.Component {
           <div id='cloud8' className="cloud" onClick={() => this.isShowPopup(true, 8)} >
             <img id='cloud8img' alt="" src={cloud8} />
           </div>
+          {/* the character! */}
           <div id="animate">
-            <img id="imgAnimate" alt="" src={wisp} />
+            <img id="imgAnimate" className="bounce" alt="" src={wisp} />
+            
           </div>
+          <div id="levelDisplay">
+          <p id="level">{this.state.maze}</p>
+          <p id="staticLevel">Level</p>
+            </div> 
         </div>
         <ModalPopup
           showModalPopup={this.state.showModalPopup}
           onPopupClose={this.isShowPopup}
           level={this.state.level}
           point={this.state.points}
+          onNewLevel={this.handleNewLevel}
+
         ></ModalPopup>
       </div>
+
     )
   }
 }

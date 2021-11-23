@@ -60,7 +60,7 @@ export default class EditReward extends React.Component {
         //const rewardID = window.location.href.split('/')[3].slice(19);
         
         //axios.pit('https://ades-ca1-heroku.herokuapp.com/api/rewards' + this.state.rewardID, reward, config )
-        axios.put('https://ades-ca1-heroku.herokuapp.com/api/rewards'+ this.state.rewardID, reward, config )
+        axios.put('https://ades-ca1-project.herokuapp.com/api/rewards'+ this.state.rewardID, reward, config )
         .then(res => {
           console.log(res);
           console.log(res.data);

@@ -14,7 +14,7 @@ export default class viewReward extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
+        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
             .then(res => {
                 this.setState({ data: res.data });
             })
@@ -22,7 +22,7 @@ export default class viewReward extends React.Component {
 
     handleDelete = event => {
         const id = event.target.id;
-        axios.delete('https://ades-ca1-heroku.herokuapp.com/api/rewards/' + id)
+        axios.delete('https://ades-ca1-project.herokuapp.com/api/rewards/' + id)
             .then(res => {
                 window.alert("Reward deleted successfully");
                 window.location.reload();
@@ -72,7 +72,7 @@ export default class viewReward extends React.Component {
             }
 
             //axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config )
-            axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config)
+            axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);

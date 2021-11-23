@@ -9,7 +9,7 @@ export default class ptsHistory extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards' + this.state.id)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards' + this.state.id)
         .then(res => {
             this.setState({ data : res.data });
         })

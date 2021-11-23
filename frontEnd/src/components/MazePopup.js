@@ -2,6 +2,7 @@ import React, { Component, Fragment} from 'react';
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
+import jQuery from 'jquery';
 
 export default class ModalPopup extends Component {
 
@@ -9,17 +10,19 @@ export default class ModalPopup extends Component {
         super(props);
         this.state = {
             showModal : false,
-            studentID : 1,
+            newLevel:false,
+            studentID : 18,
             currentPts : 0,
             totalPts : 0,
-            mazeLvl: 0
+            mazeLvl: 0,
+            
         };
     }
-
+    
     componentDidMount(){
         // Get student's points data'
         //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + studentID)
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.studentID)
         .then(res => {
             this.setState({ currentPts : res.data[0].redeemedPts });
             this.setState({ totalPts : res.data[0].totalPts});
@@ -36,7 +39,7 @@ export default class ModalPopup extends Component {
         this.props.onPopupClose(false,this.props.level);
     }
 
-    handleComplete = event => {
+    handleComplete = () => {
         // Store student's points
         const quizPts = this.props.point;
         const currentPoints = (this.state.currentPts + quizPts);
@@ -61,7 +64,7 @@ export default class ModalPopup extends Component {
             }
         }
 
-        axios.put('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID, data, config)
+        axios.put('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.studentID, data, config)
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -73,13 +76,15 @@ export default class ModalPopup extends Component {
         }
 
         // Insert points history
-        axios.post('https://ades-ca1-heroku.herokuapp.com/api/ptsHistory/' + this.state.studentID, points, config)
+        axios.post('https://ades-ca1-project.herokuapp.com/api/ptsHistory/' + this.state.studentID, points, config)
         .then(res => {
             console.log(res);
             console.log(res.data);
-            window.alert("Points redeemed successfully");
-            window.location.reload();
             this.handleClose();
+            window.alert("Points redeemed successfully");
+            //updating the state 
+            this.props.onNewLevel(true);
+            
         })
     }
 
