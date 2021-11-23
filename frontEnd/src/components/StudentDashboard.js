@@ -96,7 +96,7 @@ class StudentDashboard extends React.Component {
                 this.setState({ lastLoginData: res.data[0].lastLogin })
                 console.log("Current login stored: " + this.state.currentLogin)
                 console.log("Last login stored: " + this.state.lastLoginData)
-                var diffTime = 28800000;
+                var diffTime = 28806600;
                 var streak=this.state.streaks;
                 const config = {
                     headers: {
