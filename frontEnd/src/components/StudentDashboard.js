@@ -47,7 +47,7 @@ const marks = [
 
 const logout = async () => {
     await signOut(auth);
-    window.location.replace("https://ades-ca1-heroku.herokuapp.com/quizment");
+    window.location.replace("https://ades-ca1-project.herokuapp.com/quizment");
 };
 
 
@@ -66,19 +66,19 @@ class StudentDashboard extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/students/topStudents/')
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/topStudents/')
             .then(res => {
                 this.setState({ data: res.data });
             })
 
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/students/streaks/' + 4)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + 4)
             .then(res => {
                 console.log("number of streak " + res.data[0].streaks)
                 const streaks = res.data[0].streaks;
                 this.setState({ streaks });
             })
 
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/students/points/' + 4)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + 4)
             .then(res => {
                 console.log("number of streak " + res.data[0].totalPts)
                 console.log("number of streak " + res.data[0].redeemedPts)
@@ -90,7 +90,7 @@ class StudentDashboard extends React.Component {
                 this.setState({ name });
             })
 
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/students/lastLogin/' + 4)
+        axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + 4)
             .then(res => {
                 console.log("LAST LOGIN " + res.data[0].lastLogin)
                 this.setState({ lastLoginData: res.data[0].lastLogin })
@@ -109,14 +109,14 @@ class StudentDashboard extends React.Component {
                 if (diffTime >= 28800000 && diffTime <= 86400000) {
                     console.log("Yassss");
                     // AXIOS PUT STREAK + NEW LOGIN TIME
-                    axios.put('https://ades-ca1-heroku.herokuapp.com/api/students/lastLoginStreak/' + 4, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + 4, lastLog, config)
                     .then(res => {
                         console.log("RESULTS: " + res);
                         console.log(res);
                         console.log("RESULT: " + res.data);
                     })
 
-                    axios.put('https://ades-ca1-heroku.herokuapp.com/api/students/updatePoints/' + 4)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + 4)
                     .then(res => {
                         console.log("RESULTS: " + res);
                         console.log(res);
@@ -125,7 +125,7 @@ class StudentDashboard extends React.Component {
                     
                 } else if (diffTime>86400000) {
                     console.log("harooo");
-                    axios.put('https://ades-ca1-heroku.herokuapp.com/api/students/lastLoginLostStreak/' + 4, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + 4, lastLog, config)
                         .then(res => {
                             console.log("RESULTS: " + res);
                             console.log(res);
@@ -134,7 +134,7 @@ class StudentDashboard extends React.Component {
 
                 } else {
                     console.log("BYE");
-                    axios.put('https://ades-ca1-heroku.herokuapp.com/api/students/lastLogin/' + 4, lastLog, config)
+                    axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + 4, lastLog, config)
                         .then(res => {
                             console.log("RESULTS: " + res);
                             console.log(res);
