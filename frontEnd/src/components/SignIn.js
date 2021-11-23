@@ -72,11 +72,20 @@ const SignIn = () => {
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
-                navigate(-1);
-            } else {
-                console.log("error")
-                signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + currentUser.uid, config)
+                    .then(res => {
+                        if (res.data.type === 1) {
+                            navigate('/studentDashboard');
+                        } else if (res.data.type === 2) {
+                            navigate('/teacherDashboard');
+                        } else {
+                        }
+                    });
             }
         });
     });
@@ -84,7 +93,7 @@ const SignIn = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    
+
 
     const register = async () => {
         try {
@@ -221,7 +230,7 @@ const SignIn = () => {
                         <input placeholder="password" type="password" onChange={(event) => {
                             setRegisterPassword(event.target.value);
                         }} /> */}
-                    <TextField
+                        <TextField
                             required
                             fullWidth
                             inputRef={registerEmailInput}
