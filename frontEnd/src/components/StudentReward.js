@@ -3,6 +3,9 @@ import axios from 'axios';
 import { store } from 'react-notifications-component';
 import { Link } from 'react-router-dom' ;
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { Row, Col } from 'react-bootstrap';
+import '../css/studentReward.css';
 
 export default class viewReward extends React.Component {
   state = {
@@ -16,13 +19,15 @@ export default class viewReward extends React.Component {
 
   componentDidMount(){
     // Get all rewards data
-    axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
+    axios.get('http://localhost:8081/api/rewards')
+    //axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
     .then(res => {
         this.setState({ data : res.data });
     })
     
     // Get student's points data
-    axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
+    axios.get('http://localhost:8081/api/points/' + this.state.studentID)
+    //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + this.state.studentID)
     .then(res => {
         this.setState({ currentPts : res.data[0].redeemedPts });
     })
@@ -87,7 +92,8 @@ export default class viewReward extends React.Component {
         }
       }
 
-      axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewardHistory', IDs, config)
+      axios.post('http://localhost:8081/api/rewardHistory', IDs, config)
+      //axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewardHistory', IDs, config)
       .then(res => {
         console.log(res);
         console.log(res.data);
@@ -98,18 +104,17 @@ export default class viewReward extends React.Component {
         points : currentPts
       }
 
-      axios.put('https://ades-ca1-heroku.herokuapp.com/api/point/' + this.state.studentID, points, config )
+      axios.put('http://localhost:8081/api/point/' + this.state.studentID, points, config )
+      //axios.put('https://ades-ca1-heroku.herokuapp.com/api/point/' + this.state.studentID, points, config )
       .then(res => {
         console.log(res);
         console.log(res.data);
         this.notiRedeemSuccess(rewardName);
-        window.alert("Reward redeemed successfully");
       })
 
     // ELSE student dont have enough points
     }else{
       this.notifRedeemFail();
-      window.alert("Insufficient points ! Work harder and earn more points !");
     }
   
   }
@@ -117,18 +122,24 @@ export default class viewReward extends React.Component {
   render() {
       const data = this.state.data;
     return (
-        <div>
-            <h1>Rewards</h1>
-            <div className="viewRewards">
-            {data && data.map(item =>
-                        <tr key={item.rewardID}>
-                            <td>{item.rewardName}</td>
-                            <td>{item.ptsRequired}</td>
-                            <td><img src={item.url} style={{height: 200, width: 200}}></img></td>
-                            <td><Button onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button></td>
-                        </tr>
-                    )}
-            </div>
+        <div className="StudentReward">
+          <h1>Rewards</h1>
+          <div className="Rewards">
+          <Row xs={1} md={2} lg={3} className="g-4">
+            {data && data.map(item => 
+              <Col>
+              <Card border="warning">
+                <Card.Img className="cardPic" variant="top" src={item.url} />
+                <Card.Body>
+                  <Card.Title>{item.rewardName}</Card.Title>
+                  <Card.Text>Points : {item.ptsRequired}</Card.Text>
+                  <Button variant="warning" onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button>
+                </Card.Body>
+              </Card>
+              </Col>
+            )}
+          </Row>
+          </div>
       </div>
       
     )

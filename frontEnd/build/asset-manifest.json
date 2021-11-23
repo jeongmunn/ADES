@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/quizment/static/css/main.1dd29841.chunk.css",
-    "main.js": "/quizment/static/js/main.22f49bc6.chunk.js",
-    "main.js.map": "/quizment/static/js/main.22f49bc6.chunk.js.map",
-    "runtime-main.js": "/quizment/static/js/runtime-main.f2b35d99.js",
-    "runtime-main.js.map": "/quizment/static/js/runtime-main.f2b35d99.js.map",
-    "static/css/2.a75f5a2c.chunk.css": "/quizment/static/css/2.a75f5a2c.chunk.css",
-    "static/js/2.974f8ae2.chunk.js": "/quizment/static/js/2.974f8ae2.chunk.js",
-    "static/js/2.974f8ae2.chunk.js.map": "/quizment/static/js/2.974f8ae2.chunk.js.map",
-    "static/js/3.f3dae78e.chunk.js": "/quizment/static/js/3.f3dae78e.chunk.js",
-    "static/js/3.f3dae78e.chunk.js.map": "/quizment/static/js/3.f3dae78e.chunk.js.map",
+    "main.css": "/quizment/static/css/main.d79d8d32.chunk.css",
+    "main.js": "/quizment/static/js/main.ccd8ff96.chunk.js",
+    "main.js.map": "/quizment/static/js/main.ccd8ff96.chunk.js.map",
+    "runtime-main.js": "/quizment/static/js/runtime-main.68608402.js",
+    "runtime-main.js.map": "/quizment/static/js/runtime-main.68608402.js.map",
+    "static/css/2.085eee58.chunk.css": "/quizment/static/css/2.085eee58.chunk.css",
+    "static/js/2.0069ec17.chunk.js": "/quizment/static/js/2.0069ec17.chunk.js",
+    "static/js/2.0069ec17.chunk.js.map": "/quizment/static/js/2.0069ec17.chunk.js.map",
+    "static/js/3.f0f995d3.chunk.js": "/quizment/static/js/3.f0f995d3.chunk.js",
+    "static/js/3.f0f995d3.chunk.js.map": "/quizment/static/js/3.f0f995d3.chunk.js.map",
     "index.html": "/quizment/index.html",
-    "static/css/2.a75f5a2c.chunk.css.map": "/quizment/static/css/2.a75f5a2c.chunk.css.map",
-    "static/css/main.1dd29841.chunk.css.map": "/quizment/static/css/main.1dd29841.chunk.css.map",
-    "static/js/2.974f8ae2.chunk.js.LICENSE.txt": "/quizment/static/js/2.974f8ae2.chunk.js.LICENSE.txt",
+    "static/css/2.085eee58.chunk.css.map": "/quizment/static/css/2.085eee58.chunk.css.map",
+    "static/css/main.d79d8d32.chunk.css.map": "/quizment/static/css/main.d79d8d32.chunk.css.map",
+    "static/js/2.0069ec17.chunk.js.LICENSE.txt": "/quizment/static/js/2.0069ec17.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/VisbyRound-Regular.212d29c3.otf",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
     "static/media/cloud2.ecff1f7e.png": "/quizment/static/media/cloud2.ecff1f7e.png",
@@ -27,10 +27,10 @@
     "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.f2b35d99.js",
-    "static/css/2.a75f5a2c.chunk.css",
-    "static/js/2.974f8ae2.chunk.js",
-    "static/css/main.1dd29841.chunk.css",
-    "static/js/main.22f49bc6.chunk.js"
+    "static/js/runtime-main.68608402.js",
+    "static/css/2.085eee58.chunk.css",
+    "static/js/2.0069ec17.chunk.js",
+    "static/css/main.d79d8d32.chunk.css",
+    "static/js/main.ccd8ff96.chunk.js"
   ]
 }

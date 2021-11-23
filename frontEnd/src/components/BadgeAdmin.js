@@ -101,7 +101,7 @@ export default class BadgeAdmin extends React.Component {
           <div className="viewBadges">
             <div id="divForm">
               <h2 id="add">Add Badge</h2>
-              <form onSubmit={this.handleSubmit} id="form" >
+              <form onSubmit={this.handleSubmit} className="form" >
                 <label>
                   Badge Name:
                   <input type="text" name="name" onChange={this.handleName} />

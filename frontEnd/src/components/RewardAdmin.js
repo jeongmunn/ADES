@@ -3,6 +3,10 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from 'react-bootstrap';
 import '../css/rewardAdmin.css';
 
 export default class viewReward extends React.Component {
@@ -14,7 +18,7 @@ export default class viewReward extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://ades-ca1-heroku.herokuapp.com/api/rewards')
+        axios.get('http://localhost:8081/api/rewards')
             .then(res => {
                 this.setState({ data: res.data });
             })
@@ -22,7 +26,7 @@ export default class viewReward extends React.Component {
 
     handleDelete = event => {
         const id = event.target.id;
-        axios.delete('https://ades-ca1-heroku.herokuapp.com/api/rewards/' + id)
+        axios.delete('http://localhost:8081/api/rewards/' + id)
             .then(res => {
                 window.alert("Reward deleted successfully");
                 window.location.reload();
@@ -72,7 +76,7 @@ export default class viewReward extends React.Component {
             }
 
             //axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config )
-            axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config)
+            axios.post('http://localhost:8081/api/rewards', reward, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -84,48 +88,58 @@ export default class viewReward extends React.Component {
     render() {
         const data = this.state.data;
         return (
-            <div className="rewardAdmin" id="body">
-                <div id="addReward">
-                    <h1>Reward Administration</h1>
-                    <div id="divForm">
-                        {/* <h2>Add Reward</h2> */}
-                        <form onSubmit={this.handleSubmit} id="form">
-                            <label>
-                                Reward Name :
-            <input type="text" name="rewardName" onChange={this.handleName} />
-                            </label>
-                            <label>
-                                Points Required :
-            <input type="number" name="ptsRequired" onChange={this.handlePoints} />
-                            </label>
-                            <label>
-                                Picture URL :
-            <input type="file" name="url" onChange={this.handleURL} />
-                            </label>
-                            <Button type="submit">Add</Button>
-                        </form>
-                    </div>
-                    <div id="viewRewards">
-                        {/* <h2>View Rewards</h2> */}
-                        <table class="table">
-                            <tr>
-                                <th>Name</th>
-                                <th>Points</th>
-                                <th>Picture</th>
-                                <th>Edit?</th>
-                                <th>Delete?</th>
+            <div className="rewardAdmin">
+                <h1>Reward Administration</h1>
+                <Accordion>
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                            <Button variant="outline-info" >Add Reward</Button>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                        <div className="form">
+                            <Form onSubmit={this.handleSubmit} className="form">
+                                <Row>
+                                    <Col xs={12} md={8} lg={4}>
+                                        <Form.Control placeholder="Reward Name" onChange={this.handleName}/>
+                                    </Col>
+                                    <Col xs={12} md={5} lg={3}>
+                                        <Form.Control type="number" placeholder="Points Required" onChange={this.handlePoints} />
+                                    </Col>
+                                    <Col xs={12} md={5} lg={3}>
+                                        <Form.Control type="file" onChange={this.handleURL}/>
+                                    </Col>
+                                    <Col xs={12} md={2} lg={2}>
+                                    <Button variant="primary" type="submit">Add</Button>
+                                    </Col>
+                                </Row>
+                            </Form>
+                        </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+                <div id="viewRewards">
+                    <Table responsive="sm" className="table">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Points</th>
+                            <th>Picture</th>
+                            <th>Edit?</th>
+                            <th>Delete?</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {data && data.map(item =>
+                            <tr key={item.rewardID}>
+                                <td>{item.rewardName}</td>
+                                <td>{item.ptsRequired}</td>
+                                <td><img src={item.url} style={{height:180,width:180}}></img></td>
+                                <td><Button type="button" variant="warning">Edit</Button></td>
+                                <td><Button type="button" variant="danger" id={item.rewardID} onClick={this.handleDelete}>Delete</Button></td>
                             </tr>
-                            {data && data.map(item =>
-                                <tr key={item.rewardID}>
-                                    <td>{item.rewardName}</td>
-                                    <td>{item.ptsRequired}</td>
-                                    <td><img src={item.url} style={{ height: 230, width: 230 }}></img></td>
-                                    <td><button type="button" class="btn btn-outline-warning">Edit</button></td>
-                                    <td><button type="button" class="btn btn-outline-danger" id={item.rewardID} onClick={this.handleDelete}>Delete</button></td>
-                                </tr>
-                            )}
-                        </table>
-                    </div>
+                        )}
+                        </tbody>
+                    </Table>
                 </div>
             </div>
         )
