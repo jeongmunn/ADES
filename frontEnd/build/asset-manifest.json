@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/quizment/static/css/main.8b2feb78.chunk.css",
-    "main.js": "/quizment/static/js/main.66562912.chunk.js",
-    "main.js.map": "/quizment/static/js/main.66562912.chunk.js.map",
+    "main.css": "/quizment/static/css/main.e1067c07.chunk.css",
+    "main.js": "/quizment/static/js/main.f322cc66.chunk.js",
+    "main.js.map": "/quizment/static/js/main.f322cc66.chunk.js.map",
     "runtime-main.js": "/quizment/static/js/runtime-main.63a14aa5.js",
     "runtime-main.js.map": "/quizment/static/js/runtime-main.63a14aa5.js.map",
-    "static/css/2.917c2923.chunk.css": "/quizment/static/css/2.917c2923.chunk.css",
-    "static/js/2.b100aab1.chunk.js": "/quizment/static/js/2.b100aab1.chunk.js",
-    "static/js/2.b100aab1.chunk.js.map": "/quizment/static/js/2.b100aab1.chunk.js.map",
+    "static/css/2.c72335c9.chunk.css": "/quizment/static/css/2.c72335c9.chunk.css",
+    "static/js/2.74494fae.chunk.js": "/quizment/static/js/2.74494fae.chunk.js",
+    "static/js/2.74494fae.chunk.js.map": "/quizment/static/js/2.74494fae.chunk.js.map",
     "static/js/3.946e4273.chunk.js": "/quizment/static/js/3.946e4273.chunk.js",
     "static/js/3.946e4273.chunk.js.map": "/quizment/static/js/3.946e4273.chunk.js.map",
     "index.html": "/quizment/index.html",
-    "static/css/2.917c2923.chunk.css.map": "/quizment/static/css/2.917c2923.chunk.css.map",
-    "static/css/main.8b2feb78.chunk.css.map": "/quizment/static/css/main.8b2feb78.chunk.css.map",
-    "static/js/2.b100aab1.chunk.js.LICENSE.txt": "/quizment/static/js/2.b100aab1.chunk.js.LICENSE.txt",
+    "static/css/2.c72335c9.chunk.css.map": "/quizment/static/css/2.c72335c9.chunk.css.map",
+    "static/css/main.e1067c07.chunk.css.map": "/quizment/static/css/main.e1067c07.chunk.css.map",
+    "static/js/2.74494fae.chunk.js.LICENSE.txt": "/quizment/static/js/2.74494fae.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/VisbyRound-Regular.212d29c3.otf",
     "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
@@ -29,9 +29,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.63a14aa5.js",
-    "static/css/2.917c2923.chunk.css",
-    "static/js/2.b100aab1.chunk.js",
-    "static/css/main.8b2feb78.chunk.css",
-    "static/js/main.66562912.chunk.js"
+    "static/css/2.c72335c9.chunk.css",
+    "static/js/2.74494fae.chunk.js",
+    "static/css/main.e1067c07.chunk.css",
+    "static/js/main.f322cc66.chunk.js"
   ]
 }

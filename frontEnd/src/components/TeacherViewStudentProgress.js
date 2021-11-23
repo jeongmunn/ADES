@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 
+import TeacherNavigation from 'teacherNavigation.js'
+
 export default class TeacherViewStudentProgress extends React.Component {
     state = {
         data: [],
@@ -18,7 +20,9 @@ export default class TeacherViewStudentProgress extends React.Component {
     render() {
         const data = this.state.data;
         return (
+            
             <div className="viewReward">
+                <TeacherNavigation/>
                 <h3 className="p-3 text-center">Student Progress</h3>
 
                 <table className="table table-striped table-bordered">

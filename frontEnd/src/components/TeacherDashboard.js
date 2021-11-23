@@ -16,6 +16,9 @@ export default function TeacherDashboard() {
     };
     return (
         <div>
+           <Button onClick={() => {
+            navigate('/studentAdmin');
+          }}>Student Administration</Button>
             <h1>Teacher Administration</h1>
             <Button onClick={() => {
             navigate('/studentAdmin');
