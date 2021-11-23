@@ -10,7 +10,6 @@ import TeacherDashboard from './components/TeacherDashboard';
 import TeacherLeaderboard from './components/TeacherLeaderboard';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
-import EditReward from './components/RewardAdminEdit';
 import MazeAdmin from './components/MazeAdmin';
 import EditMaze from './components/EditMazeContent';
 import EditBadge from './components/EditBadge';
@@ -51,7 +50,6 @@ function App() {
         <Route path="/teacherLeaderboard" element={<TeacherLeaderboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
-        <Route path="/editReward" element={<EditReward/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
         <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
         <Route path="/EditBadge" element={<EditBadge/>}></Route>

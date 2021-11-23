@@ -129,7 +129,7 @@ export default class viewReward extends React.Component {
             {data && data.map(item => 
               <Col>
               <Card border="warning">
-                <Card.Img className="cardPic" variant="top" src={item.url} />
+                <Card.Img className="cardPic" variant="top" src={item.url} style={{width:300,height:200}} />
                 <Card.Body>
                   <Card.Title>{item.rewardName}</Card.Title>
                   <Card.Text>Points : {item.ptsRequired}</Card.Text>

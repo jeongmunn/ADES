@@ -90,7 +90,7 @@ export default class ModalPopup extends Component {
                 <Modal show={this.props.showModalPopup} onHide={this.handleClose} id={this.props.level} 
                     size="lg" aria-labelledby="contained-modal-title-vcenter" centered>  
                     <Modal.Header closeButton>  
-                        <Modal.Title id="sign-in-title">  
+                        <Modal.Title>  
                             Level {this.props.level}
                          </Modal.Title>  
                     </Modal.Header>  

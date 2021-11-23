@@ -78,7 +78,7 @@ class StudentDashboard extends React.Component {
                 this.setState({ streaks });
             })
 
-        axios.get('http://localhost:8081/api/students/points/' + 4)
+        axios.get('https://ades-ca1-heroku.herokuapp.com/api/students/points/' + 4)
             .then(res => {
                 console.log("number of streak " + res.data[0].totalPts)
                 console.log("number of streak " + res.data[0].redeemedPts)

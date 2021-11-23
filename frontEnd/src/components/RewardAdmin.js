@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { store } from 'react-notifications-component';
 import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import Button from 'react-bootstrap/Button';
@@ -7,21 +8,52 @@ import Accordion from 'react-bootstrap/Accordion';
 import Table from 'react-bootstrap/Table';
 import Form from 'react-bootstrap/Form';
 import { Row, Col } from 'react-bootstrap';
+import ModalPopup from './RewardPopup';
 import '../css/rewardAdmin.css';
 
 export default class viewReward extends React.Component {
-    state = {
-        data: [],
-        rewardName: '',
-        rewardPoints: '',
-        url: ''
-    }
+    constructor() {
+        super();
+        this.state = {
+          showModalPopup: false,
+          data: [],
+          rewardName: '',
+          rewardPoints: '',
+          originUrl: '',
+          originName: '',
+          originPoints: '',
+          url: '',
+          rewardID: 0
+        }
+      }
 
     componentDidMount() {
         axios.get('http://localhost:8081/api/rewards')
             .then(res => {
                 this.setState({ data: res.data });
             })
+    }
+
+    notiUploadSuccess(){
+        store.addNotification({
+          title:"Success",
+          message:"Reward uploaded successfully !",
+          type:"success",
+          insert:"top",
+          container:"top-center",
+          animationIn:["animated","fadeIn"],
+          animationOut:["animated","fadeOut"],
+          dismiss: {duration:2000},
+          dismissable: {click:true}
+        });
+      }  
+
+    isShowPopup = (status, id, name, points, url) => {
+        this.setState({ showModalPopup : status });
+        this.setState({ rewardID : id });
+        this.setState({ originName : name});
+        this.setState({ originPoints : points});
+        this.setState({ originUrl : url });
     }
 
     handleDelete = event => {
@@ -47,6 +79,29 @@ export default class viewReward extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        if(this.state.url == ''){
+            const reward = {
+                rewardName: this.state.rewardName,
+                ptsRequired: this.state.rewardPoints,
+                url: 'https://firebasestorage.googleapis.com/v0/b/quizment-ae4a6.appspot.com/o/img%2Fdefault-image.png?alt=media&token=369e00f7-926d-4b3c-abbb-958828b303d5'
+            };
+            console.log("reward" + JSON.stringify(reward));
+
+            const config = {
+                headers: {
+                    'content-type': 'application/json'
+                }
+            }
+
+            //axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config )
+            axios.post('http://localhost:8081/api/rewards', reward, config)
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    window.location.reload();
+                    this.notiUploadSuccess();
+                })
+        }else{
         // file upload
         // packing data    
         const storage = getStorage();
@@ -68,7 +123,6 @@ export default class viewReward extends React.Component {
                 url: downloadURL
             };
             console.log("reward" + JSON.stringify(reward))
-
             const config = {
                 headers: {
                     'content-type': 'application/json'
@@ -81,8 +135,10 @@ export default class viewReward extends React.Component {
                     console.log(res);
                     console.log(res.data);
                     window.location.reload();
+                    this.notiUploadSuccess();
                 })
         })
+    }
     }
 
     render() {
@@ -96,14 +152,14 @@ export default class viewReward extends React.Component {
                             <Button variant="outline-info" >Add Reward</Button>
                         </Accordion.Header>
                         <Accordion.Body>
-                        <div className="form">
-                            <Form onSubmit={this.handleSubmit} className="form">
+                        <div className="uploadReward">
+                            <Form onSubmit={this.handleSubmit} className="rewardForm">
                                 <Row>
                                     <Col xs={12} md={8} lg={4}>
-                                        <Form.Control placeholder="Reward Name" onChange={this.handleName}/>
+                                        <Form.Control placeholder="Reward Name" onChange={this.handleName} required/>
                                     </Col>
                                     <Col xs={12} md={5} lg={3}>
-                                        <Form.Control type="number" placeholder="Points Required" onChange={this.handlePoints} />
+                                        <Form.Control type="number" placeholder="Points Required" onChange={this.handlePoints} required/>
                                     </Col>
                                     <Col xs={12} md={5} lg={3}>
                                         <Form.Control type="file" onChange={this.handleURL}/>
@@ -134,13 +190,21 @@ export default class viewReward extends React.Component {
                                 <td>{item.rewardName}</td>
                                 <td>{item.ptsRequired}</td>
                                 <td><img src={item.url} style={{height:180,width:180}}></img></td>
-                                <td><Button type="button" variant="warning">Edit</Button></td>
+                                <td><Button type="button" variant="warning" onClick={() => this.isShowPopup(true, item.rewardID, item.rewardName, item.ptsRequired, item.url)}>Edit</Button></td>
                                 <td><Button type="button" variant="danger" id={item.rewardID} onClick={this.handleDelete}>Delete</Button></td>
                             </tr>
                         )}
                         </tbody>
                     </Table>
                 </div>
+                <ModalPopup
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.isShowPopup}
+                    rewardID={this.state.rewardID}
+                    rewardName={this.state.originName}
+                    rewardPoints={this.state.originPoints}
+                    url={this.state.originUrl}
+                ></ModalPopup>
             </div>
         )
     }
