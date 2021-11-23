@@ -77,11 +77,12 @@ class StudentDashboard extends React.Component {
                         'content-type': 'application/json'
                     }
                 }
+                
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                     .then(res => {
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
-
+                            // here are those
                             axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + this.state.id)
                                 .then(res => {
                                     console.log("number of streak " + res.data[0].streaks)

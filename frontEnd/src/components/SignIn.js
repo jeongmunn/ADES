@@ -1,5 +1,8 @@
 import '../styling2.css';
+import React, { useState, useRef, useEffect } from 'react';
 import {
+    onAuthStateChanged,
+    signOut,
     createUserWithEmailAndPassword,
     sendPasswordResetEmail,
     signInWithEmailAndPassword
@@ -7,7 +10,6 @@ import {
 import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, { useState, useRef } from 'react';
 // import TabPanel from '@mui/lab/TabPanel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -53,6 +55,7 @@ function a11yProps(index) {
 
 
 const SignIn = () => {
+    let navigate = useNavigate();
     const loginEmailInput = useRef("");
     const loginPasswordInput = useRef("");
     const registerEmailInput = useRef("");
@@ -65,10 +68,23 @@ const SignIn = () => {
     // const [email, setEmail] = useState("");
     const [value, setValue] = useState(0);
 
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+        onAuthStateChanged(auth, (currentUser) => {
+            if (currentUser) {
+                navigate(-1);
+            } else {
+                console.log("error")
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+        });
+    });
+
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    let navigate = useNavigate();
+    
 
     const register = async () => {
         try {
