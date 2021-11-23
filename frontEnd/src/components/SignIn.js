@@ -124,9 +124,9 @@ const SignIn = () => {
             var uid = JSON.parse(JSON.stringify(user.user.uid));
             axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + uid, config)
                 .then(res => {
-                    if (res[0].data.type === 1) {
+                    if (res.data.type === 1) {
                         navigate('/studentDashboard');
-                    } else if (res[0].data.type === 2) {
+                    } else if (res.data.type === 2) {
                         navigate('/teacherDashboard');
                     } else {
                         navigate('/');
