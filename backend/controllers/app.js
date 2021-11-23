@@ -493,8 +493,10 @@ app.post('/newStudent', function (req, res) {
 app.get('/userType/:Uid', function (req, res) {
     var Uid = req.params.Uid;
     user.getIdAndTypeOfUser(Uid, function (err, result) {
-        if (!err) {
+        if (result.length != 0) {
             res.status(200).send(result[0]);
+        } else if (result.length === 0) {
+            res.status(404).send("User does not exist!")
         } else {
             res.status(500).send("Error ! Cannot get user type!");
         }
