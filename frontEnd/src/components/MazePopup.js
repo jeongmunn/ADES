@@ -2,7 +2,7 @@ import React, { Component, Fragment} from 'react';
 import Button from 'react-bootstrap/Button';
 import { Modal } from 'react-bootstrap';
 import axios from 'axios';
-
+import jQuery from 'jquery';
 
 export default class ModalPopup extends Component {
 
@@ -10,13 +10,15 @@ export default class ModalPopup extends Component {
         super(props);
         this.state = {
             showModal : false,
-            studentID : 1,
+            newLevel:false,
+            studentID : 18,
             currentPts : 0,
             totalPts : 0,
-            mazeLvl: 0
+            mazeLvl: 0,
+            
         };
     }
-
+    
     componentDidMount(){
         // Get student's points data'
         //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + studentID)
@@ -37,7 +39,7 @@ export default class ModalPopup extends Component {
         this.props.onPopupClose(false,this.props.level);
     }
 
-    handleComplete = event => {
+    handleComplete = () => {
         // Store student's points
         const quizPts = this.props.point;
         const currentPoints = (this.state.currentPts + quizPts);
@@ -78,9 +80,11 @@ export default class ModalPopup extends Component {
         .then(res => {
             console.log(res);
             console.log(res.data);
-            window.alert("Points redeemed successfully");
-            window.location.reload();
             this.handleClose();
+            window.alert("Points redeemed successfully");
+            //updating the state 
+            this.props.onNewLevel(true);
+            
         })
     }
 

@@ -1,22 +1,35 @@
 #container {
     
-    background-image: url("https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg");
-    background-repeat: no-repeat;
+    /* background-image: url("https://img.freepik.com/free-vector/blue-pink-halftone-background_53876-99004.jpg?size=626&ext=jpg"); */
+    background: linear-gradient(#4C669F, #37528d, #101d42);
+    /* background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position: center; 
+    background-position: center;  */
     position: relative;
-  
     height:100vh;
-    width:100vw
+    width:100%
   }
+  .bgclouds { 
+    position: absolute; 
+    top: 0; left: 0;
+     width: 100%; 
+     height: 100%; 
+     background: url(../img/cloud.png);
+
+    animation: animate 60s linear infinite; } 
+    @keyframes animate 
+    { 
+    0% { background-position: 0px; } 
+    100% { background-position: -5440px; } } 
+   
   #maze{
-    background-color: rgba(255, 255, 255, 0.473);
+   
     height:90vh;
     width:90vw;
     position: relative;
     border-radius: 40px;
-    top:2vw;
+    /* top:2vw; */
     margin-left:4vw;
     margin-right: 4vw;
   }
@@ -24,21 +37,35 @@
     width: 7vw;
     height: 7vw;
     position: absolute;
-    animation: myWisp 5s infinite;
+   
     
   }
   #imgAnimate{
     width: 7vw;
     height: 7vw;
+     /* animation: myWisp 5s infinite; */
+     animation-duration: 2s;
+        animation-iteration-count: infinite;
   }
+
+  .bounce {
+    animation-name: WispBounce;
+    animation-timing-function: cubic-bezier(0.280, 0.640, 0.520, 1);
+}
+@keyframes WispBounce {
+    0%   { transform: scale(1,1)      translateY(0); }
+    10%  { transform: scale(1.1,.9)   translateY(0); }
+    30%  { transform: scale(.9,1.1)   translateY(-60%); }
+    50%  { transform: scale(1.05,.95) translateY(0); }
+    57%  { transform: scale(1,1)      translateY(-7%); }
+    64%  { transform: scale(1,1)      translateY(0); }
+    100% { transform: scale(1,1)      translateY(0); }
+}
   #mazeButton{
 top: 90px;
 position: absolute;
   }
-  #img{
-    width: 200px;
-    height: 200px;
-  }
+
   .cloud{
     animation-name: cloud-animation;
     animation-fill-mode: forwards;
@@ -48,105 +75,130 @@ position: absolute;
   }
   #cloud1{
     position: absolute;
-    top:0vw;
-    left:1.5vw;
+    top:2%;
+    left:5%;
     
   }
   #cloud1img{
-    width:22vw;
+    width:60%;
+    
   }
   #cloud2{
     position: absolute;
-    top: 15vw;
-    left:1.5vw;
+    top: 35%;
+    left:5%;
      animation-delay: 0.5s;
+     pointer-events: none;
   }
   #cloud2img{
-    width:16vw;
-   
+    width:40%;
+    filter: grayscale(100%);
   }
   
   #cloud3{
     position: absolute;
-    top: 24vw;
-    left:17vw;
+    top: 57%;
+    left:20%;
+    pointer-events: none;
+    width: 30vw;
+    height:40vh
   }
   #cloud3img{
-    width:22vw;
+    width:55%;
+    height:40vh;
+    filter: grayscale(100%);
+    object-fit: cover;
   }
   
   #cloud4{
     position: absolute;
-    top: 0.5vw;
-    left:30vw;
+    top: 0.5%;
+    left:35%;
     animation-delay: 0.8s;
+    pointer-events: none;
   }
   #cloud4img{
-    width:25vw;
-  
+    width:60%;
+    filter: grayscale(100%);
   }
   #cloud5{
     position: absolute;
-    top: 20vw;
-    left:42vw;
+    top: 50%;
+    left:45%;
     animation-delay: 0.4s;
+    pointer-events: none;
   }
   #cloud5img{
-    width:18vw;
-  
+    width:50%;
+    filter: grayscale(100%);
   }
   #cloud6{
     position: absolute;
-    top: 1vw;
-    left:60vw;
+    top: 0%;
+    left:70%;
+    pointer-events: none;
   }
   #cloud6img{
-    width:19vw;
-  
+    width:80%;
+    filter: grayscale(100%);
   }
   #cloud7{
     position: absolute;
-    top: 15vw;
-    left:65vw;
+    top: 37%;
+    left:70%;
     animation-delay: 0.4s;
+    pointer-events: none;
   }
   #cloud7img{
-    width:16vw;
-  
+    width:60%;
+    filter: grayscale(100%);
   }
   #cloud8{
     position: absolute;
-    top: 25vw;
-    left:68vw;
+    top: 65%;
+    left:68%;
     animation-delay: 0.8s;
+    pointer-events: none;
   }
   #cloud8img{
-    width:20vw;
-  
+    width:70%;
+    filter: grayscale(100%);
   }
 #title{
-  position: relative;
+  position: absolute;
   float: left;
+  font-size: 320%;
 }
   #exit{
    position: relative;
    float:right;
+   right:10%
   
   }
 
   @keyframes cloud-animation {
     from {
-      transform: translateX(-3vw);
+      transform: translateX(-10%);
     }
     to {
-      transform: translateX(3vw);
+      transform: translateX(10%);
     }
   }
 
-  @keyframes myWisp {
-    0% {transform: rotate(0deg);}
-     25% {transform: rotate(20deg);}
-     50% {transform: rotate(0deg);}
-     75% {transform: rotate(-20deg);}
-      100% {transform: rotate(0deg);}
+
+  #levelDisplay{
+    float: right;
+    background-color: rgba(240, 248, 255, 0.507);
+    border-radius: 20%;
   }
+  #level{
+    font-size: 10vh;
+    margin-bottom: 0%;
+    height: 10vh;
+  }
+  #staticLevel{
+    font-size: 4vh;
+    margin-bottom: 0%;
+  }
+
+ 
