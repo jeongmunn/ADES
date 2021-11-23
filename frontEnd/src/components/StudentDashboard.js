@@ -72,6 +72,7 @@ class StudentDashboard extends React.Component {
             if (user) {
                 console.log("User is Signed IN ");
                 this.setState({ uid: user.uid });
+                console.log(this.state.uid);
                 const config = {
                     headers: {
                         'content-type': 'application/json'
@@ -80,7 +81,9 @@ class StudentDashboard extends React.Component {
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                 .then(res => {
                     if (res.data.type === 1) {
+                        console.log(res.data.studentID);
                         this.setState({id: res.data.studentID})
+                        console.log(this.state.id);
                     } else if (res.data.type === 2) {
                         window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');               
                     } else {
