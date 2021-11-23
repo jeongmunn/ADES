@@ -1,0 +1,52 @@
+
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-RoundedExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
+.PointsHistory {
+    padding: 2em;
+}
+
+.PointsHistory > h1 {
+    font-family: VisbyRound;
+    text-align: center;
+}
+
+.history > .card {
+    align-self: center;
+    width:95%;
+    text-align: center;
+    margin: 2em;
+}
+
+.history {
+    align-content: center;
+    align-items: center;
+}
+
