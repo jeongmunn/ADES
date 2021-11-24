@@ -124,8 +124,6 @@ var student = {
             }
         })
     },
-    //---------------- to view student's progress--------------
-    // get all student process
     getStudentProcess: function (callback) {
         const sql = `SELECT"public"."Student"."name","public"."Student"."streaks","public"."Student"."totalPts","public"."Student"."mazeLvl" FROM "public"."Student";`;
 
@@ -138,7 +136,6 @@ var student = {
             }
         })
     },
-    // get a student process by id
     getStudentProcessByID: function (id, callback) {
         const sql = `SELECT "public"."Student"."name","public"."Student"."streaks","public"."Student"."totalPts","public"."Student"."mazeLvl" FROM "public"."Student" WHERE "studentID"=$1;`;
         const values = [id]
@@ -209,8 +206,6 @@ var student = {
     },
 };
 
-// ----------------------------------------------------------------------------
-// exports
-// ----------------------------------------------------------------------------
+//---------------------------------------------------------------exports------------------------------------------------------------
 module.exports = student;
 

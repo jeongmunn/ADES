@@ -1,23 +1,10 @@
 console.log("---------------------------------------------------------");
-
 console.log("ADES > backend > model > mapOfMaze.js");
-
 console.log("---------------------------------------------------------");
-
-//----------------------------------------------------------------------------
-
-//imports
-
-//----------------------------------------------------------------------------
 
 const pool = require("../controllers/dbconfig")
 
-// ----------------------------------------------------------------------------
-
-// Objects/functions
-
-// ----------------------------------------------------------------------------
-
+//---------------------------------------------------------objects/functions------------------------------------------------------------
 var maze = {
 
     getMazeContent: function (callback) {
@@ -30,7 +17,6 @@ var maze = {
                     return callback(null, result);
                 }
             })
-
     },
     getMazeByStudentID: function (StudentID, callback) {
         const sql = `SELECT "mazeLvl" FROM public."Student" WHERE "studentID" = $1`;
@@ -43,10 +29,6 @@ var maze = {
             }
         })
     },
-
-
-   
-
     editMazeContent: function (mazeLvl, point, callback) {
         var pt = parseInt(point.points);
         var data = [pt, mazeLvl];
@@ -77,7 +59,6 @@ var maze = {
             }
         })
     },
-
     updatePtsnLvl: function(studentID,maze,callback) {
             var currentPts = maze.currentPts ;
             var totalPts = maze.totalPts ;
@@ -97,10 +78,5 @@ var maze = {
 
 };
 
-// ----------------------------------------------------------------------------
-
-// exports
-
-// ----------------------------------------------------------------------------
-
+//---------------------------------------------------------------exports------------------------------------------------------------
 module.exports = maze;

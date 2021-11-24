@@ -1,18 +1,10 @@
 console.log("---------------------------------------------------------");
 console.log("ADES>backend> model >quiz.js");
-
 console.log("---------------------------------------------------------");
 
-//----------------------------------------------------------------------------
-//imports
-//----------------------------------------------------------------------------
 const pool = require("../controllers/dbconfig")
 
-// ----------------------------------------------------------------------------
-// Objects/functions
-// ----------------------------------------------------------------------------
-
-
+//---------------------------------------------------------objects/functions------------------------------------------------------------
 var quiz = {
     getQuiz: function (callback) {
         pool.query('SELECT * FROM public."quiz"', (err, result) => {
@@ -24,37 +16,26 @@ var quiz = {
             }
         })
     },
-
-
     postQuiz: function (quiz, callback) {
         var quizID = quiz.quizID;
         var studentID = quiz.studentID;
         var pointsEarned = quiz.pointsEarned;
         var marksEarned = quiz.marksEarned;
 
-        //  var badgeClassID = parseInt(badgeCID);
         var data = [quizID, studentID, pointsEarned, marksEarned];
-
-
         var sql = ` INSERT INTO public."quizHistory"("quizID", "studentID", "pointsEarned", "marksEarned")
         VALUES ($1,$2,$3,$4)` ;
 
         pool.query(sql, data, (err, result) => {
             if (err) {
-                console.log(quizID + studentID + pointsEarned + marksEarned)
                 console.log(err);
                 return callback(err.null);
             } else {
 
                 return callback(null, result);
             }
-            // pool.end()
         })
-
     },
-
-    //-------------------
-    //Update student table points
     UpdatePoints: function (quiz, callback) {
         var studentID = quiz.studentID;
         var pointsEarned = quiz.pointsEarned;
@@ -65,18 +46,14 @@ var quiz = {
     WHERE "studentID" =$1` ;
         pool.query(sql, data, (err, result) => {
             if (err) {
-                console.log(studentID + pointsEarned)
                 console.log(err);
                 return callback(err.null);
             } else {
-
                 return callback(null, result);
             }
         })
     },
 };
 
-// ----------------------------------------------------------------------------
-// exports
-// ----------------------------------------------------------------------------
+//---------------------------------------------------------------exports------------------------------------------------------------
 module.exports = quiz;

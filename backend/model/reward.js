@@ -4,17 +4,13 @@ console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig")
 
-// ----------------------------------------------------------------------------
-// Objects/functions
-// ----------------------------------------------------------------------------
-
+//---------------------------------------------------------objects/functions------------------------------------------------------------
 var rewards = {
 
     createReward: function (reward, callback) {
         var rewardName = reward.rewardName;
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
-
         const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
                      VALUES ($1,$2,$3)`;
         const values = [rewardName, ptsRequired, url]
@@ -27,7 +23,6 @@ var rewards = {
             }
         })
     },
-
     getReward: function (callback) {
         const sql = `SELECT * FROM public."Rewards"`;
         pool.query(sql, (err, result) => {
@@ -39,7 +34,6 @@ var rewards = {
             }
         })
     },
-
     getRewardById: function (rewardID, callback) {
         const sql = `SELECT * FROM "public"."Rewards" WHERE"Rewards"."rewardID"=$1`;
         const values = [rewardID]
@@ -52,7 +46,6 @@ var rewards = {
             }
         })
     },
-
     editReward: function (rewardID, reward, callback) {
         var rewardName = reward.rewardName;
         var ptsRequired = reward.ptsRequired;
@@ -69,7 +62,6 @@ var rewards = {
             }
         })
     },
-
     deleteReward: function (rewardID, callback) {
         const sql = ` DELETE FROM "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;
         const values = [rewardID]
@@ -82,7 +74,6 @@ var rewards = {
             }
         })
     },
-
     insertRewardHistory: function (reward, callback) {
         var studentID = reward.studentID;
         var rewardID = reward.rewardID;
@@ -99,10 +90,7 @@ var rewards = {
             }
         })
     }
-
 };
 
-// ----------------------------------------------------------------------------
-// exports
-// ----------------------------------------------------------------------------
+//---------------------------------------------------------------exports------------------------------------------------------------
 module.exports = rewards;
