@@ -37,8 +37,38 @@ export default class EditBadge extends React.Component {
 
 
     handleSubmit = event => {
+        
         event.preventDefault();
         // file upload
+         // IF there's anything replaced
+    if(this.state.url == ''){
+        
+        const badge = {
+            name: this.state.name,
+            requirements: this.state.requirements,
+            pic_url: this.props.pic_url,
+            badgeClassID: this.state.badgeClassID
+        };
+        console.log(this.props.pic_url + " PIC URL")
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+
+        const badgeID = parseInt(this.props.badgeID);
+        const baseUrl = "https://ades-ca1-project.herokuapp.com/api";
+        console.log(badgeID);
+
+        axios.put(`${baseUrl}/editBadge/${badgeID}`, badge, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/badgesAdmin')
+            })
+  
+      // ELSE 
+      }else{
         const storage = getStorage();
         const storageRef = ref(storage, 'img/' + this.state.pic_url.name);
         var file = this.state.pic_url;
@@ -83,6 +113,7 @@ export default class EditBadge extends React.Component {
                     window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/badgesAdmin')
                 })
         });
+    }
     }
 
     handleClose = () => {

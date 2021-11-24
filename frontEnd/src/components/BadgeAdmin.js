@@ -92,7 +92,30 @@ export default class BadgeAdmin extends React.Component {
     event.preventDefault();
     //data extraction (combining data)
     // file upload
-    const storage = getStorage();
+        if (this.state.url == '') { 
+          const badge = {
+            name: this.state.name,
+            requirements: this.state.requirements,
+            badgeClassID: this.state.badgeClassID,
+            pic_url: 'https://firebasestorage.googleapis.com/v0/b/quizment-ae4a6.appspot.com/o/img%2Fdefault-image.png?alt=media&token=369e00f7-926d-4b3c-abbb-958828b303d5'
+        };
+  
+
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+
+        axios.post('https://ades-ca1-project.herokuapp.com/api/newBadge', badge, config)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          window.location.reload();
+        })
+
+        }else{
+          const storage = getStorage();
     const storageRef = ref(storage, 'img/' + this.state.pic_url.name);
     var file = this.state.pic_url;
     // Create file metadata including the content type
@@ -130,6 +153,8 @@ export default class BadgeAdmin extends React.Component {
           window.location.reload();
         })
     });
+        }
+    
   }
 
   render() {
