@@ -82,7 +82,7 @@ export default class Quiz extends React.Component {
         console.log(quizID);
         console.log(totalMarks);
         console.log(totalPoints);
-        console.log(this.state.id)
+        console.log("HELLO" + this.state.id)
 
         const quiz = {
             quizID: quizID,
@@ -100,7 +100,7 @@ export default class Quiz extends React.Component {
                 'content-type': 'application/json'
             }
         }
-        axios.post('https://ades-ca1-project.herokuapp.com/api/quiz', quiz, config)
+        axios.post('https://ades-ca1-project.herokuapp.com/api/quizHistory', quiz, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -109,14 +109,12 @@ export default class Quiz extends React.Component {
             })
         axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
             .then(res => {
+                console.log("HELLO WORK PLS");
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
                 window.alert("points awarded");
-        
             })
-
-
     }
 
     //NEED TO GET STUDENT ID!

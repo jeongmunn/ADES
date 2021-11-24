@@ -424,7 +424,7 @@ app.get('/quiz', function (req, res) {
 });
 
 //posting to quizHistory
-app.post('/quiz', function (req, res) {
+app.post('/quizHistory', function (req, res) {
     var data = {
         quizID: req.body.quizID,
         studentID: req.body.studentID,
@@ -437,25 +437,6 @@ app.post('/quiz', function (req, res) {
 
     quiz.postQuiz(data, function (err, result) {
         console.log("quiz postQuiz called");
-        if (!err) {
-            res.send('');
-        } else {
-            res.status(500).send("Error ! Cannot get Quiz");
-        }
-    });
-});
-
-
-//updating the student table
-app.post('/studentPoints', function (req, res) {
-    var data = {
-        pointsEarned: req.body.pointsEarned,
-        studentID: req.body.studentID
-    };
-    console.log("student Points  function called.")
-    console.log("Student Points: " + JSON.stringify(data));
-    quiz.UpdatePoints(data, function (err, result) {
-        console.log("quiz UpdatePoints called");
         if (!err) {
             res.send('');
         } else {
@@ -704,7 +685,7 @@ app.put('/studentPoints', function (req, res) {
     quiz.UpdatePoints(data, function (err, result) {
         console.log("quiz UpdatePoints called");
         if (!err) {
-            res.send('');
+            res.status(200).send('');
         } else {
             res.status(500).send("Error ! Cannot get Quiz");
         }
