@@ -15,7 +15,7 @@ const pool = require("../controllers/dbconfig")
 
 var badge = {
     getBadges: function (callback) {
-        pool.query('SELECT * FROM public.badge  INNER JOIN public."badgeClass" ON  badge."badgeClassID" = public."badgeClass"."badgeClassID"', (err, result) => {
+        pool.query('SELECT * FROM public.badge  INNER JOIN public."badgeClass" ON  badge."badgeClassID" = public."badgeClass"."badgeClassID" ORDER BY public."badgeClass"."badgeClassID" ASC', (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err.null);

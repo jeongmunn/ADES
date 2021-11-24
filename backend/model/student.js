@@ -37,6 +37,20 @@ var student = {
             }
         })
     },
+    getStudentBadgesById: function (id, callback) {
+        console.log("function CALLED---------")
+        const sql = `SELECT * FROM "public"."BadgeHistory" INNER JOIN public."badge" ON badge."badgeClassID" = public."BadgeHistory"."badgeID" WHERE "public"."BadgeHistory"."studentID"=$1 ORDER BY public."BadgeHistory"."badgeID" ASC`;
+        const values = [id]
+        pool.query(sql, values, (err, result) => {
+            if (err) {
+                console.log(err);
+                return callback(err.null);
+            } else {
+                console.log("its over HEREEEE")
+                return callback(null, result);
+            }
+        })
+    },
     getStudentPointByID: function (id, callback) {
         console.log("function CALLED---------")
         const sql = `SELECT "public"."Student"."totalPts","public"."Student"."redeemedPts","public"."Student"."name" FROM "public"."Student" WHERE "studentID"=$1;`;
