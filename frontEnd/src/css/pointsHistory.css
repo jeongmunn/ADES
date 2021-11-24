@@ -1,3 +1,4 @@
+
 @font-face {
     font-family: 'Galey';
     src: local('Galey'), url(../fonts/Galey-RoundedExtraLight.ttf) format('truetype');
@@ -28,21 +29,23 @@
     src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
 }
 
-.rewardAdmin {
-    padding: 3em;
+.PointsHistory {
+    padding: 2em;
 }
 
-.rewardAdmin > h1 {
+.PointsHistory > h1 {
     font-family: VisbyRound;
     text-align: center;
-    margin-bottom: 0.5em;
 }
 
-
-.rewardAdmin > Accordion.Header > Button {
+.history > .card {
     align-self: center;
+    width:95%;
+    text-align: center;
+    margin: 2em;
 }
 
-div.viewRewards {
-    margin-top: 2em;
+.history {
+    align-content: center;
+    align-items: center;
 }

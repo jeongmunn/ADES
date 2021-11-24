@@ -1,42 +1,72 @@
 import React from 'react';
 import axios from 'axios';
+import Card from 'react-bootstrap/Card';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
+import '../css/pointsHistory.css';
 
 export default class ptsHistory extends React.Component {
     state = {
         data: [],
-        id: 1
-        //id: localStorage.getItem('userid')
+        uid: '',
+        id: 0
     }
 
-    componentDidMount(){
-        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards' + this.state.id)
-        .then(res => {
-            this.setState({ data : res.data });
-        })
+    componentDidMount() {
+        // Auth
+        auth.onAuthStateChanged((user) => {
+            // IF there's user
+            if (user) {
+                console.log("User is Signed IN ");
+                this.setState({ uid: user.uid });
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+
+                // Get the user type
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                    .then(res => {
+                        // IF is student
+                        if (res.data.type === 1) {
+                            this.setState({ id: res.data.studentID })
+                        // IF is teacher
+                        } else if (res.data.type === 2) {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                        // ELSE kick them out
+                        } else {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                        }
+                    })
+            // ELSE kick them out
+            } else {
+                console.log("THERE IS NO USER");
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+        });
+
+        // GET student's points history
+        axios.get('https://ades-ca1-project.herokuapp.com/api/ptsHistory/' + this.state.id)
+            .then(res => {
+                this.setState({ data: res.data });
+            })
     }
 
     render() {
 
-        const data = this.state.data ;
+        const data = this.state.data;
 
         return (
-            <div className="viewPointsHistory">
-            <h3 className="p-3 text-center">Display Points History</h3>
-            <table className="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>History</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div className="PointsHistory">
+                <h1>Points History</h1>
+                <div className="history">
                     {data && data.map(item =>
-                        <tr key={item.historyID}>
-                            <td>You've earned {item.pointsAwarded} points from event {item.eventName}</td>
-                        </tr>
+                        <Card className="card" border="primary" body>You've earned {item.pointsAwarded} points from event {item.eventName}</Card>
                     )}
-                </tbody>
-            </table>
-          </div>
+                </div>
+            </div>
         )
     }
 }

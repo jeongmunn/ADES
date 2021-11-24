@@ -1,60 +1,100 @@
 import React from 'react';
 import axios from 'axios';
 import { store } from 'react-notifications-component';
-import { Link } from 'react-router-dom' ;
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import { Row, Col } from 'react-bootstrap';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
+import '../css/studentReward.css';
 
 export default class viewReward extends React.Component {
   state = {
-    data : [],
+    data: [],
     currentPts: 0,
     rewardName: '',
     rewardPoints: 0,
     url: '',
     studentID: 1,
+    uid: '',
+    id: 0
   }
 
-  componentDidMount(){
+  componentDidMount() {
+    // Auth
+    auth.onAuthStateChanged((user) => {
+      // IF there's user
+      if (user) {
+        console.log("User is Signed IN ");
+        this.setState({ uid: user.uid });
+        const config = {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }
+
+        // Get the user type
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+          .then(res => {
+            // IF is student
+            if (res.data.type === 1) {
+              this.setState({ id: res.data.studentID })
+            // IF is teacher
+            } else if (res.data.type === 2) {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+            // ELSE kick them out
+            } else {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+          })
+      // ELSE kick them out
+      } else {
+        console.log("THERE IS NO USER");
+        signOut(auth);
+        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+      }
+    });
+
     // Get all rewards data
     axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
-    .then(res => {
-        this.setState({ data : res.data });
-    })
-    
+      .then(res => {
+        this.setState({ data: res.data });
+      })
+
     // Get student's points data
-    axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.studentID)
-    .then(res => {
-        this.setState({ currentPts : res.data[0].redeemedPts });
-    })
-}
+    axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.id)
+      .then(res => {
+        this.setState({ currentPts: res.data[0].redeemedPts });
+      })
+  }
 
-  notiRedeemSuccess(rewardName){
+  notiRedeemSuccess(rewardName) {
     store.addNotification({
-      title:"Success",
-      message:"Congratulations! You've successfully redeemed " + rewardName + " !",
-      type:"success",
-      insert:"top",
-      container:"top-center",
-      animationIn:["animated","fadeIn"],
-      animationOut:["animated","fadeOut"],
-      dismiss: {duration:2000},
-      dismissable: {click:true}
+      title: "Success",
+      message: "Congratulations! You've successfully redeemed " + rewardName + " !",
+      type: "success",
+      insert: "top",
+      container: "top-center",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
     });
-  }  
+  }
 
-  notifRedeemFail(){
+  notifRedeemFail() {
     store.addNotification({
-      title:"Error",
-      message:"You've insufficient points to redeem this reward. Work harder!",
-      type:"danger",
-      insert:"top",
-      container:"top-center",
-      animationIn:["animated","bounceIn"],
-      animationOut:["animated","bounceOut"],
-      dismiss: {duration:2000},
-      dismissable: {click:true}
+      title: "Error",
+      message: "You've insufficient points to redeem this reward. Work harder!",
+      type: "danger",
+      insert: "top",
+      container: "top-center",
+      animationIn: ["animated", "bounceIn"],
+      animationOut: ["animated", "bounceOut"],
+      dismiss: { duration: 2000 },
+      dismissable: { click: true }
     });
-  }  
+  }
 
   handleRedeem = event => {
 
@@ -70,67 +110,71 @@ export default class viewReward extends React.Component {
     const currentPts = this.state.currentPts;
 
     // IF student have enough points to redeem
-    if(currentPts >= ptsRequired){
+    if (currentPts >= ptsRequired) {
 
       // Do the calculation
-      this.setState({currentPts : (currentPts - ptsRequired)});
+      this.setState({ currentPts: (currentPts - ptsRequired) });
 
       // Insert reward history
       const IDs = {
-        studentID : this.state.studentID,
-        rewardID : rewardID
+        studentID: this.state.id,
+        rewardID: rewardID
       }
 
       const config = {
         headers: {
-          'content-type':'application/json'
+          'content-type': 'application/json'
         }
       }
 
       axios.post('https://ades-ca1-project.herokuapp.com/api/rewardHistory', IDs, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+        })
 
       // Update student's current points
       const points = {
-        points : currentPts
+        points: currentPts
       }
 
-      axios.put('https://ades-ca1-project.herokuapp.com/api/point/' + this.state.studentID, points, config )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        this.notiRedeemSuccess(rewardName);
-        window.alert("Reward redeemed successfully");
-      })
+      axios.put('https://ades-ca1-project.herokuapp.com/api/point/' + this.state.id, points, config)
+        .then(res => {
+          console.log(res);
+          console.log(res.data);
+          this.notiRedeemSuccess(rewardName);
+        })
 
-    // ELSE student dont have enough points
-    }else{
+      // ELSE student dont have enough points
+    } else {
       this.notifRedeemFail();
-      window.alert("Insufficient points ! Work harder and earn more points !");
     }
-  
+
   }
 
   render() {
-      const data = this.state.data;
+    const data = this.state.data;
     return (
-        <div>
-            <h1>Rewards</h1>
-            <div className="viewRewards">
+      <div className="StudentReward">
+        <h1>Rewards</h1>
+        <div className="Rewards">
+          <Row xs={1} md={2} lg={3} className="g-4">
             {data && data.map(item =>
-                        <tr key={item.rewardID}>
-                            <td>{item.rewardName}</td>
-                            <td>{item.ptsRequired}</td>
-                            <td><img src={item.url} style={{height: 200, width: 200}}></img></td>
-                            <td><Button onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button></td>
-                        </tr>
-                    )}
-            </div>
+              <Col>
+                <Card border="warning">
+                  <Card.Img className="cardPic" variant="top" src={item.url} />
+                  <Card.Body className="cardBody">
+                    <Card.Title>{item.rewardName}</Card.Title>
+                    <Card.Text>Points : {item.ptsRequired}</Card.Text>
+                    <Button variant="warning" onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )}
+          </Row>
+        </div>
       </div>
-      
+
     )
-}
+  }
 }

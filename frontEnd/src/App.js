@@ -7,9 +7,9 @@ import StudentPointsHistory from './components/StudentPointsHistory';
 import StudentReward from './components/StudentReward';
 import Profile from './components/Profile';
 import TeacherDashboard from './components/TeacherDashboard';
+import TeacherLeaderboard from './components/TeacherLeaderboard';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
-import EditReward from './components/RewardAdminEdit';
 import MazeAdmin from './components/MazeAdmin';
 import EditMaze from './components/EditMazeContent';
 import EditBadge from './components/EditBadge';
@@ -47,6 +47,7 @@ function App() {
         <Route path="/studentReward" element={<StudentReward/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
+        <Route path="/teacherLeaderboard" element={<TeacherLeaderboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/editReward" element={<EditReward/>}></Route>

@@ -1,23 +1,96 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { store } from 'react-notifications-component';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+import Table from 'react-bootstrap/Table';
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from 'react-bootstrap';
+import ModalPopup from './RewardPopup';
 import '../css/rewardAdmin.css';
 
 export default class viewReward extends React.Component {
-    state = {
-        data: [],
-        rewardName: '',
-        rewardPoints: '',
-        url: ''
+    constructor() {
+        super();
+        this.state = {
+            showModalPopup: false,
+            data: [],
+            rewardName: '',
+            rewardPoints: '',
+            originUrl: '',
+            originName: '',
+            originPoints: '',
+            url: '',
+            rewardID: 0,
+            uid: ''
+        }
     }
 
     componentDidMount() {
+        // Auth
+        auth.onAuthStateChanged((user) => {
+            // IF there's user
+            if (user) {
+                console.log("User is Signed IN ");
+                this.setState({ uid: user.uid });
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+
+                // Get the user type
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                    .then(res => {
+                        // IF is student
+                        if (res.data.type === 1) {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+                        // IF is teacher
+                        } else if (res.data.type === 2) {
+
+                        // ELSE kick them out
+                        } else {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                        }
+                    })
+            // ELSE kick them out
+            } else {
+                console.log("THERE IS NO USER");
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+        });
+
+        // GET all rewards data
         axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
             .then(res => {
                 this.setState({ data: res.data });
             })
+    }
+
+    notiUploadSuccess() {
+        store.addNotification({
+            title: "Success",
+            message: "Reward uploaded successfully !",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: { duration: 2000 },
+            dismissable: { click: true }
+        });
+    }
+
+    isShowPopup = (status, id, name, points, url) => {
+        this.setState({ showModalPopup: status });
+        this.setState({ rewardID: id });
+        this.setState({ originName: name });
+        this.setState({ originPoints: points });
+        this.setState({ originUrl: url });
     }
 
     handleDelete = event => {
@@ -43,27 +116,13 @@ export default class viewReward extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        // file upload
-        // packing data    
-        const storage = getStorage();
-        const storageRef = ref(storage, 'img/' + this.state.url.name);
-        var file = this.state.url;
-        // Create file metadata including the content type
-        /** @type {any} */
-        const metadata = {
-            contentType: this.state.url.type,
-        };
-        uploadBytes(storageRef, file, metadata);
-
-        getDownloadURL(storageRef).then((downloadURL) => {
-            console.log('File available at', downloadURL);
-
+        if (this.state.url == '') {
             const reward = {
                 rewardName: this.state.rewardName,
                 ptsRequired: this.state.rewardPoints,
-                url: downloadURL
+                url: 'https://firebasestorage.googleapis.com/v0/b/quizment-ae4a6.appspot.com/o/img%2Fdefault-image.png?alt=media&token=369e00f7-926d-4b3c-abbb-958828b303d5'
             };
-            console.log("reward" + JSON.stringify(reward))
+            console.log("reward" + JSON.stringify(reward));
 
             const config = {
                 headers: {
@@ -71,43 +130,87 @@ export default class viewReward extends React.Component {
                 }
             }
 
-            //axios.post('https://ades-ca1-heroku.herokuapp.com/api/rewards', reward, config )
             axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
                     window.location.reload();
+                    this.notiUploadSuccess();
                 })
-        })
+        } else {
+            // file upload
+            // packing data    
+            const storage = getStorage();
+            const storageRef = ref(storage, 'img/' + this.state.url.name);
+            var file = this.state.url;
+            // Create file metadata including the content type
+            /** @type {any} */
+            const metadata = {
+                contentType: this.state.url.type,
+            };
+            uploadBytes(storageRef, file, metadata);
+
+            getDownloadURL(storageRef).then((downloadURL) => {
+                console.log('File available at', downloadURL);
+
+                const reward = {
+                    rewardName: this.state.rewardName,
+                    ptsRequired: this.state.rewardPoints,
+                    url: downloadURL
+                };
+                console.log("reward" + JSON.stringify(reward))
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+
+                axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                        window.location.reload();
+                        this.notiUploadSuccess();
+                    })
+            })
+        }
     }
 
     render() {
         const data = this.state.data;
         return (
-            <div className="rewardAdmin" id="body">
-                <div id="addReward">
-                    <h1>Reward Administration</h1>
-                    <div id="divForm">
-                        {/* <h2>Add Reward</h2> */}
-                        <form onSubmit={this.handleSubmit} id="form">
-                            <label>
-                                Reward Name :
-            <input type="text" name="rewardName" onChange={this.handleName} />
-                            </label>
-                            <label>
-                                Points Required :
-            <input type="number" name="ptsRequired" onChange={this.handlePoints} />
-                            </label>
-                            <label>
-                                Picture URL :
-            <input type="file" name="url" onChange={this.handleURL} />
-                            </label>
-                            <Button type="submit">Add</Button>
-                        </form>
-                    </div>
-                    <div id="viewRewards">
-                        {/* <h2>View Rewards</h2> */}
-                        <table class="table">
+            <div className="rewardAdmin">
+                <h1>Reward Administration</h1>
+                <Accordion>
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                            <Button variant="outline-info" >Add Reward</Button>
+                        </Accordion.Header>
+                        <Accordion.Body>
+                            <div className="uploadReward">
+                                <Form onSubmit={this.handleSubmit} className="rewardForm">
+                                    <Row>
+                                        <Col xs={12} md={8} lg={4}>
+                                            <Form.Control placeholder="Reward Name" onChange={this.handleName} required />
+                                        </Col>
+                                        <Col xs={12} md={5} lg={3}>
+                                            <Form.Control type="number" placeholder="Points Required" onChange={this.handlePoints} required />
+                                        </Col>
+                                        <Col xs={12} md={5} lg={3}>
+                                            <Form.Control type="file" onChange={this.handleURL} />
+                                        </Col>
+                                        <Col xs={12} md={2} lg={2}>
+                                            <Button variant="primary" type="submit">Add</Button>
+                                        </Col>
+                                    </Row>
+                                </Form>
+                            </div>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+                <div id="viewRewards">
+                    <Table responsive="sm" className="table">
+                        <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Points</th>
@@ -115,18 +218,28 @@ export default class viewReward extends React.Component {
                                 <th>Edit?</th>
                                 <th>Delete?</th>
                             </tr>
+                        </thead>
+                        <tbody>
                             {data && data.map(item =>
                                 <tr key={item.rewardID}>
                                     <td>{item.rewardName}</td>
                                     <td>{item.ptsRequired}</td>
-                                    <td><img src={item.url} style={{ height: 230, width: 230 }}></img></td>
-                                    <td><button type="button" class="btn btn-outline-warning">Edit</button></td>
-                                    <td><button type="button" class="btn btn-outline-danger" id={item.rewardID} onClick={this.handleDelete}>Delete</button></td>
+                                    <td><img src={item.url} style={{ height: 180, width: 180 }}></img></td>
+                                    <td><Button type="button" variant="warning" onClick={() => this.isShowPopup(true, item.rewardID, item.rewardName, item.ptsRequired, item.url)}>Edit</Button></td>
+                                    <td><Button type="button" variant="danger" id={item.rewardID} onClick={this.handleDelete}>Delete</Button></td>
                                 </tr>
                             )}
-                        </table>
-                    </div>
+                        </tbody>
+                    </Table>
                 </div>
+                <ModalPopup
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.isShowPopup}
+                    rewardID={this.state.rewardID}
+                    rewardName={this.state.originName}
+                    rewardPoints={this.state.originPoints}
+                    url={this.state.originUrl}
+                ></ModalPopup>
             </div>
         )
     }

@@ -28,21 +28,18 @@
     src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
 }
 
-.rewardAdmin {
+.teacherLeaderboard {
     padding: 3em;
 }
 
-.rewardAdmin > h1 {
+.teacherLeaderboard > h1 {
     font-family: VisbyRound;
     text-align: center;
     margin-bottom: 0.5em;
 }
 
-
-.rewardAdmin > Accordion.Header > Button {
-    align-self: center;
+.teacherLeaderboard > Table {
+    text-align: center;
 }
 
-div.viewRewards {
-    margin-top: 2em;
-}
+
