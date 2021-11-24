@@ -31,27 +31,26 @@ export default class ptsHistory extends React.Component {
                         // IF is student
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
-                        // IF is teacher
+                            // GET student's points history
+                            axios.get('https://ades-ca1-project.herokuapp.com/api/ptsHistory/' + this.state.id)
+                                .then(res => {
+                                    this.setState({ data: res.data });
+                                })
+                            // IF is teacher
                         } else if (res.data.type === 2) {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
-                        // ELSE kick them out
+                            // ELSE kick them out
                         } else {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
                         }
                     })
-            // ELSE kick them out
+                // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
                 window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
             }
         });
-
-        // GET student's points history
-        axios.get('https://ades-ca1-project.herokuapp.com/api/ptsHistory/' + this.state.id)
-            .then(res => {
-                this.setState({ data: res.data });
-            })
     }
 
     render() {

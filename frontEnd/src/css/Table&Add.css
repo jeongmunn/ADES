@@ -1,10 +1,10 @@
-#body {
-    /* background-image: url('https://images.unsplash.com/photo-1620202119243-212a883c5627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+/* #body {
+    background-image: url('https://images.unsplash.com/photo-1620202119243-212a883c5627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position: center; */
-}
+    background-position: center;
+} */
 
 #div {
     background-color: rgba(255, 255, 255, 0.5);

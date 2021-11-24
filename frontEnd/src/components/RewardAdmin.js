@@ -48,27 +48,25 @@ export default class viewReward extends React.Component {
                         // IF is student
                         if (res.data.type === 1) {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
-                        // IF is teacher
+                            // IF is teacher
                         } else if (res.data.type === 2) {
-
-                        // ELSE kick them out
+                            // GET all rewards data
+                            axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
+                                .then(res => {
+                                    this.setState({ data: res.data });
+                                })
+                            // ELSE kick them out
                         } else {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
                         }
                     })
-            // ELSE kick them out
+                // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
                 window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
             }
         });
-
-        // GET all rewards data
-        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
-            .then(res => {
-                this.setState({ data: res.data });
-            })
     }
 
     notiUploadSuccess() {

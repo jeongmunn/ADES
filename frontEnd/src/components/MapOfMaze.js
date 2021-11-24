@@ -478,8 +478,8 @@ export default class MapOfMaze extends React.Component {
           level={this.state.level}
           point={this.state.points}
           onNewLevel={this.handleNewLevel}
-          studentID={this.state.id}
-        ></MazePopup>
+          id={this.state.id}>
+        </MazePopup>
       </div>
 
     )
