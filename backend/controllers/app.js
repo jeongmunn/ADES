@@ -684,7 +684,7 @@ app.get('/quiz', function (req, res) {
 });
 
 // CREATE new quiz data
-app.post('/quiz', function (req, res) {
+app.post('/quizHistory', function (req, res) {
 
     // packing data into json object
     var data = {
