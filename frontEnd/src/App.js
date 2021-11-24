@@ -50,7 +50,6 @@ function App() {
         <Route path="/teacherLeaderboard" element={<TeacherLeaderboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
-        <Route path="/editReward" element={<EditReward/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
         <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
         <Route path="/EditBadge" element={<EditBadge/>}></Route>
