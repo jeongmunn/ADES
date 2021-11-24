@@ -87,6 +87,9 @@ export default class BadgeAdmin extends React.Component {
   handleURL = event => {
     this.setState({ pic_url: event.target.files[0], });
   }
+  handleBadgeClassID = event => {
+    this.setState({badgeClassID: event.target.value})
+  }
 
   handleSubmit = event => {
     event.preventDefault();
