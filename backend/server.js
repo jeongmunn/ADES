@@ -1,20 +1,16 @@
-//sanity check
 console.log("--------------------------------------");
-console.log("ADES> server.js");
+console.log(" ADES > server.js");
 console.log("--------------------------------------");
 
-
-// --------------------------
-//imports
-//---------------------------
+//---------------------------------------------------------------imports------------------------------------------------------------
 const express=require("express");
 const cors = require('cors');
 const path = require("path");
 const api = require('./controllers/app.js');
 const basename = "/quizment";
-const app = express();
 
-// Web Server
+// web Server
+const app = express();
 
 // dummy path to for heroku app to go to the redirect index page 
 const dummyPath = path.join(__dirname, '..');
@@ -22,7 +18,7 @@ const dummyPath = path.join(__dirname, '..');
 // hosting path for frontend
 const buildPath = path.join(__dirname, '../frontEnd' , 'build');
 
-// let '/' which is where heroku starts from when you open the app open the root folder which contains the redirect inde page
+// let '/' which is where heroku starts from when you open the app open the root folder which contains the redirect index page
 app.use(express.static(dummyPath));
 
 // so that the frontend content will be served via the /quizment directory when hosted
@@ -38,11 +34,10 @@ app.get('/', function (req, res) {
 app.get(basename + '*', function (req, res) {
     // since React uses index.html we use the following code below to get the content from index.html which is updated by the
     // component js files in the frontEnd folder
-    console.log("Reached frontEnd");
     res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
 });
 
-// backend content is 
+// link to backend apis
 app.use('/api',api);
 
 // error 404 middleware

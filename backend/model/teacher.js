@@ -1,5 +1,5 @@
 console.log("---------------------------------------------------------");
-console.log("ADES> model >teacher.js");
+console.log("ADES > backend > teacher.js");
 console.log("---------------------------------------------------------");
 
 
@@ -12,7 +12,6 @@ const pool = require("../controllers/dbconfig")
 
 var teacher = {
     getStudentProgress: function (callback) {
-      console.log("function CALLED---------")
       const sql = `SELECT "public"."Student"."studentID","public"."Student"."name", "public"."Student"."streaks", "public"."Student"."mazeLvl","public"."Student"."totalPts"
       FROM "public"."Student";`;
         pool.query(sql, (err, result) => {
@@ -20,7 +19,6 @@ var teacher = {
             console.log(err);
             return callback(err.null);
         } else {
-            console.log("its over HEREEEE")
             return callback(null, result);
         }
           })
