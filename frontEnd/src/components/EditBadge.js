@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from 'react-bootstrap';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import '../css/badgemazeEdit.css';
-
-
+import { Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 export default class EditBadge extends React.Component {
 
     state = {
+        showModal: false,
         data: [],
         name: '',
         requirements: '',
@@ -44,7 +47,7 @@ export default class EditBadge extends React.Component {
         const metadata = {
             contentType: this.state.pic_url.type,
         };
-        
+
         uploadBytes(storageRef, file, metadata);
 
         getDownloadURL(storageRef).then((downloadURL) => {
@@ -69,7 +72,7 @@ export default class EditBadge extends React.Component {
                 }
             }
 
-            const badgeID = window.location.href.split('/')[3].slice(13);
+            const badgeID = parseInt(this.props.badgeID);
             const baseUrl = "https://ades-ca1-project.herokuapp.com/api";
             console.log(badgeID);
 
@@ -81,43 +84,49 @@ export default class EditBadge extends React.Component {
                 })
         });
     }
+
+    handleClose = () => {
+        this.props.onPopupClose(false, this.props.rewardID, '', '', '');
+    }
     render() {
         return (
             <div id="bodyEdit">
-                <div id="divEdit">
-                    <div className="editReward">
-                        <h1>Edit Badge</h1>
-                        <form onSubmit={this.handleSubmit} id="formEdit">
-                            <label class='label'>
-                                Badge Name:
-                                <input type="text" name="name" onChange={this.handleName} />
-                            </label>
-                            <br />
-                            <label class='label'>
-                                Badge Requirement:
-                                <input type="text" name="requirements" onChange={this.handleRequirement} />
-                            </label>
-                            <br />
-                            <label class='label'>
-                                Pic URL:
-                                <input type="file" name="pic_url" onChange={this.handleURL} />
-                            </label>
-                            <br />
-                            <label>
-                                Badge Class ID:
-                                <select name="badgeClassID" onChange={this.handleBadgeClassID} id="dropDown">
-                                    <option value="1">Air</option>
-                                    <option value="2">Water</option>
-                                    <option value="3">Fire</option>
-                                    <option value="4">Geo</option>
-                                </select>
-                                {/* <input type="text" name="badgeClassID" onChange={this.handleBadgeClassID} /> */}
-                            </label>
-                            <br />
-                            <button type="submit">Add</button>
-                        </form>
-                    </div>
-                </div>
+                <Fragment>
+                    <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+                        size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>
+                                Edit Badge
+            </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="editBadge">
+                                <Form onSubmit={this.handleSubmit} className="badgeForm">
+                                    <Row>
+                                        <Col xs={12} md={8} lg={4}>
+                                            <Form.Control placeholder={this.props.name} onChange={this.handleName} required />
+                                        </Col>
+                                        <Col xs={12} md={5} lg={3}>
+                                            <Form.Control type="number" placeholder={this.props.requirements} onChange={this.handleRequirement} required />
+                                        </Col>
+                                        <Col xs={12} md={5} lg={3}>
+                                            <Form.Control type="file" onChange={this.handleURL} />
+                                        </Col>
+                                        <Col xs={12} md={2} lg={2}>
+                                            <Button variant="primary" type="submit">Edit</Button>
+                                        </Col>
+                                        <select name="badgeClassID" onChange={this.handleBadgeClassID} id="dropDown">
+                                            <option value="1">Air</option>
+                                            <option value="2">Water</option>
+                                            <option value="3">Fire</option>
+                                            <option value="4">Geo</option>
+                                        </select>
+                                    </Row>
+                                </Form>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
+                </Fragment>
             </div>
         )
     }
