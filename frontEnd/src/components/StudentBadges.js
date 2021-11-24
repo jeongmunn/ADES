@@ -11,11 +11,8 @@ import '../css/studentReward.css';
 export default class viewReward extends React.Component {
   state = {
     data: [],
-    currentPts: 0,
-    rewardName: '',
-    rewardPoints: 0,
+    dataAll: [],
     url: '',
-    studentID: 1,
     uid: '',
     id: 0
   }
@@ -55,112 +52,52 @@ export default class viewReward extends React.Component {
       }
     });
 
-    // Get all rewards data
-    axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
+    // Get all the badges
+    axios.get('https://ades-ca1-project.herokuapp.com/api/badges')
       .then(res => {
-        this.setState({ data: res.data });
+        this.setState({ dataAll: res.data });
       })
-  }
 
-  notiRedeemSuccess(rewardName) {
-    store.addNotification({
-      title: "Success",
-      message: "Congratulations! You've successfully redeemed " + rewardName + " !",
-      type: "success",
-      insert: "top",
-      container: "top-center",
-      animationIn: ["animated", "fadeIn"],
-      animationOut: ["animated", "fadeOut"],
-      dismiss: { duration: 2000 },
-      dismissable: { click: true }
-    });
-  }
-
-  notifRedeemFail() {
-    store.addNotification({
-      title: "Error",
-      message: "You've insufficient points to redeem this reward. Work harder!",
-      type: "danger",
-      insert: "top",
-      container: "top-center",
-      animationIn: ["animated", "bounceIn"],
-      animationOut: ["animated", "bounceOut"],
-      dismiss: { duration: 2000 },
-      dismissable: { click: true }
-    });
-  }
-
-  handleRedeem = event => {
-
-    // Get the data
-    const rewardID = event.target.getAttribute("data-index");
-    const ptsRequired = event.target.getAttribute("data-points");
-    const rewardName = event.target.getAttribute("data-name");
-    console.log("rewardID = " + rewardID);
-    console.log("rewardName = " + rewardName);
-    console.log("points = " + ptsRequired);
-
-    // Store student's points
-    const currentPts = this.state.currentPts;
-
-    // IF student have enough points to redeem
-    if (currentPts >= ptsRequired) {
-
-      // Do the calculation
-      this.setState({ currentPts: (currentPts - ptsRequired) });
-
-      // Insert reward history
-      const IDs = {
-        studentID: this.state.id,
-        rewardID: rewardID
-      }
-
-      const config = {
-        headers: {
-          'content-type': 'application/json'
-        }
-      }
-
-      axios.post('https://ades-ca1-project.herokuapp.com/api/rewardHistory', IDs, config)
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-        })
-
-      // Update student's current points
-      const points = {
-        points: currentPts
-      }
-
-      axios.put('https://ades-ca1-project.herokuapp.com/api/point/' + this.state.id, points, config)
-        .then(res => {
-          console.log(res);
-          console.log(res.data);
-          this.notiRedeemSuccess(rewardName);
-        })
-
-      // ELSE student dont have enough points
-    } else {
-      this.notifRedeemFail();
-    }
-
+    // Get all the badges
+    axios.get('https://ades-ca1-project.herokuapp.com/api/students/badges/' + this.state.id)
+    .then(res => {
+      this.setState({ data: res.data });
+    })
   }
 
   render() {
     const data = this.state.data;
+    const dataAll = this.state.dataAll;
     return (
       <div className="StudentReward">
-        <h1>Rewards</h1>
+        <h1>Badges Earned</h1>
         <div className="Rewards">
           <Row xs={1} md={2} lg={3} className="g-4">
             {data && data.map(item =>
               <Col>
                 <Card border="warning">
-                  <Card.Img className="cardPic" variant="top" src={item.url} />
+                  <Card.Img className="cardPic" variant="top" src={item.pic_url} />
                   <Card.Body className="cardBody">
-                    <Card.Title>{item.rewardName}</Card.Title>
-                    <Card.Text>Points : {item.ptsRequired}</Card.Text>
-                    <Button variant="warning" onClick={this.handleRedeem} data-index={item.rewardID} data-name={item.rewardName} data-points={item.ptsRequired}>Redeem</Button>
+                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Text>Number of times earned: {item.amount}</Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )}
+          </Row>
+        </div>
+        <h1>Badges That You Can Get</h1>
+        <div className="Rewards">
+          <Row xs={1} md={2} lg={3} className="g-4">
+            {dataAll && dataAll.map(item =>
+              <Col>
+                <Card border="warning">
+                  <Card.Img className="cardPic" variant="top" src={item.pic_url} />
+                  <Card.Body className="cardBody">
+                    <Card.Title>{item.name}</Card.Title>
+                    <Card.Text>Requirement: {item.requirements}</Card.Text>
+                    <Card.Text>Badge Class Name: {item.className}</Card.Text>
+                    <Card.Text>Badge Class Description: For {item.classDescription}</Card.Text>
                   </Card.Body>
                 </Card>
               </Col>

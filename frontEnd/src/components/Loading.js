@@ -12,9 +12,3 @@ const Loading = () => {
     )
 }
 export default Loading;
-
-{/* <header className="App-header">
-
-
-
-</header> */}

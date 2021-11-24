@@ -9,10 +9,11 @@ import cloud5 from '../img/cloud5.png';
 import cloud6 from '../img/cloud6.png';
 import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
-import ModalPopup from './MazePopup';
+import MazePopup from './MazePopup';
 import '../css/maze.css';
 import moment from 'moment';
-
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 
 export default class MapOfMaze extends React.Component {
 
@@ -28,13 +29,45 @@ export default class MapOfMaze extends React.Component {
       points: 0,
       maze: 0,
       currentDate: '',
-      setCurrentDate: ''
+      setCurrentDate: '',
+      uid: '',
+      id: 0
     }
   }
 
   componentDidMount() {
-    //call maze animation
-    this.mazeAnimation(false)
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User is Signed IN ");
+        this.setState({ uid: user.uid });
+        const config = {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }
+
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+          .then(res => {
+            if (res.data.type === 1) {
+              this.setState({ id: res.data.studentID })
+              // area to put your axios with the student id
+              //call maze animation
+              this.mazeAnimation(false)
+            } else if (res.data.type === 2) {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+            } else {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+          })
+      } else {
+        console.log("THERE IS NO USER");
+        signOut(auth);
+        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+      }
+    });
+
+
+
 
     const queryString = window.location.search;
     console.log(queryString + "QUERY STRING");
@@ -121,15 +154,15 @@ export default class MapOfMaze extends React.Component {
 
   //to get the students current Lvl
   studentLevel = (callback) => {
-    var studentID = 18;
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + studentID)
+
+    axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + this.state.id)
       .then(res => {
 
         this.setState({ maze: res.data[0].mazeLvl });
-        //  console.log(JSON.stringify(this.state.maze) + "HERE");
+
         var mazeLvl = JSON.stringify(this.state.maze);
         this.ableMaze(mazeLvl);
-        //making sure that the isNewLevel is false
+
         this.setState({ isNewLevel: false })
         callback(mazeLvl);
       }
@@ -156,48 +189,42 @@ export default class MapOfMaze extends React.Component {
         var updated = parseInt(mazeLvl);
 
         if (updated === 1) {
-          console.log("LEVEL 1")
+
           lvl1(mazeLvl);
         } else if (updated === 2) {
-          console.log("LEVEL 2")
+
           lvl2(mazeLvl);
         }
         else if (updated === 3) {
           lvl3(mazeLvl);
-          console.log("LEVEL 3")
+
         }
         else if (updated === 4) {
           lvl4(mazeLvl);
-          console.log("LEVEL 4")
+
         }
         else if (updated === 5) {
           lvl5(mazeLvl);
-          console.log("LEVEL 5")
+
         }
         else if (updated === 6) {
-          console.log("LEVEL 6")
+
           lvl6(mazeLvl);
         }
         else if (updated === 7) {
-          console.log("HELLO7")
+
           lvl7(mazeLvl);
         }
         else if (updated === 8) {
-          console.log("LEVEL 8")
+
           lvl8(mazeLvl);
         }
 
       });
-      // }
-      // else 
 
     }
 
-
-
-
     function lvl1(mazeLvl) {
-
       let id = null;
       const elem = document.getElementById("animate");
       let pos = 0;
@@ -209,7 +236,6 @@ export default class MapOfMaze extends React.Component {
           if (mazeLvl > 1) {
             setTimeout(lvl2(mazeLvl), 2);
           }
-
         } else {
           pos++;
           elem.style.top = pos + "%";
@@ -229,7 +255,6 @@ export default class MapOfMaze extends React.Component {
           clearInterval(id);
           console.log(mazeLvl);
           if (mazeLvl > 2) {
-            console.log("HERE")
             setTimeout(lvl3(mazeLvl), 2);
           }
         } else {
@@ -262,6 +287,7 @@ export default class MapOfMaze extends React.Component {
         }
       }
     }
+
     function lvl4(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
@@ -276,15 +302,14 @@ export default class MapOfMaze extends React.Component {
             setTimeout(lvl5(mazeLvl), 2);
           }
         } else {
-
           posT -= 3
           posL++;
           elem.style.top = posT + "%";
-          console.log(posT); console.log(posL)
           elem.style.left = posL + "%";
         }
       }
     }
+
     function lvl5(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
@@ -297,21 +322,17 @@ export default class MapOfMaze extends React.Component {
         if (posT === 60) {
           clearInterval(id);
           if (mazeLvl > 5) {
-
             setTimeout(lvl6(mazeLvl), 2);
           }
         } else {
           posT++
           posL++;
-
           elem.style.top = posT + "%";
-
         }
       }
     }
 
     function lvl6(mazeLvl) {
-
       let id = null;
       const elem = document.getElementById("animate");
       let posT = 60;
@@ -326,7 +347,6 @@ export default class MapOfMaze extends React.Component {
           if (mazeLvl > 6) {
             setTimeout(lvl7(mazeLvl), 2);
           }
-
         } else {
           posT -= 2
           posL++;
@@ -336,16 +356,14 @@ export default class MapOfMaze extends React.Component {
         }
       }
     }
-    function lvl7(mazeLvl) {
 
+    function lvl7(mazeLvl) {
       let id = null;
       const elem = document.getElementById("animate");
-
       let posT = 10;
       let posL = 75;
       elem.style.top = posT + "%";
       elem.style.left = posL + "%";
-
       clearInterval(id);
       id = setInterval(frame, 50);
       function frame() {
@@ -354,15 +372,14 @@ export default class MapOfMaze extends React.Component {
           if (mazeLvl > 7) {
             setTimeout(lvl8(mazeLvl), 2);
           }
-
         } else {
-
           posT++;
           elem.style.top = posT + "%";
 
         }
       }
     }
+
     function lvl8() {
       let id = null;
       const elem = document.getElementById("animate");
@@ -380,20 +397,14 @@ export default class MapOfMaze extends React.Component {
         } else {
           posT += 2;
           posL++;
-
           elem.style.top = posT + "%";
           elem.style.left = posL + "%";
-
         }
       }
-
-
     }
-
   }
 
   isShowPopup = (status, levels) => {
-    console.log(levels + " THIS IS LEVEL CLICKED")
     if (parseInt(this.state.maze) >= levels) {
       this.setState({ showModalPopup: false });
       window.alert("Level Already completed!")
@@ -406,7 +417,6 @@ export default class MapOfMaze extends React.Component {
         .then(res => {
 
           this.setState({ points: res.data[0].points });
-          console.log("points :" + JSON.stringify(res.data[0].points));
         })
     }
 
@@ -455,21 +465,20 @@ export default class MapOfMaze extends React.Component {
           {/* the character! */}
           <div id="animate">
             <img id="imgAnimate" className="bounce" alt="" src={wisp} />
-            
+
           </div>
           <div id="levelDisplay">
-          <p id="level">{this.state.maze}</p>
-          <p id="staticLevel">Level</p>
-            </div> 
+            <p id="level">{this.state.maze}</p>
+            <p id="staticLevel">Level</p>
+          </div>
         </div>
-        <ModalPopup
+        <MazePopup
           showModalPopup={this.state.showModalPopup}
           onPopupClose={this.isShowPopup}
           level={this.state.level}
           point={this.state.points}
           onNewLevel={this.handleNewLevel}
-
-        ></ModalPopup>
+        ></MazePopup>
       </div>
 
     )

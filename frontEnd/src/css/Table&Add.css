@@ -1,10 +1,9 @@
 #body {
-    background-image: url('https://images.unsplash.com/photo-1620202119243-212a883c5627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+    /* background-image: url('https://images.unsplash.com/photo-1620202119243-212a883c5627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    background-position: center;
-    /* Center the image */
+    background-position: center; */
 }
 
 #div {
@@ -23,7 +22,7 @@
     height: 200px;
 }
 
-.viewBadges > form {
+form {
     float: right;
     padding-top: 40px;
 }
@@ -39,29 +38,26 @@
     border-radius: 20px;
 }
 
-.viewBadges > td {
-    border: solid 1px #000;
-    border-style: solid none;
-    padding: 10px;
-}
-
-.viewBadges > td:first-child {
-    border-left-style: solid;
-    border-top-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.viewBadges > td:last-child {
-    border-right-style: solid;
-    border-bottom-right-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.viewBadges > .table {
-    border-collapse: separate;
-    border-spacing: 0 15px;
-}
-
-.viewBadges > tr.spaceUnder>td {
-    padding-bottom: 1em;
-}
+/* td {
+      border: solid 1px #000;
+      border-style: solid none;
+      padding: 10px;
+      
+  }
+  td:first-child {
+      border-left-style: solid;
+      border-top-left-radius: 10px; 
+      border-bottom-left-radius: 10px;
+  }
+  td:last-child {
+      border-right-style: solid;
+      border-bottom-right-radius: 10px; 
+      border-top-right-radius: 10px; 
+  }
+  .table {
+      border-collapse:separate;
+      border-spacing:0 15px;
+  }
+  tr.spaceUnder>td {
+      padding-bottom: 1em;
+    } */

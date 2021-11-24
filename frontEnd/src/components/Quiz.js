@@ -1,105 +1,152 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
-import $ from 'jquery';
-
-
+import '../css/quiz.css';
+import QuizPopUp from './QuizPopup';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 export default class Quiz extends React.Component {
-    state = {
-        data: [],
 
+    constructor() {
+        super();
+        this.state = {
+            showModalPopup: false,
+            data: [],
+
+        }
     }
-
-
     componentDidMount() {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("User is Signed IN ");
+                this.setState({ uid: user.uid });
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                    .then(res => {//call maze animation
+                        this.mazeAnimation(false)
+                        if (res.data.type === 1) {
+                            this.setState({ id: res.data.studentID })
+                            // area to put your axios with the student id
 
+                        } else if (res.data.type === 2) {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                        } else {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                        }
+                    })
+            } else {
+                console.log("THERE IS NO USER");
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+        });
         axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
             .then(res => {
                 console.log(res.data.length);
                 this.setState({ data: res.data });
-                console.log(res.data[0])
-                for (var i = 0; i < res.data.length; i++) {
-                    var quiz = res.data[i];
-                    console.log("quizid:" + quiz.quizID);
-                    console.log("total Marks:" + quiz.totalMarks);
-                    console.log("toalPoints:" + quiz.totalPoints);
 
-                    //cpmplie the data that the card needs for its creation
-                    var cardInfo = {
-                        "quizID": quiz.quizID,
-                        "totalMarks": quiz.totalMarks,
-                        "totalPoints": quiz.totalPoints
+                console.log(res.data.length);
 
-                    }
-                    console.log(" -----------Card Info data pack-----------");
-                    console.log(cardInfo);
-
-
-
-                    var newCard = createCard(cardInfo);
-                    $('#users').append(newCard);
-
-                }
+                this.setState({ data: res.data });
 
 
             });
+    }
 
+    handleClose = () => {
+        let status = false
+        this.setState({ showModalPopup: status });
+    }
 
-        function createCard(cardInfo) {
-            console.log(cardInfo)
-            var card = `
-        <div class="card" style=" width:60% ;margin-right:10px;">
-        <div class="card-body">
-           
-           
-        </div> <p class="card-text" style=" font-size:20px;margin-left:20px">Quiz ${cardInfo.quizID}</p>
-        <div style="margin-left:20px "> 
-        <div >
-            Total Marks:${cardInfo.totalMarks}
-        </div>
-        <div >
-            Total Points:${cardInfo.totalPoints}
-        </div>
-        <Link to={"/EditBadge?id=${cardInfo.quizID}"}>
-                      <Button>Do quiz</Button>
-                    </Link>
-        
-          </div>
-        
-         </div>
-            `;
+    handleButton = event => {
+        let status = true
+        this.setState({ showModalPopup: status });
+        event.preventDefault();
+        console.log("BUTTON CLICKED");
+        const quizID = event.target.getAttribute("data-index");
+        const totalMarks = event.target.getAttribute("data-mark");
+        const totalPoints = event.target.getAttribute("data-points");
+        // console.log(quizID);
+        // console.log(totalMarks);
+        // console.log(totalPoints);
 
-            return card;
+        const quiz = {
+            quizID: quizID,
+            studentID: '1',
+            pointsEarned: totalPoints,
+            marksEarned: totalMarks
+        };
+        const studentUpdatePoint = {
+            pointsEarned: totalPoints,
+            studentID: '1',
         }
 
-
+        const config = {
+            headers: {
+                'content-type': 'application/json'
+            }
+        }
+        axios.post('http://localhost:8081/quiz', quiz, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                console.log("AXIOS POSTING")
+                // window.location.reload();
+            })
+        axios.put(`http://localhost:8081/studentPoints`, studentUpdatePoint, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                console.log("AXIOS PUTTING")
+            })
 
 
     }
 
     //NEED TO GET STUDENT ID!
 
-
-
-
-
-
+    //   handleClose = () => {
+    //     this.props.onPopupClose(false);
+    // }
 
     render() {
-
         const data = this.state.data;
-
+        // When the user clicks anywhere outside of the modal, close it
         return (
-
             <div>
                 <div id="users" class="row">
-
-
                 </div>
+                {/* <div>
+          <div id="myModal" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <p>QUIZ completed!</p>
+            </div>
+          </div>
+        </div> */}
+                <table class="table">
 
+                    {data && data.map(item =>
+                        <tr key={item.quizID} id='tableRow' class="spaceUnder">
+                            <td className="quizTitle">Quiz {item.quizID}</td>
+                            <td className="marks">Total Marks: {item.totalMarks}</td>
+                            <td className="points">Total Points:{item.totalPoints}</td>
 
+                            <td>
+                                <Button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Do Quiz!</Button>
+
+                            </td>
+                        </tr>
+                    )}
+                </table>
+                <QuizPopUp
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.handleClose}
+                ></QuizPopUp>
             </div>
         )
     }

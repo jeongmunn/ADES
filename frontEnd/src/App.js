@@ -11,8 +11,6 @@ import TeacherLeaderboard from './components/TeacherLeaderboard';
 import BadgeAdmin from './components/BadgeAdmin';
 import RewardAdmin from './components/RewardAdmin';
 import MazeAdmin from './components/MazeAdmin';
-import EditMaze from './components/EditMazeContent';
-import EditBadge from './components/EditBadge';
 import Quiz from './components/Quiz';
 import MapOfMaze from './components/MapOfMaze';
 import ReactNotification from 'react-notifications-component';
@@ -51,8 +49,6 @@ function App() {
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
-        <Route path="/EditMazeContent" element={<EditMaze/>}></Route>
-        <Route path="/EditBadge" element={<EditBadge/>}></Route>
         <Route path="/quiz" element={<Quiz/>}></Route>
         <Route path="/mapOfMaze" element={<MapOfMaze/>}></Route>
       </Routes>

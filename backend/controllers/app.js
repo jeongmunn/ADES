@@ -620,7 +620,7 @@ app.get('/students/badges/:studentID', printDebugInfo, function (req, res) {
     var studentID = req.params.studentID;
     student.getStudentBadgesById(studentID, function (err, result) {
         if (!err) {
-            res.send(200).send(result.rows);
+            res.status(200).send(result.rows);
         } else {
             res.status(500).send("Some error");
         }

@@ -4,7 +4,7 @@ import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import jQuery from 'jquery';
 
-export default class ModalPopup extends Component {
+export default class MazePopup extends Component {
 
     constructor(props) {
         super(props);
