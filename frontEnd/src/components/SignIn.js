@@ -79,8 +79,10 @@ const SignIn = () => {
                 }
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + currentUser.uid, config)
                     .then(res => {
-                        if (res.data.type === 1 || res.data.type === 2) {
-                            navigate(-1);
+                        if (res.data.type === 1) {
+                            navigate('/studentDashboard');
+                        } else if (res.data.type === 2) {
+                            navigate('/teacherDashboard');
                         }
                     });
             }

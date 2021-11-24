@@ -616,6 +616,17 @@ app.get('/students/lastLogin/:studentID', printDebugInfo, function (req, res) {
 });
 
 
+app.get('/students/badges/:studentID', printDebugInfo, function (req, res) {
+    var studentID = req.params.studentID;
+    student.getStudentBadgesById(studentID, function (err, result) {
+        if (!err) {
+            res.send(200).send(result.rows);
+        } else {
+            res.status(500).send("Some error");
+        }
+    });
+});
+
 app.put('/students/lastLogin/:studentID', printDebugInfo, function (req, res) {
     var id = req.params.studentID
     var lastLogin = req.body.lastLogin;
