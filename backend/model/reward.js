@@ -1,21 +1,16 @@
 console.log("---------------------------------------------------------");
-console.log("server > model > reward.js");
+console.log("ADES > backend > model > reward.js");
 console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig")
 
-// ----------------------------------------------------------------------------
-// Objects/functions
-// ----------------------------------------------------------------------------
-
+//---------------------------------------------------------objects/functions------------------------------------------------------------
 var rewards = {
 
     createReward: function (reward, callback) {
-        console.log(" create reward function called");
         var rewardName = reward.rewardName;
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
-
         const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
                      VALUES ($1,$2,$3)`;
         const values = [rewardName, ptsRequired, url]
@@ -28,10 +23,7 @@ var rewards = {
             }
         })
     },
-
     getReward: function (callback) {
-        console.log(" get reward function called");
-
         const sql = `SELECT * FROM public."Rewards"`;
         pool.query(sql, (err, result) => {
             if (err) {
@@ -42,10 +34,7 @@ var rewards = {
             }
         })
     },
-
     getRewardById: function (rewardID, callback) {
-        console.log(" get reward by ID function called");
-
         const sql = `SELECT * FROM "public"."Rewards" WHERE"Rewards"."rewardID"=$1`;
         const values = [rewardID]
         pool.query(sql, values, (err, result) => {
@@ -57,9 +46,7 @@ var rewards = {
             }
         })
     },
-
     editReward: function (rewardID, reward, callback) {
-        console.log(" edit reward by ID function called");
         var rewardName = reward.rewardName;
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
@@ -75,10 +62,7 @@ var rewards = {
             }
         })
     },
-
     deleteReward: function (rewardID, callback) {
-        console.log(" edit reward by ID function called");
-
         const sql = ` DELETE FROM "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;
         const values = [rewardID]
         pool.query(sql, values, (err, result) => {
@@ -90,9 +74,7 @@ var rewards = {
             }
         })
     },
-
     insertRewardHistory: function (reward, callback) {
-        console.log(" insert reward history function called");
         var studentID = reward.studentID;
         var rewardID = reward.rewardID;
 
@@ -108,10 +90,7 @@ var rewards = {
             }
         })
     }
-
 };
 
-// ----------------------------------------------------------------------------
-// exports
-// ----------------------------------------------------------------------------
+//---------------------------------------------------------------exports------------------------------------------------------------
 module.exports = rewards;
