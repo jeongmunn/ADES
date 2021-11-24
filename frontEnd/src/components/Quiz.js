@@ -91,8 +91,8 @@ export default class Quiz extends React.Component {
             marksEarned: totalMarks
         };
         const studentUpdatePoint = {
-            pointsEarned: totalPoints,
             studentID: this.state.id,
+            pointsEarned: totalPoints
         }
 
         const config = {
@@ -158,7 +158,7 @@ export default class Quiz extends React.Component {
                 <QuizPopUp
                     showModalPopup={this.state.showModalPopup}
                     onPopupClose={this.handleClose}
-                    studentID={this.state.id}
+                    id={this.state.id}
                     quizID={this.state.quizID}
                     totalPoints={this.state.totalPoints}
                     totalMarks={this.state.totalMarks}

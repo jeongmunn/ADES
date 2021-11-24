@@ -696,8 +696,8 @@ app.get('/students/topStudents/', printDebugInfo, function (req, res) {
 //updating the student table
 app.put('/studentPoints', function (req, res) {
     var data = {
-        pointsEarned: req.body.pointsEarned,
-        studentID: req.body.studentID
+        studentID: req.body.studentID,
+        pointsEarned: req.body.pointsEarned
     };
     console.log("student Points  function called.")
     console.log("Student Points: " + JSON.stringify(data));
