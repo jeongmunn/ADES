@@ -10,8 +10,8 @@ export default class QuizPopup extends Component {
         this.state = {
             showModal : false,
             data: [],
-            quizID: 2,
-            studentID: 2
+            
+            
         };
     }
 
@@ -26,10 +26,11 @@ export default class QuizPopup extends Component {
 
     componentDidMount(){
         //axios.get(`https://ades-ca1-heroku.herokuapp.com/api/summary/${this.state.quizID}/${this.state.studentID}`)
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/summary/${this.state.quizID}/${this.state.studentID}`)
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/summary/${this.props.quizID}/${this.props.studentID}`)
         .then(res => {
             this.setState({ data : res.data });
         })
+        
     }
 
     render() {

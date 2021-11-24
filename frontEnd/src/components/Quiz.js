@@ -13,7 +13,12 @@ export default class Quiz extends React.Component {
             showModalPopup: false,
             data: [],
             uid: '',
-    id: 0
+            id: 0,
+            quizID: 0,
+            totalMarks:0,
+            totalPoints:0
+
+
 
         }
     }
@@ -72,19 +77,22 @@ export default class Quiz extends React.Component {
         const quizID = event.target.getAttribute("data-index");
         const totalMarks = event.target.getAttribute("data-mark");
         const totalPoints = event.target.getAttribute("data-points");
+        this.setState({quizID : quizID});
+        this.setState({totalMarks: totalMarks});
+        this.setState({totalPoints: totalPoints})
         // console.log(quizID);
         // console.log(totalMarks);
         // console.log(totalPoints);
 
         const quiz = {
             quizID: quizID,
-            studentID: '1',
+            studentID: this.state.id,
             pointsEarned: totalPoints,
             marksEarned: totalMarks
         };
         const studentUpdatePoint = {
             pointsEarned: totalPoints,
-            studentID: '1',
+            studentID: this.state.id,
         }
 
         const config = {
@@ -104,6 +112,8 @@ export default class Quiz extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
+                window.alert("points awarded");
+        
             })
 
 
@@ -148,6 +158,10 @@ export default class Quiz extends React.Component {
                 <QuizPopUp
                     showModalPopup={this.state.showModalPopup}
                     onPopupClose={this.handleClose}
+                    studentID={this.state.id}
+                    quizID={this.state.quizID}
+                    totalPoints={this.state.totalPoints}
+                    totalMarks={this.state.totalMarks}
                 ></QuizPopUp>
             </div>
         )
