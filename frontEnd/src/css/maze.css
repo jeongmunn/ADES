@@ -235,3 +235,11 @@ position: absolute;
     font-size: 4vh;
     margin-bottom: 0%;
   }
+
+  .icon{
+    position: relative;
+    float:right;
+    right:-8%;
+    top: 20px;
+
+  }

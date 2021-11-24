@@ -1,10 +1,13 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import '../css/quiz.css';
+import StudentNavigation from './StudentNavigaton';
 import QuizPopUp from './QuizPopup';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import '../css/navigation.css';
+import '../css/quiz.css';
+
 export default class Quiz extends React.Component {
 
     constructor() {
@@ -15,11 +18,8 @@ export default class Quiz extends React.Component {
             uid: '',
             id: 0,
             quizID: 0,
-            totalMarks:0,
-            totalPoints:0
-
-
-
+            totalMarks: 0,
+            totalPoints: 0
         }
     }
     componentDidMount() {
@@ -34,7 +34,7 @@ export default class Quiz extends React.Component {
                 }
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                     .then(res => {//call maze animation
-                       
+
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
                             // area to put your axios with the student id
@@ -69,20 +69,21 @@ export default class Quiz extends React.Component {
         this.setState({ showModalPopup: status });
     }
 
-    handleButton = event => {
-        let status = true
+    isShowPopup = (status, quizID, totalMarks, totalPoints) => {
         this.setState({ showModalPopup: status });
+        this.setState({ quizID: quizID });
+        this.setState({ totalMarks: totalMarks });
+        this.setState({ totalPoints: totalPoints });
+        this.handleScoreAndPoints();
+
+    }
+    handleScoreAndPoints = event => {
+
         event.preventDefault();
         console.log("BUTTON CLICKED");
-        const quizID = event.target.getAttribute("data-index");
-        const totalMarks = event.target.getAttribute("data-mark");
-        const totalPoints = event.target.getAttribute("data-points");
-        this.setState({quizID : quizID});
-    
-        console.log(quizID);
-        console.log(totalMarks);
-        console.log(totalPoints);
-        console.log("HELLO" + this.state.id)
+        const quizID = this.state.quizID
+        const totalMarks = this.state.totalMarks
+        const totalPoints = this.state.totalPoints
 
         const quiz = {
             quizID: quizID,
@@ -105,7 +106,7 @@ export default class Quiz extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS POSTING")
-                // window.location.reload();
+
             })
         axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
             .then(res => {
@@ -113,31 +114,22 @@ export default class Quiz extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
-                window.alert("points awarded");
+                window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
             })
     }
 
-    //NEED TO GET STUDENT ID!
 
-    //   handleClose = () => {
-    //     this.props.onPopupClose(false);
-    // }
 
     render() {
         const data = this.state.data;
         // When the user clicks anywhere outside of the modal, close it
         return (
             <div>
+                <StudentNavigation className="navBar">
+                </StudentNavigation>
                 <div id="users" class="row">
                 </div>
-                {/* <div>
-          <div id="myModal" class="modal">
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <p>QUIZ completed!</p>
-            </div>
-          </div>
-        </div> */}
+
                 <table class="table">
 
                     {data && data.map(item =>
@@ -147,7 +139,7 @@ export default class Quiz extends React.Component {
                             <td className="points">Total Points:{item.totalPoints}</td>
 
                             <td>
-                                <Button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Do Quiz!</Button>
+                                <Button onClick={() => this.isShowPopup(true, item.quizID, item.totalMarks, item.totalPoints)} type="submit" id="myBtn">Do Quiz!</Button>
 
                             </td>
                         </tr>
@@ -158,7 +150,7 @@ export default class Quiz extends React.Component {
                     onPopupClose={this.handleClose}
                     id={this.state.id}
                     quizID={this.state.quizID}
-                    
+
                 ></QuizPopUp>
             </div>
         )

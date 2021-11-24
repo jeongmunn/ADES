@@ -4,8 +4,10 @@ import { store } from 'react-notifications-component';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
+import StudentNavigation from './StudentNavigaton';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import '../css/navigation.css';
 import '../css/studentReward.css';
 
 export default class viewReward extends React.Component {
@@ -156,6 +158,8 @@ export default class viewReward extends React.Component {
     const data = this.state.data;
     return (
       <div className="StudentReward">
+        <StudentNavigation  className="navBar">
+      </StudentNavigation>
         <h1>Rewards</h1>
         <div className="Rewards">
           <Row xs={1} md={2} lg={3} className="g-4">

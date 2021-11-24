@@ -2,10 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { store } from 'react-notifications-component';
 import Button from 'react-bootstrap/Button';
+import StudentNavigation from './StudentNavigaton';
 import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import '../css/navigation.css';
 import '../css/studentReward.css';
 
 export default class StudentBadges extends React.Component {
@@ -72,6 +74,8 @@ export default class StudentBadges extends React.Component {
     const dataAll = this.state.dataAll;
     return (
       <div className="StudentReward">
+        <StudentNavigation  className="navBar">
+      </StudentNavigation>
         <h1>Badges Earned</h1>
         <div className="Rewards">
           <Row xs={1} md={2} lg={3} className="g-4">

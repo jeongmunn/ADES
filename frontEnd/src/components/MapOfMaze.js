@@ -10,10 +10,13 @@ import cloud6 from '../img/cloud6.png';
 import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
 import MazePopup from './MazePopup';
-import '../css/maze.css';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../css/maze.css';
 
 export default class MapOfMaze extends React.Component {
 
@@ -470,6 +473,11 @@ export default class MapOfMaze extends React.Component {
           <div id="levelDisplay">
             <p id="level">{this.state.maze}</p>
             <p id="staticLevel">Level</p>
+          </div>
+          <div className="icon">
+          <Link to={`/studentDashboard`} className="navlink nav-link-ltr">
+          <FontAwesomeIcon icon={faTimes} />
+                  </Link>
           </div>
         </div>
         <MazePopup

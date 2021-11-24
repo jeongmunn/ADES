@@ -1,8 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
+import StudentNavigation from './StudentNavigaton';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import '../css/navigation.css';
 import '../css/pointsHistory.css';
 
 export default class ptsHistory extends React.Component {
@@ -59,6 +61,8 @@ export default class ptsHistory extends React.Component {
 
         return (
             <div className="PointsHistory">
+                <StudentNavigation className="navBar">
+                </StudentNavigation>
                 <h1>Points History</h1>
                 <div className="history">
                     {data && data.map(item =>
