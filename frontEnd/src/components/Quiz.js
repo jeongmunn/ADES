@@ -82,6 +82,7 @@ export default class Quiz extends React.Component {
         console.log(quizID);
         console.log(totalMarks);
         console.log(totalPoints);
+        console.log(this.state.id)
 
         const quiz = {
             quizID: quizID,
