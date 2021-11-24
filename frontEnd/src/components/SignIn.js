@@ -114,7 +114,7 @@ const SignIn = () => {
                 Uid: JSON.parse(JSON.stringify(user.user.uid)),
                 streaks: 0,
                 totalPts: 0,
-                mazeLvl: 1,
+                mazeLvl: 0,
                 redeemedPts: 0,
                 type: 1,
                 lastLogin: dateData
