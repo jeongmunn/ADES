@@ -78,11 +78,10 @@ export default class Quiz extends React.Component {
         const totalMarks = event.target.getAttribute("data-mark");
         const totalPoints = event.target.getAttribute("data-points");
         this.setState({quizID : quizID});
-        this.setState({totalMarks: totalMarks});
-        this.setState({totalPoints: totalPoints})
-        // console.log(quizID);
-        // console.log(totalMarks);
-        // console.log(totalPoints);
+    
+        console.log(quizID);
+        console.log(totalMarks);
+        console.log(totalPoints);
 
         const quiz = {
             quizID: quizID,
@@ -160,8 +159,7 @@ export default class Quiz extends React.Component {
                     onPopupClose={this.handleClose}
                     id={this.state.id}
                     quizID={this.state.quizID}
-                    totalPoints={this.state.totalPoints}
-                    totalMarks={this.state.totalMarks}
+                    
                 ></QuizPopUp>
             </div>
         )
