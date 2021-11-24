@@ -78,8 +78,6 @@ export default class Quiz extends React.Component {
 
     }
     handleScoreAndPoints = event => {
-
-        event.preventDefault();
         console.log("BUTTON CLICKED");
         const quizID = this.state.quizID
         const totalMarks = this.state.totalMarks
