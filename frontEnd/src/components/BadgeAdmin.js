@@ -92,7 +92,7 @@ export default class BadgeAdmin extends React.Component {
     event.preventDefault();
     //data extraction (combining data)
     // file upload
-        if (this.state.url == '') { 
+        if (this.state.pic_url == '') { 
           const badge = {
             name: this.state.name,
             requirements: this.state.requirements,

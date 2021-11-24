@@ -41,7 +41,7 @@ export default class EditBadge extends React.Component {
         event.preventDefault();
         // file upload
          // IF there's anything replaced
-    if(this.state.url == ''){
+    if(this.state.pic_url == ''){
         
         const badge = {
             name: this.state.name,
