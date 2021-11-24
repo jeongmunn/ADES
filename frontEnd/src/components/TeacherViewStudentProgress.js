@@ -9,7 +9,7 @@ export default class TeacherViewStudentProgress extends React.Component {
     }
 
     componentDidMount() {
-        axios.get('https://ades-ca1-project.herokuapp.com/api/studentProgress')
+        axios.get('http://localhost:8081/api/studentProgress')
             .then(res => {
                 this.setState({ data: res.data });
             })

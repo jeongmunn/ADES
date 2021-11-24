@@ -26,32 +26,32 @@ export default class ptsHistory extends React.Component {
                 }
 
                 // Get the user type
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081/api/userType/` + this.state.uid, config)
                     .then(res => {
                         // IF is student
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
-                        // IF is teacher
+
+                            // GET student's points history
+                            axios.get('http://localhost:8081/api/ptsHistory/' + this.state.id)
+                                .then(res => {
+                                    this.setState({ data: res.data });
+                                })
+                            // IF is teacher
                         } else if (res.data.type === 2) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
-                        // ELSE kick them out
+                            window.location.replace('http://localhost:8081/quizment/teacherDashboard');
+                            // ELSE kick them out
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081/quizment');
                         }
                     })
-            // ELSE kick them out
+                // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081/quizment');
             }
         });
-
-        // GET student's points history
-        axios.get('https://ades-ca1-project.herokuapp.com/api/ptsHistory/' + this.state.id)
-            .then(res => {
-                this.setState({ data: res.data });
-            })
     }
 
     render() {

@@ -47,7 +47,7 @@ function App() {
         <Route path="/studentReward" element={<StudentReward/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
-        <Route path="/teacherLeaderboard" element={<TeacherLeaderboard/>}></Route>
+        <Route path="/leaderboardAdmin" element={<TeacherLeaderboard/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>

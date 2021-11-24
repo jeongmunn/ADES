@@ -122,7 +122,7 @@ export default class MapOfMaze extends React.Component {
   //to get the students current Lvl
   studentLevel = (callback) => {
     var studentID = 18;
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + studentID)
+    axios.get(`http://localhost:8081/api/mapOfMaze/` + studentID)
       .then(res => {
 
         this.setState({ maze: res.data[0].mazeLvl });
@@ -402,7 +402,7 @@ export default class MapOfMaze extends React.Component {
 
       this.setState({ level: levels });
 
-      axios.get(`https://ades-ca1-project.herokuapp.com/api/maze/${levels}`)
+      axios.get(`http://localhost:8081/api/maze/${levels}`)
         .then(res => {
 
           this.setState({ points: res.data[0].points });

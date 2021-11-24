@@ -77,7 +77,7 @@ const SignIn = () => {
                         'content-type': 'application/json'
                     }
                 }
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + currentUser.uid, config)
+                axios.get(`http://localhost:8081/api/userType/` + currentUser.uid, config)
                     .then(res => {
                         if (res.data.type === 1 || res.data.type === 2) {
                             navigate(-1);
@@ -117,7 +117,7 @@ const SignIn = () => {
                 type: 1,
                 lastLogin: dateData
             };
-            axios.post('https://ades-ca1-project.herokuapp.com/api/newStudent', personalDetails, config)
+            axios.post('http://localhost:8081/api/newStudent', personalDetails, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -144,7 +144,7 @@ const SignIn = () => {
                 }
             }
             var uid = JSON.parse(JSON.stringify(user.user.uid));
-            axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + uid, config)
+            axios.get(`http://localhost:8081/api/userType/` + uid, config)
                 .then(res => {
                     if (res.data.type === 1) {
                         navigate('/studentDashboard');

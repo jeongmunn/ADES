@@ -17,14 +17,14 @@ export default class BadgeAdmin extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/badges`)
+    axios.get(`http://localhost:8081/api/badges`)
       .then(res => {
         console.log(res.data.length);
 
         this.setState({ data: res.data });
       })
 
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/badgeClass`)
+    axios.get(`http://localhost:8081/api/badgeClass`)
       .then(res => {
         console.log(res.data.length);
 
@@ -81,7 +81,7 @@ export default class BadgeAdmin extends React.Component {
           'content-type': 'application/json'
         }
       }
-      axios.post('https://ades-ca1-project.herokuapp.com/api/newBadge', badge, config)
+      axios.post('http://localhost:8081/api/newBadge', badge, config)
         .then(res => {
           console.log(res);
           console.log(res.data);

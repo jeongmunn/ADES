@@ -43,32 +43,30 @@ export default class viewReward extends React.Component {
                 }
 
                 // Get the user type
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081/api/userType/` + this.state.uid, config)
                     .then(res => {
                         // IF is student
                         if (res.data.type === 1) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
-                        // IF is teacher
+                            window.location.replace('http://localhost:8081/quizment/studentDashboard');
+                            // IF is teacher
                         } else if (res.data.type === 2) {
-
-                        // ELSE kick them out
+                            // GET all rewards data
+                            axios.get('http://localhost:8081/api/rewards')
+                                .then(res => {
+                                    this.setState({ data: res.data });
+                                })
+                            // ELSE kick them out
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081/quizment');
                         }
                     })
-            // ELSE kick them out
+                // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081/quizment');
             }
         });
-
-        // GET all rewards data
-        axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
-            .then(res => {
-                this.setState({ data: res.data });
-            })
     }
 
     notiUploadSuccess() {
@@ -95,7 +93,7 @@ export default class viewReward extends React.Component {
 
     handleDelete = event => {
         const id = event.target.id;
-        axios.delete('https://ades-ca1-project.herokuapp.com/api/rewards/' + id)
+        axios.delete('http://localhost:8081/api/rewards/' + id)
             .then(res => {
                 window.alert("Reward deleted successfully");
                 window.location.reload();
@@ -130,7 +128,7 @@ export default class viewReward extends React.Component {
                 }
             }
 
-            axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
+            axios.post('http://localhost:8081/api/rewards', reward, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -165,7 +163,7 @@ export default class viewReward extends React.Component {
                     }
                 }
 
-                axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
+                axios.post('http://localhost:8081/api/rewards', reward, config)
                     .then(res => {
                         console.log(res);
                         console.log(res.data);
