@@ -3,20 +3,60 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import '../css/Table&Add.css';
-export default class RewardAdmin extends React.Component {
+import ModalPopup from './EditMazeContent';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
+export default class MazeAdmin extends React.Component {
 
     state = {
-        data: []
+        data: [],
+        mazeLvl: '',
+        points: '',
+        showModalPopup:false
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8081/mazeContent')
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("User is Signed IN ");
+                this.setState({ uid: user.uid });
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                    .then(res => {
+                      if (res.data.type === 1) {
+                        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+      
+      } else if (res.data.type === 2) {
+                          // area to put your axios 
+                     } else {
+                         window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                     }
+                 })
+         } else {
+             console.log("THERE IS NO USER");
+             signOut(auth);
+             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+         }
+      });
+
+        axios.get('https://ades-ca1-project.herokuapp.com/api/mazeContent')
             .then(res => {
                 this.setState({ data: res.data });
             })
     }
    
 
+    isShowPopup = (status, mazeLvl, points) => {
+        this.setState({ showModalPopup : status });
+        this.setState({ mazeLvl : mazeLvl });
+        this.setState({ points : points});
+        
+    }
   
 
 
@@ -44,9 +84,7 @@ export default class RewardAdmin extends React.Component {
                                 <td>{item.mazeLvl}</td>
                                 <td>{item.points}</td>
                                 <td>
-                                    <Link to={`/EditMazeContent?lvl=${item.mazeLvl}`}>
-                                    <Button>Edit</Button>
-                                    </Link>
+                                <Button type="button" variant="warning" onClick={() => this.isShowPopup(true, item.mazeLvl, item.points)}>Edit</Button>
                                 </td>
 
                             </tr>
@@ -55,6 +93,12 @@ export default class RewardAdmin extends React.Component {
                 </table>
             </div>
             </div>
+            <ModalPopup
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.isShowPopup}
+                    mazeLvl={this.state.mazeLvl}
+                    points={this.state.points}
+                ></ModalPopup>
       </div>
         )
     }

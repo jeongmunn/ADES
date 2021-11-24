@@ -4,20 +4,54 @@ import { Link } from 'react-router-dom';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Button from 'react-bootstrap/Button';
 import '../css/Table&Add.css';
-
-
+import ModalPopup from './EditBadge';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 export default class BadgeAdmin extends React.Component {
   state = {
     data: [],
+    showModalPopup: false,
     class: [],
     name: '',
     requirements: '',
     pic_url: '',
-    badgeClassID: ''
+    badgeClassID: '',
+    badgeID:'',
+    uid: '',
+    id: 0
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:8081/badges`)
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+          console.log("User is Signed IN ");
+          this.setState({ uid: user.uid });
+          const config = {
+              headers: {
+                  'content-type': 'application/json'
+              }
+          }
+          
+          axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+              .then(res => {
+                if (res.data.type === 1) {
+                  window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+
+} else if (res.data.type === 2) {
+                    // area to put your axios 
+               } else {
+                   window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+               }
+           })
+   } else {
+       console.log("THERE IS NO USER");
+       signOut(auth);
+       window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+   }
+});
+
+
+    axios.get(`https://ades-ca1-project.herokuapp.com/api/badges`)
       .then(res => {
         console.log(res.data.length);
 
@@ -32,7 +66,14 @@ export default class BadgeAdmin extends React.Component {
       })
   }
 
-
+  isShowPopup = (status, badgeID, name, requirements, className,pic_url) => {
+    this.setState({ showModalPopup : status });
+    this.setState({ badgeID : badgeID });
+    this.setState({ name : name});
+    this.setState({ requirements : requirements});
+    this.setState({ badgeClassID : className });
+    this.setState({ pic_url : pic_url });
+}
   handleName = event => {
     this.setState({ name: event.target.value });
   }
@@ -98,7 +139,7 @@ export default class BadgeAdmin extends React.Component {
 
       <div id="body">
         <div id="div">
-          <h1 style={{ fontFamily: "sans-serif ", color: 'blue' }}>Badges Administration</h1>
+          <h1 className="badgeAdmin" style={{ fontFamily: "sans-serif ", color: 'blue' }}>Badges Administration</h1>
           <div className="viewBadges">
             <div id="divForm">
               <h2 id="add">Add Badge</h2>
@@ -165,14 +206,20 @@ export default class BadgeAdmin extends React.Component {
                     <td>{item2.requirements}</td>
                     <td>{item2.className}</td>
                     <td><img src={item2.pic_url} style={{ height: 200, width: 200 }} alt=""></img></td>
-                    <td><Link to={`/EditBadge?id=${item2.badgeID}`}>
-                      <Button>Edit</Button>
-                    </Link>
-                    </td>
+                    <td><Button type="button" variant="warning" onClick={() => this.isShowPopup(true, item2.badgeID, item2.name, item2.requirements, item2.className,item2.pic_url)}>Edit</Button></td>
                   </tr>
                 )}
               </table>
             </div>
+            <ModalPopup
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.isShowPopup}
+                    badgeID={this.state.badgeID}
+                    name={this.state.name}
+                    requirements={this.state.requirements}
+                    className={this.state.badgeClassID}
+                    pic_url={this.state.pic_url}
+                ></ModalPopup>
 
           </div>
         </div>

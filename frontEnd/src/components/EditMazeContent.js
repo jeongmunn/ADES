@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
-
+import Form from 'react-bootstrap/Form';
+import { Row, Col } from 'react-bootstrap';
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import '../css/badgemazeEdit.css';
+import { Modal } from 'react-bootstrap';
+import Button from 'react-bootstrap/Button';
 
 export default class EditMazeContent extends React.Component {
     
@@ -33,7 +38,7 @@ export default class EditMazeContent extends React.Component {
             'content-type': 'application/json'
         }
     }
-   const lvl= window.location.href.split('/')[3].slice(20);
+   const lvl= parseInt(this.props.mazeLvl)
     const baseUrl = "http://localhost:8081";
     
    
@@ -41,28 +46,44 @@ export default class EditMazeContent extends React.Component {
             .then(res => {
                 console.log(res);
                 console.log(res.data);
+                window.location.reload();
             })
     }
-    render() { const lvl= window.location.href.split('/')[3].slice(20);
+
+    handleClose = () => {
+        this.props.onPopupClose(false, this.props.rewardID, '', '', '');
+      }
+    render() { 
         return (
             <div id="bodyEdit">
-            <div id="divEdit">
+          
+            <Fragment>
+        <Modal show={this.props.showModalPopup} onHide={this.handleClose}
+          size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              Edit Maze Level {this.props.mazeLvl}
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <div className="editReward">
-                <h1>Edit Points on Level {lvl}</h1>
-                <form onSubmit={this.handleSubmit} id="formEdit">
-                    {/* <label>
-                         :
-            <input type="text" name="mazeLvl" onChange={this.handleLvl} />
-                    </label> */}
-                    <label>
-                        Points Required :
-            <input type="number" name="points" onChange={this.handlePoints} />
-                    </label>
-                   
-                    <button type="submit">Update</button>
-                </form>
+              <Form onSubmit={this.handleSubmit} className="editMazeForm">
+                <Row>
+                 
+                  <Col xs={12} md={5} >
+                    <Form.Control type="number"  placeholder={this.props.points} onChange={this.handlePoints} required />
+                  </Col>
+                 
+                  <Col xs={12} md={2} lg={2}>
+                    <Button variant="primary" type="submit">Edit</Button>
+                  </Col>
+                 
+                </Row>
+              </Form>
             </div>
-            </div>
+          </Modal.Body>
+        </Modal>
+      </Fragment>
       </div>
         )
     }

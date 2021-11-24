@@ -2,24 +2,53 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
- import ModalPopup from './Modal';  
-
+import ModalPopup from './QuizPopUp';
+import { signOut } from "firebase/auth";
+import { auth } from '../firebase.js';
 export default class Quiz extends React.Component {
   // state = {
   //   ,
 
   // }
-  constructor() {  
-    super();  
-    this.state = {  
-      showModalPopup: false ,
-      data: [] ,
+  constructor() {
+    super();
+    this.state = {
+      showModalPopup: false,
+      data: [],
 
-    }  
-  }  
+    }
+  }
   componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        console.log("User is Signed IN ");
+        this.setState({ uid: user.uid });
+        const config = {
+          headers: {
+            'content-type': 'application/json'
+          }
+        }
 
-    axios.get(`http://localhost:8081/quiz`)
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+          .then(res => {//call maze animation
+            this.mazeAnimation(false)
+            if (res.data.type === 1) {
+              this.setState({ id: res.data.studentID })
+              // area to put your axios with the student id
+
+            } else if (res.data.type === 2) {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+            } else {
+              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+          })
+      } else {
+        console.log("THERE IS NO USER");
+        signOut(auth);
+        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+      }
+    });
+    axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
       .then(res => {
         console.log(res.data.length);
         this.setState({ data: res.data });
@@ -38,18 +67,18 @@ export default class Quiz extends React.Component {
 
 
   }
-  handleClose =() =>{
-    let status =false
-    this.setState({ showModalPopup: status }); 
+  handleClose = () => {
+    let status = false
+    this.setState({ showModalPopup: status });
   }
 
   handleButton = event => {
-    let status =true
-    this.setState({ showModalPopup: status });  
+    let status = true
+    this.setState({ showModalPopup: status });
     event.preventDefault();
     console.log("BUTTON CLICKED");
- 
-  
+
+
     const quizID = event.target.getAttribute("data-index");
     const totalMarks = event.target.getAttribute("data-mark");
     const totalPoints = event.target.getAttribute("data-points");
@@ -88,13 +117,13 @@ export default class Quiz extends React.Component {
       })
 
 
-   }
+  }
 
   //NEED TO GET STUDENT ID!
 
-//   handleClose = () => {
-//     this.props.onPopupClose(false);
-// }
+  //   handleClose = () => {
+  //     this.props.onPopupClose(false);
+  // }
 
 
 
@@ -134,8 +163,8 @@ export default class Quiz extends React.Component {
           {data && data.map(item =>
             <tr key={item.quizID} id='tableRow' class="spaceUnder">
               <td className="quizTitle">Quiz {item.quizID}</td>
-              <td  className="marks">Total Marks: {item.totalMarks}</td>
-              <td  className="points">Total Points:{item.totalPoints}</td>
+              <td className="marks">Total Marks: {item.totalMarks}</td>
+              <td className="points">Total Points:{item.totalPoints}</td>
 
               <td>
                 <Button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Do Quiz!</Button>
@@ -144,10 +173,10 @@ export default class Quiz extends React.Component {
             </tr>
           )}
         </table>
-        <ModalPopup  
-          showModalPopup={this.state.showModalPopup}  
-          onPopupClose={this.handleClose}  
-        ></ModalPopup>  
+        <ModalPopup
+          showModalPopup={this.state.showModalPopup}
+          onPopupClose={this.handleClose}
+        ></ModalPopup>
       </div>
     )
   }

@@ -11,7 +11,6 @@ export default class ModalPopup extends Component {
         this.state = {
             showModal : false,
             newLevel:false,
-            studentID : 18,
             currentPts : 0,
             totalPts : 0,
             mazeLvl: 0,
@@ -21,8 +20,8 @@ export default class ModalPopup extends Component {
     
     componentDidMount(){
         // Get student's points data'
-        //axios.get('https://ades-ca1-heroku.herokuapp.com/api/points/' + studentID)
-        axios.get('http://localhost:8081/points/' + this.state.studentID)
+      
+        axios.get('http://localhost:8081/points/' + this.props.id)
         .then(res => {
             this.setState({ currentPts : res.data[0].redeemedPts });
             this.setState({ totalPts : res.data[0].totalPts});
@@ -64,7 +63,7 @@ export default class ModalPopup extends Component {
             }
         }
 
-        axios.put('http://localhost:8081/points/' + this.state.studentID, data, config)
+        axios.put('https://ades-ca1-project.herokuapp.com/api/points/' + this.props.id, data, config)
         .then(res => {
             console.log(res);
             console.log(res.data);
@@ -76,7 +75,7 @@ export default class ModalPopup extends Component {
         }
 
         // Insert points history
-        axios.post('http://localhost:8081/ptsHistory/' + this.state.studentID, points, config)
+        axios.post('http://localhost:8081/ptsHistory/' + this.props.id, points, config)
         .then(res => {
             console.log(res);
             console.log(res.data);

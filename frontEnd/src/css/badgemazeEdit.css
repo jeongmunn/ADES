@@ -1,5 +1,31 @@
+
+@font-face {
+  font-family: 'Galey';
+  src: local('Galey'), url(../fonts/Galey-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(../fonts/VisbyRound-Light.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(../fonts/VisbyRound-Medium.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(../fonts/VisbyRound-Regular.otf) format('opentype');
+}
+
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
 #bodyEdit{
-    background-image: url('https://images.unsplash.com/photo-1620202119243-212a883c5627?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=967&q=80');
+   
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
@@ -17,8 +43,10 @@
      border-radius: 40px;
 
   }
-  h1{
-      margin-left: 1000;
+  .badgeAdmin{
+    font-family: VisbyRound;
+    text-align: center;
+    margin-bottom: 0.5em;
   }
   #formEdit{
     background-color: rgba(255,255,255,0.5);
