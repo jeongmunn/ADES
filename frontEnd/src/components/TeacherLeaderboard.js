@@ -23,7 +23,6 @@ export default class ViewLeaderboard extends React.Component {
                         'content-type': 'application/json'
                     }
                 }
-
                 // Get the user type
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                     .then(res => {

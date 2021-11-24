@@ -39,7 +39,7 @@ var points = {
             }
         })
     },
-    getQuizPts: function(studentID,quizID, callback){
+    getQuizPts: function(studentID, quizID, callback){
         console.log("get quiz points function called");
         const sql = `SELECT "quizHistoryID", "pointsEarned", "marksEarned" FROM public."quizHistory" WHERE "studentID" = $1 AND "quizID" = $2`;
         const value = [studentID, quizID];

@@ -36,6 +36,8 @@ export default class StudentBadges extends React.Component {
             // IF is student
             if (res.data.type === 1) {
               this.setState({ id: res.data.studentID })
+              console.log(this.state.id);
+              console.log(res.data.studentID);
             // IF is teacher
             } else if (res.data.type === 2) {
               window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
