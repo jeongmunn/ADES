@@ -12,6 +12,8 @@ export default class Quiz extends React.Component {
         this.state = {
             showModalPopup: false,
             data: [],
+            uid: '',
+    id: 0
 
         }
     }
@@ -27,7 +29,7 @@ export default class Quiz extends React.Component {
                 }
                 axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
                     .then(res => {//call maze animation
-                        this.mazeAnimation(false)
+                       
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
                             // area to put your axios with the student id
@@ -90,14 +92,14 @@ export default class Quiz extends React.Component {
                 'content-type': 'application/json'
             }
         }
-        axios.post('http://localhost:8081/quiz', quiz, config)
+        axios.post('https://ades-ca1-project.herokuapp.com/api/quiz', quiz, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS POSTING")
                 // window.location.reload();
             })
-        axios.put(`http://localhost:8081/studentPoints`, studentUpdatePoint, config)
+        axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);

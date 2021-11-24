@@ -26,7 +26,7 @@ export default class QuizPopup extends Component {
 
     componentDidMount(){
         //axios.get(`https://ades-ca1-heroku.herokuapp.com/api/summary/${this.state.quizID}/${this.state.studentID}`)
-        axios.get(`http://localhost:8081/api/summary/${this.state.quizID}/${this.state.studentID}`)
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/summary/${this.state.quizID}/${this.state.studentID}`)
         .then(res => {
             this.setState({ data : res.data });
         })
