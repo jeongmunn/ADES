@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 import TeacherDashboard from './components/TeacherDashboard';
 import ViewLeaderboard from './components/TeacherLeaderboard';
 import BadgeAdmin from './components/BadgeAdmin';
+import TeacherViewStudentProgress from './components/TeacherViewStudentProgress'
 import RewardAdmin from './components/RewardAdmin';
 import MazeAdmin from './components/MazeAdmin';
 import Quiz from './components/Quiz';
@@ -48,6 +49,7 @@ function App() {
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
         <Route path="/leaderboardAdmin" element={<ViewLeaderboard/>}></Route>
+        <Route path="/studentAdmin" element={<TeacherViewStudentProgress/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
