@@ -4,6 +4,7 @@ import Loading from './components/Loading';
 import SignIn from './components/SignIn';
 import StudentDashboard from './components/StudentDashboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
+import StudentBadges from './components/StudentBadges'
 import StudentReward from './components/StudentReward';
 import Profile from './components/Profile';
 import TeacherDashboard from './components/TeacherDashboard';
@@ -42,6 +43,7 @@ function App() {
         <Route path="/loading" element={<Loading />}></Route>
         <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
         <Route path="/studentPoints" element={<StudentPointsHistory/>}></Route>
+        <Route path="/studentBadges" element={<StudentBadges/>}></Route>
         <Route path="/studentReward" element={<StudentReward/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>

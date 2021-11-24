@@ -8,7 +8,7 @@ import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
 import '../css/studentReward.css';
 
-export default class viewReward extends React.Component {
+export default class StudentBadges extends React.Component {
   state = {
     data: [],
     dataAll: [],
