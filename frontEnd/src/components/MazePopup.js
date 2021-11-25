@@ -20,14 +20,19 @@ export default class MazePopup extends Component {
     
     componentDidMount(){
         // Get student's points data'
-      
+       if(this.props.id === 0) {
+        console.log("User undefined.")
+       } else {
         axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.props.id)
         .then(res => {
             this.setState({ currentPts : res.data[0].redeemedPts });
             this.setState({ totalPts : res.data[0].totalPts});
             this.setState({ mazeLvl : res.data[0].mazeLvl});
             window.alert("get points id");
-        })
+        }).catch((error) => {
+            console.log(error);
+        });
+        }
     }
 
     isShowModal = (status) => {
