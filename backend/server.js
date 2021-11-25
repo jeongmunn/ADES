@@ -8,6 +8,8 @@ const cors = require('cors');
 const path = require("path");
 const api = require('./controllers/app.js');
 const basename = "/quizment";
+const errors = require('./lib/errors');
+const errorModel = require('./lib/errorResponse');
 
 // web Server
 const app = express();
@@ -38,20 +40,18 @@ app.get(basename + '*', function (req, res) {
 });
 
 // link to backend apis
-app.use('/api',api);
+app.use('/api', api);
 
 // error 404 middleware
-app.use(function (req, res, next) {
+app.use(function ( req, res, next) {
     res.status(404).sendFile(path.join(__dirname, '..', 'error.html'));
-  });
+})
 
 // error handling middleware
 app.use((error, req, res, next) => {
-    console.error(error);
-    return res.status(error.status || 500).json({
-        error: error.message || 'ERROR_MESSAGE',
-    });
-});
+    let err = new errorModel.errorResponse(errors.internal_error.withDetails(error.message || "ERROR"));
+    res.status(error.status || 500).send(err);
+})
 
 // hosting on heroku on one port, 8081 is for localhosting
 var server_port = process.env.YOUR_PORT  || process.env.PORT || 8081 ;
