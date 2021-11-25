@@ -50,53 +50,42 @@ app.use(cors());
 //----------------------------------------------------------endpoints------------------------------------------------------------
 
 //----------------------------------------------------------------user------------------------------------------------------------
-// GET user's id and type 
+// GET user's id and type
 app.get('/userType/:Uid', function (req, res) {
 
     // storing data
     var Uid = req.params.Uid;
 
     user.getIdAndTypeOfUser(Uid, function (err, result) {
-
+        
         // IF there's no result data
-        if (!err) {
-            // IF the result returns nothing
-            if (result.rows == '') {
-                let error = new errorModel.errorResponse(errors.not_registeration.withDetails("Error! The request has no error but there's nothing returned."));
-                res.status(404).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+        if (result.length != 0) {
+            res.status(200).send(result[0]);
+        // IF the user does not exist
+        } else if (result.length === 0) {
+            res.status(404).send("Invalid! This user does not exist.")
         } else {
-            let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot GET user type."));
-            res.status(500).send(error);
+            res.status(500).send("Error! Cannot GET user type.");
         }
     })
 });
 
-// GET user's email 
+// GET user's email
 app.get('/email/:Uid', function (req, res) {
 
     // storing data
     var Uid = req.params.Uid;
-
+    
     user.getEmail(Uid, function (err, result) {
         if (!err) {
-            // IF the result returns nothing
-            if (result.rows == '') {
-                let error = new errorModel.errorResponse(errors.not_registeration.withDetails("Error! The request has no error but there's nothing returned."));
-                res.status(404).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+            res.status(200).send(result[0]);
         } else {
-            let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot GET user email."));
-            res.status(500).send(error);
+            res.status(500).send("Error! Cannot GET user email.");
         }
     })
 });
 
-// UPDATE user's email 
+// UPDATE user's email
 app.put('/email/:Uid', function (req, res) {
 
     // packing data into json object
@@ -105,24 +94,9 @@ app.put('/email/:Uid', function (req, res) {
 
     user.updateEmail(Uid, email, function (err, result) {
         if (!err) {
-            res.status(201).send(result.rows);
+            res.status(200).send(result);
         } else {
-            // IF error code = 23502, send the details of error
-            if (err.code == '23502') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails(err.detail));
-                res.status(400).send(error);
-                // IF error code = 23503, send the details of error
-            } else if (err.code == '23503') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails(err.detail));
-                res.status(400).send(error);
-                // IF error code - 22P02, 
-            } else if (err.code == '22P02') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails("Invalid input syntax for integer."));
-                res.status(400).send(error);
-            } else {
-                let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot UPDATE user email."));
-                res.status(500).send(error);
-            }
+            res.status(500).send("Error! Cannot UPDATE user email.");
         }
     });
 });
