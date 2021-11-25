@@ -19,12 +19,12 @@ var rewards = {
         const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
                      VALUES ($1,$2,$3)`;
         const values = [rewardName, ptsRequired, url]
-        pool.query(sql, values, (err) => {
+        pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err);
             } else {
-                return callback(null);
+                return callback(null, result);
             }
         })
     },
@@ -36,7 +36,7 @@ var rewards = {
         pool.query(sql, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result.rows);
             }
@@ -51,9 +51,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -69,9 +69,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -84,9 +84,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -102,9 +102,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     }

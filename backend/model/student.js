@@ -15,7 +15,7 @@ var student = {
         pool.query('SELECT * FROM public."Student"', (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -30,9 +30,24 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
+<<<<<<< Updated upstream
                 console.log("its over HEREEEE")
+=======
+                return callback(null, result);
+            }
+        })
+    },
+    getStudentBadgesById: function (id, callback) {
+        const sql = `SELECT * FROM "public"."BadgeHistory" INNER JOIN public."badge" ON badge."badgeClassID" = public."BadgeHistory"."badgeID" WHERE "public"."BadgeHistory"."studentID"=$1 ORDER BY public."BadgeHistory"."badgeID" ASC`;
+        const values = [id]
+        pool.query(sql, values, (err, result) => {
+            if (err) {
+                console.log(err);
+                return callback(err);
+            } else {
+>>>>>>> Stashed changes
                 return callback(null, result);
             }
         })
@@ -44,7 +59,7 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -56,7 +71,7 @@ var student = {
         pool.query('SELECT "public"."Student"."name","public"."Student"."totalPts" FROM "public"."Student" ORDER BY "public"."Student"."totalPts" DESC LIMIT 3;', (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -70,7 +85,7 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -84,7 +99,7 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -98,10 +113,14 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
+<<<<<<< Updated upstream
                 console.log("result : " + result.rows);
                 return callback(null, result.rows);
+=======
+                return callback(null, result);
+>>>>>>> Stashed changes
             }
         })
     },
@@ -112,10 +131,14 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
+<<<<<<< Updated upstream
                 console.log("result : " + result.rows);
                 return callback(null, result.rows);
+=======
+                return callback(null, result);
+>>>>>>> Stashed changes
             }
         })
     },
@@ -126,10 +149,14 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
+<<<<<<< Updated upstream
                 console.log("result : " + result.rows);
                 return callback(null, result.rows);
+=======
+                return callback(null, result);
+>>>>>>> Stashed changes
             }
         })
     },
@@ -143,7 +170,7 @@ var student = {
         pool.query(sql, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -158,7 +185,7 @@ var student = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 console.log("its over HEREEEE")
                 return callback(null, result);
@@ -171,9 +198,9 @@ var student = {
         pool.query(sql, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -183,7 +210,7 @@ var student = {
         pool.query(sql, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result.rows);
             }
@@ -197,9 +224,9 @@ var student = {
         pool.query(sql,value,(err, result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -216,12 +243,12 @@ var student = {
         var type = student.type;
         var lastLogin = student.lastLogin;
         const values = [name, Uid, streaks, totalPts, mazeLvl, redeemedPts, type, lastLogin]
-        pool.query(sql, values, (err) => {
+        pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err);
             } else {
-                return callback(null);
+                return callback(null,result);
             }
         })
     },

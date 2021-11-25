@@ -20,9 +20,9 @@ var points = {
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
-                    return callback(null,result.rows);
+                    return callback(null,result);
                 }
             })
     },
@@ -33,9 +33,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -46,9 +46,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -59,9 +59,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -75,9 +75,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     }

@@ -1,5 +1,6 @@
 {
   "files": {
+<<<<<<< Updated upstream
     "main.css": "/quizment/static/css/main.d79d8d32.chunk.css",
     "main.js": "/quizment/static/js/main.ccd8ff96.chunk.js",
     "main.js.map": "/quizment/static/js/main.ccd8ff96.chunk.js.map",
@@ -15,6 +16,24 @@
     "static/css/main.d79d8d32.chunk.css.map": "/quizment/static/css/main.d79d8d32.chunk.css.map",
     "static/js/2.0069ec17.chunk.js.LICENSE.txt": "/quizment/static/js/2.0069ec17.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/VisbyRound-Regular.212d29c3.otf",
+=======
+    "main.css": "/quizment/static/css/main.a67a4a22.chunk.css",
+    "main.js": "/quizment/static/js/main.55c5dfa2.chunk.js",
+    "main.js.map": "/quizment/static/js/main.55c5dfa2.chunk.js.map",
+    "runtime-main.js": "/quizment/static/js/runtime-main.033b61e6.js",
+    "runtime-main.js.map": "/quizment/static/js/runtime-main.033b61e6.js.map",
+    "static/css/2.085eee58.chunk.css": "/quizment/static/css/2.085eee58.chunk.css",
+    "static/js/2.1e04fee1.chunk.js": "/quizment/static/js/2.1e04fee1.chunk.js",
+    "static/js/2.1e04fee1.chunk.js.map": "/quizment/static/js/2.1e04fee1.chunk.js.map",
+    "static/js/3.be7992e4.chunk.js": "/quizment/static/js/3.be7992e4.chunk.js",
+    "static/js/3.be7992e4.chunk.js.map": "/quizment/static/js/3.be7992e4.chunk.js.map",
+    "index.html": "/quizment/index.html",
+    "static/css/2.085eee58.chunk.css.map": "/quizment/static/css/2.085eee58.chunk.css.map",
+    "static/css/main.a67a4a22.chunk.css.map": "/quizment/static/css/main.a67a4a22.chunk.css.map",
+    "static/js/2.1e04fee1.chunk.js.LICENSE.txt": "/quizment/static/js/2.1e04fee1.chunk.js.LICENSE.txt",
+    "static/media/rewardAdmin.css": "/quizment/static/media/Galey-RoundedExtraLight.d9351dd1.ttf",
+    "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
+>>>>>>> Stashed changes
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
     "static/media/cloud2.ecff1f7e.png": "/quizment/static/media/cloud2.ecff1f7e.png",
     "static/media/cloud3.b4065f4e.png": "/quizment/static/media/cloud3.b4065f4e.png",
@@ -27,10 +46,18 @@
     "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
   },
   "entrypoints": [
+<<<<<<< Updated upstream
     "static/js/runtime-main.68608402.js",
     "static/css/2.085eee58.chunk.css",
     "static/js/2.0069ec17.chunk.js",
     "static/css/main.d79d8d32.chunk.css",
     "static/js/main.ccd8ff96.chunk.js"
+=======
+    "static/js/runtime-main.033b61e6.js",
+    "static/css/2.085eee58.chunk.css",
+    "static/js/2.1e04fee1.chunk.js",
+    "static/css/main.a67a4a22.chunk.css",
+    "static/js/main.55c5dfa2.chunk.js"
+>>>>>>> Stashed changes
   ]
 }

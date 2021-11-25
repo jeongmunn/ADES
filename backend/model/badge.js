@@ -18,7 +18,7 @@ var badge = {
         pool.query('SELECT * FROM public.badge  INNER JOIN public."badgeClass" ON  badge."badgeClassID" = public."badgeClass"."badgeClassID"', (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }
@@ -29,7 +29,7 @@ var badge = {
         pool.query('SELECT * FROM public."badgeClass"', (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }
@@ -50,9 +50,8 @@ var badge = {
 
         pool.query(sql, data, (err, result) => {
             if (err) {
-                console.log(name + requirements + pic + badgeClassID)
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
 
                 return callback(null, result);
@@ -83,7 +82,7 @@ var badge = {
         pool.query(sql, data, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }

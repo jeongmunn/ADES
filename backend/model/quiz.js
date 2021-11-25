@@ -18,7 +18,7 @@ var quiz = {
         pool.query('SELECT * FROM public."quiz"', (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }
@@ -52,7 +52,7 @@ var quiz = {
             if (err) {
                 console.log(quizID + studentID + pointsEarned + markEarned)
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
 
                 return callback(null, result);
@@ -67,14 +67,12 @@ var quiz = {
         var pointsEarned = quiz.pointsEarned;
         //  var badgeClassID = parseInt(badgeCID);
         var data = [studentID, pointsEarned]
-        var sql = ` UPDATE public."Student"
-    SET "totalPts"="totalPts" + $2 
-    WHERE "studentID" =$1` ;
+        var sql = ` UPDATE public."Student" SET "totalPts"="totalPts" + $2 WHERE "studentID" =$1` ;
         pool.query(sql, data, (err, result) => {
             if (err) {
                 console.log(studentID + pointsEarned)
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
 
                 return callback(null, result);

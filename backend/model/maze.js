@@ -25,7 +25,7 @@ var maze = {
             , (err, result) => {
                 if (err) {
                     cconsole.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
                     return callback(null, result);
                 }
@@ -37,9 +37,9 @@ var maze = {
         pool.query(sql, [StudentID], (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -59,7 +59,7 @@ var maze = {
         pool.query(sql, data, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }
@@ -73,9 +73,9 @@ var maze = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -91,9 +91,9 @@ var maze = {
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
-                    return callback(null,result.rows);
+                    return callback(null,result);
                 }
             })
     }
