@@ -26,6 +26,7 @@ export default class MazePopup extends Component {
             this.setState({ currentPts : res.data[0].redeemedPts });
             this.setState({ totalPts : res.data[0].totalPts});
             this.setState({ mazeLvl : res.data[0].mazeLvl});
+            window.alert("get points id");
         })
     }
 
@@ -67,6 +68,7 @@ export default class MazePopup extends Component {
         .then(res => {
             console.log(res);
             console.log(res.data);
+            window.alert("put points id");
         })
 
         const points = {
@@ -80,7 +82,7 @@ export default class MazePopup extends Component {
             console.log(res);
             console.log(res.data);
             this.handleClose();
-            window.alert("Points redeemed successfully");
+            window.alert("post ptsHistory id");
             //updating the state 
             this.props.onNewLevel(true);
             

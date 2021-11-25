@@ -160,14 +160,12 @@ export default class MapOfMaze extends React.Component {
 
     axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + this.state.id)
       .then(res => {
-
         this.setState({ maze: res.data[0].mazeLvl });
-
         var mazeLvl = JSON.stringify(this.state.maze);
         this.ableMaze(mazeLvl);
-
         this.setState({ isNewLevel: false })
         callback(mazeLvl);
+        window.alert("get mapofmaze id");
       }
 
       )
@@ -418,8 +416,8 @@ export default class MapOfMaze extends React.Component {
 
       axios.get(`https://ades-ca1-project.herokuapp.com/api/maze/${levels}`)
         .then(res => {
-
           this.setState({ points: res.data[0].points });
+          window.alert("get maze level");
         })
     }
 
