@@ -12,6 +12,8 @@ export default class QuizPopup extends Component {
             data: [],
             id: 0,
             quizID: 0
+
+
         };
     }
 
@@ -25,20 +27,21 @@ export default class QuizPopup extends Component {
     }
 
     componentDidMount() {
-
+        this.quizHistory();
 
     }
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.quizID !== this.props.quizID) {
-            //THERE IS A CHANGE
-            this.quizHistory();
-        }
-    }
+    // componentDidUpdate(prevProps, prevState){
+    //     if (prevState.quizID !== this.props.quizID) {
+    //         //THERE IS A CHANGE
+    //         this.quizHistory();
+    //       }
+    // }
 
     quizHistory = () => {
         axios.get('https://ades-ca1-project.herokuapp.com/api/summary/' + this.props.quizID + '/' + this.props.id)
             .then(res => {
                 this.setState({ data: res.data });
+                console.log(this.props.id + 'STUDENT ID' + this.props.quizID)
             })
     }
 

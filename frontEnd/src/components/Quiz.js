@@ -1,13 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import StudentNavigation from './StudentNavigaton';
-import QuizPopUp from './QuizPopup';
+import '../css/quiz.css';
+import QuizPopUp from './QuizPopUp';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
-import '../css/navigation.css';
-import '../css/quiz.css';
-
 export default class Quiz extends React.Component {
 
     constructor() {
@@ -20,9 +17,13 @@ export default class Quiz extends React.Component {
             quizID: 0,
             totalMarks: 0,
             totalPoints: 0
+
+
+
         }
     }
     componentDidMount() {
+
         auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("User is Signed IN ");
@@ -69,29 +70,26 @@ export default class Quiz extends React.Component {
         this.setState({ showModalPopup: status });
     }
 
-    isShowPopup = (status, quizID, totalMarks, totalPoints) => {
-        this.setState({ showModalPopup: status });
+
+    handleScoreAndPoints = (status, quizID, totalMarks, totalPoints) => {
+
         this.setState({ quizID: quizID });
         this.setState({ totalMarks: totalMarks });
         this.setState({ totalPoints: totalPoints });
-        this.handleScoreAndPoints();
-
-    }
-    handleScoreAndPoints = event => {
         console.log("BUTTON CLICKED");
-        const quizID = this.state.quizID
-        const totalMarks = this.state.totalMarks
-        const totalPoints = this.state.totalPoints
+        // const quizID = this.state.quizID
+        // const totalMarks = this.state.totalMarks
+        // const totalPoints = this.state.totalPoints
 
         const quiz = {
-            quizID: quizID,
+            quizID: this.state.quizID,
             studentID: this.state.id,
-            pointsEarned: totalPoints,
-            marksEarned: totalMarks
+            pointsEarned: this.state.totalPoints,
+            marksEarned: this.state.totalMarks
         };
         const studentUpdatePoint = {
             studentID: this.state.id,
-            pointsEarned: totalPoints
+            pointsEarned: this.state.totalPoints
         }
 
         const config = {
@@ -113,6 +111,7 @@ export default class Quiz extends React.Component {
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
                 window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
+                this.setState({ showModalPopup: status });
             })
     }
 
@@ -123,21 +122,19 @@ export default class Quiz extends React.Component {
         // When the user clicks anywhere outside of the modal, close it
         return (
             <div>
-                <StudentNavigation className="navBar">
-                </StudentNavigation>
                 <div id="users" class="row">
                 </div>
 
-                <table class="table">
+                <table class="quizTable">
 
                     {data && data.map(item =>
-                        <tr key={item.quizID} id='tableRow' class="spaceUnder">
-                            <td className="quizTitle">Quiz {item.quizID}</td>
-                            <td className="marks">Total Marks: {item.totalMarks}</td>
-                            <td className="points">Total Points:{item.totalPoints}</td>
+                        <tr key={item.quizID} id='tableRow' class="quizRow">
+                            <td className="quizTitle quizTableD">Quiz {item.quizID}</td>
+                            <td className="marks quizTableD">Total Marks: {item.totalMarks}</td>
+                            <td className="points quizTableD">Total Points:{item.totalPoints}</td>
 
-                            <td>
-                                <Button onClick={() => this.isShowPopup(true, item.quizID, item.totalMarks, item.totalPoints)} type="submit" id="myBtn">Do Quiz!</Button>
+                            <td className="quizTableD">
+                                <button className="gradient-button gradient-button-1" onClick={() => this.handleScoreAndPoints(true, item.quizID, item.totalMarks, item.totalPoints)} type="submit" id="myBtn">Do Quiz!</button>
 
                             </td>
                         </tr>
