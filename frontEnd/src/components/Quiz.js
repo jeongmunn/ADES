@@ -2,182 +2,152 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
-import ModalPopup from './QuizPopUp';
+import QuizPopUp from './QuizPopUp';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
 export default class Quiz extends React.Component {
-  // state = {
-  //   ,
 
-  // }
-  constructor() {
-    super();
-    this.state = {
-      showModalPopup: false,
-      data: [],
+    constructor() {
+        super();
+        this.state = {
+            showModalPopup: false,
+            data: [],
+            uid: '',
+            id: 0,
+            quizID: 0,
+            totalMarks:0,
+            totalPoints:0
 
+
+
+        }
     }
-  }
-  componentDidMount() {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log("User is Signed IN ");
-        this.setState({ uid: user.uid });
-        const config = {
-          headers: {
-            'content-type': 'application/json'
-          }
+    componentDidMount() {
+      
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                console.log("User is Signed IN ");
+                this.setState({ uid: user.uid });
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                    .then(res => {//call maze animation
+                       
+                        if (res.data.type === 1) {
+                            this.setState({ id: res.data.studentID })
+                            // area to put your axios with the student id
+
+                        } else if (res.data.type === 2) {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                        } else {
+                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                        }
+                    })
+            } else {
+                console.log("THERE IS NO USER");
+                signOut(auth);
+                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+            }
+        });
+        axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
+            .then(res => {
+                console.log(res.data.length);
+                this.setState({ data: res.data });
+
+                console.log(res.data.length);
+
+                this.setState({ data: res.data });
+
+
+            });
+    }
+
+    handleClose = () => {
+        let status = false
+        this.setState({ showModalPopup: status });
+    }
+
+   
+    handleScoreAndPoints = (status, quizID, totalMarks, totalPoints)  => {
+      
+        this.setState({ quizID: quizID });
+      this.setState({totalMarks:totalMarks});
+      this.setState({totalPoints:totalPoints});
+        console.log("BUTTON CLICKED");
+        // const quizID = this.state.quizID
+        // const totalMarks = this.state.totalMarks
+        // const totalPoints = this.state.totalPoints
+
+        const quiz = {
+            quizID: this.state.quizID,
+            studentID: this.state.id,
+            pointsEarned: this.state.totalPoints,
+            marksEarned: this.state.totalMarks
+        };
+        const studentUpdatePoint = {
+            studentID: this.state.id,
+            pointsEarned: this.state.totalPoints
         }
 
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
-          .then(res => {//call maze animation
-            this.mazeAnimation(false)
-            if (res.data.type === 1) {
-              this.setState({ id: res.data.studentID })
-              // area to put your axios with the student id
-
-            } else if (res.data.type === 2) {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
-            } else {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        const config = {
+            headers: {
+                'content-type': 'application/json'
             }
-          })
-      } else {
-        console.log("THERE IS NO USER");
-        signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
-      }
-    });
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
-      .then(res => {
-        console.log(res.data.length);
-        this.setState({ data: res.data });
-
-        console.log(res.data.length);
-
-        this.setState({ data: res.data });
-
-
-      });
-
-
-
-
-
-
-
-  }
-  handleClose = () => {
-    let status = false
-    this.setState({ showModalPopup: status });
-  }
-
-  handleButton = event => {
-    let status = true
-    this.setState({ showModalPopup: status });
-    event.preventDefault();
-    console.log("BUTTON CLICKED");
-
-
-    const quizID = event.target.getAttribute("data-index");
-    const totalMarks = event.target.getAttribute("data-mark");
-    const totalPoints = event.target.getAttribute("data-points");
-    // console.log(quizID);
-    // console.log(totalMarks);
-    // console.log(totalPoints);
-
-    const quiz = {
-      quizID: quizID,
-      studentID: '1',
-      pointsEarned: totalPoints,
-      marksEarned: totalMarks
-    };
-    const studentUpdatePoint = {
-      pointsEarned: totalPoints,
-      studentID: '1',
+        }
+        axios.post('https://ades-ca1-project.herokuapp.com/api/quizHistory', quiz, config)
+            .then(res => {
+                console.log(res);
+                console.log(res.data);
+                console.log("AXIOS POSTING")
+          
+            })
+        axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
+            .then(res => {
+                console.log("HELLO WORK PLS");
+                console.log(res);
+                console.log(res.data);
+                console.log("AXIOS PUTTING")
+                window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
+                this.setState({ showModalPopup: status });
+            })
     }
 
-    const config = {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-    axios.post('http://localhost:8081/quiz', quiz, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        console.log("AXIOS POSTING")
-        // window.location.reload();
-      })
-    axios.put(`http://localhost:8081/studentPoints`, studentUpdatePoint, config)
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        console.log("AXIOS PUTTING")
-      })
+  
 
+    render() {
+        const data = this.state.data;
+        // When the user clicks anywhere outside of the modal, close it
+        return (
+            <div>
+                <div id="users" class="row">
+                </div>
+              
+                <table class="quizTable">
 
-  }
+                    {data && data.map(item =>
+                        <tr key={item.quizID} id='tableRow' class="quizRow">
+                            <td className="quizTitle quizTableD">Quiz {item.quizID}</td>
+                            <td className="marks quizTableD">Total Marks: {item.totalMarks}</td>
+                            <td className="points quizTableD">Total Points:{item.totalPoints}</td>
 
-  //NEED TO GET STUDENT ID!
+                            <td className="quizTableD">
+                                <button className="gradient-button gradient-button-1" onClick={() => this.handleScoreAndPoints(true, item.quizID, item.totalMarks, item.totalPoints)}  type="submit" id="myBtn">Do Quiz!</button>
 
-  //   handleClose = () => {
-  //     this.props.onPopupClose(false);
-  // }
-
-
-
-
-
-  render() {
-
-    const data = this.state.data;
-
-
-    // When the user clicks anywhere outside of the modal, close it
-
-    return (
-
-      <div>
-        <div id="users" class="row">
-
-
-        </div>
-        {/* <div>
-
-
-
-
-          <div id="myModal" class="modal">
-
-
-            <div class="modal-content">
-              <span class="close">&times;</span>
-              <p>QUIZ completed!</p>
+                            </td>
+                        </tr>
+                    )}
+                </table>
+                <QuizPopUp
+                    showModalPopup={this.state.showModalPopup}
+                    onPopupClose={this.handleClose}
+                    id={this.state.id}
+                    quizID={this.state.quizID}
+                    
+                ></QuizPopUp>
             </div>
-          </div>
-
-        </div> */}
-        <table class="table">
-
-          {data && data.map(item =>
-            <tr key={item.quizID} id='tableRow' class="spaceUnder">
-              <td className="quizTitle">Quiz {item.quizID}</td>
-              <td className="marks">Total Marks: {item.totalMarks}</td>
-              <td className="points">Total Points:{item.totalPoints}</td>
-
-              <td>
-                <Button onClick={this.handleButton} data-index={item.quizID} data-mark={item.totalMarks} data-points={item.totalPoints} type="submit" id="myBtn">Do Quiz!</Button>
-
-              </td>
-            </tr>
-          )}
-        </table>
-        <ModalPopup
-          showModalPopup={this.state.showModalPopup}
-          onPopupClose={this.handleClose}
-        ></ModalPopup>
-      </div>
-    )
-  }
+        )
+    }
 }
