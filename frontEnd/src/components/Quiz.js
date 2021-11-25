@@ -23,7 +23,7 @@ export default class Quiz extends React.Component {
         }
     }
     componentDidMount() {
-      
+    
         auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("User is Signed IN ");
@@ -37,8 +37,8 @@ export default class Quiz extends React.Component {
                     .then(res => {//call maze animation
                        
                         if (res.data.type === 1) {
-                            this.setState({ id: res.data.studentID })
-                            // area to put your axios with the student id
+                           this.setState({ id: res.data.studentID })
+                           // area to put your axios with the student id
 
                         } else if (res.data.type === 2) {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
@@ -102,9 +102,10 @@ export default class Quiz extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS POSTING")
-                this.quizHistory(function(){
-                    this.setState({  showModalPopup: true})
-                });
+                // this.quizHistory(function(){
+                //     console.log("its in quizHistory callback")
+                //     this.setShowModalPopupTrue()
+                // });
           
             })
         axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
@@ -114,21 +115,16 @@ export default class Quiz extends React.Component {
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
                 window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
-              
+                axios.get('https://ades-ca1-project.herokuapp.com/api/summary/'  + this.state.quizID + '/' + this.state.id)
+              .then(res => {
+                  this.setState({ data: res.data });
+                 this.setState({ showModalPopup: true });
+                 
+              })
             })
 
         }
-
-    quizHistory = (callback)=>{
-        axios.get('https://ades-ca1-project.herokuapp.com/api/summary/'  + this.state.quizID + '/' + this.state.id)
-              .then(res => {
-                  this.setState({ data: res.data });
-                    
-                    callback()
-              })
-              
-  }
-  
+       
 
     render() {
         const data = this.state.data;
@@ -157,7 +153,6 @@ export default class Quiz extends React.Component {
                     showModalPopup={this.state.showModalPopup}
                     onPopupClose={this.handleClose}
                     data={this.state.data}
-                    
                 ></QuizPopup>
             </div>
         )
