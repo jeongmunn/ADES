@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
+import Error from './components/Error'
 import StudentDashboard from './components/StudentDashboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
 import StudentBadges from './components/StudentBadges'
@@ -53,6 +54,7 @@ function App() {
         <Route path="/mazeAdmin" element={<MazeAdmin/>}></Route>
         <Route path="/quiz" element={<Quiz/>}></Route>
         <Route path="/mapOfMaze" element={<MapOfMaze/>}></Route>
+        <Route path="*" element={<Error/>}></Route>
       </Routes>
     </>
   );

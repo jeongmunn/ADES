@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/quizment/static/css/main.dab330ab.chunk.css",
-    "main.js": "/quizment/static/js/main.5c47a5ea.chunk.js",
-    "main.js.map": "/quizment/static/js/main.5c47a5ea.chunk.js.map",
-    "runtime-main.js": "/quizment/static/js/runtime-main.bd304fa7.js",
-    "runtime-main.js.map": "/quizment/static/js/runtime-main.bd304fa7.js.map",
+    "main.css": "/quizment/static/css/main.113d624d.chunk.css",
+    "main.js": "/quizment/static/js/main.125db30f.chunk.js",
+    "main.js.map": "/quizment/static/js/main.125db30f.chunk.js.map",
+    "runtime-main.js": "/quizment/static/js/runtime-main.8e6a79e5.js",
+    "runtime-main.js.map": "/quizment/static/js/runtime-main.8e6a79e5.js.map",
     "static/css/2.917c2923.chunk.css": "/quizment/static/css/2.917c2923.chunk.css",
-    "static/js/2.d9cdb640.chunk.js": "/quizment/static/js/2.d9cdb640.chunk.js",
-    "static/js/2.d9cdb640.chunk.js.map": "/quizment/static/js/2.d9cdb640.chunk.js.map",
-    "static/js/3.dc3d0acd.chunk.js": "/quizment/static/js/3.dc3d0acd.chunk.js",
-    "static/js/3.dc3d0acd.chunk.js.map": "/quizment/static/js/3.dc3d0acd.chunk.js.map",
+    "static/js/2.1093bc29.chunk.js": "/quizment/static/js/2.1093bc29.chunk.js",
+    "static/js/2.1093bc29.chunk.js.map": "/quizment/static/js/2.1093bc29.chunk.js.map",
+    "static/js/3.d5e0cc0b.chunk.js": "/quizment/static/js/3.d5e0cc0b.chunk.js",
+    "static/js/3.d5e0cc0b.chunk.js.map": "/quizment/static/js/3.d5e0cc0b.chunk.js.map",
     "index.html": "/quizment/index.html",
     "static/css/2.917c2923.chunk.css.map": "/quizment/static/css/2.917c2923.chunk.css.map",
-    "static/css/main.dab330ab.chunk.css.map": "/quizment/static/css/main.dab330ab.chunk.css.map",
-    "static/js/2.d9cdb640.chunk.js.LICENSE.txt": "/quizment/static/js/2.d9cdb640.chunk.js.LICENSE.txt",
+    "static/css/main.113d624d.chunk.css.map": "/quizment/static/css/main.113d624d.chunk.css.map",
+    "static/js/2.1093bc29.chunk.js.LICENSE.txt": "/quizment/static/js/2.1093bc29.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/Galey-RoundedExtraLight.d9351dd1.ttf",
     "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
@@ -28,10 +28,10 @@
     "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.bd304fa7.js",
+    "static/js/runtime-main.8e6a79e5.js",
     "static/css/2.917c2923.chunk.css",
-    "static/js/2.d9cdb640.chunk.js",
-    "static/css/main.dab330ab.chunk.css",
-    "static/js/main.5c47a5ea.chunk.js"
+    "static/js/2.1093bc29.chunk.js",
+    "static/css/main.113d624d.chunk.css",
+    "static/js/main.125db30f.chunk.js"
   ]
 }
