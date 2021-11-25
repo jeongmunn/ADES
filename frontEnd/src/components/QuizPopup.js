@@ -12,8 +12,6 @@ export default class QuizPopup extends Component {
             data: [],
             id: 0,
             quizID: 0
-
-
         };
     }
 
