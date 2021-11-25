@@ -1,5 +1,5 @@
 console.log("---------------------------------------------------------");
-console.log("ADES > backend > model > user.js");
+console.log("server > model > user.js");
 console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig");
@@ -10,9 +10,9 @@ var user = {
         pool.query(sql, [Uid], (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -21,9 +21,9 @@ var user = {
         pool.query(sql, [Uid], (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -33,9 +33,9 @@ var user = {
         pool.query(sql, value, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     }

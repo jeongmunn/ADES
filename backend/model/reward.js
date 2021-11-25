@@ -1,25 +1,29 @@
 console.log("---------------------------------------------------------");
-console.log("ADES > backend > model > reward.js");
+console.log("server > model > reward.js");
 console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig")
 
-//---------------------------------------------------------objects/functions------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Objects/functions
+// ----------------------------------------------------------------------------
+
 var rewards = {
 
     createReward: function (reward, callback) {
         var rewardName = reward.rewardName;
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
+
         const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
                      VALUES ($1,$2,$3)`;
         const values = [rewardName, ptsRequired, url]
-        pool.query(sql, values, (err) => {
+        pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
                 return callback(err);
             } else {
-                return callback(null);
+                return callback(null, result);
             }
         })
     },
@@ -28,7 +32,7 @@ var rewards = {
         pool.query(sql, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result.rows);
             }
@@ -40,9 +44,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -56,9 +60,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -68,9 +72,9 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -84,13 +88,16 @@ var rewards = {
         pool.query(sql, values, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     }
+
 };
 
-//---------------------------------------------------------------exports------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// exports
+// ----------------------------------------------------------------------------
 module.exports = rewards;

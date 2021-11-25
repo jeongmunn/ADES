@@ -1,10 +1,23 @@
 console.log("---------------------------------------------------------");
-console.log("ADES > backend > model > mapOfMaze.js");
+
+console.log("ADES>backend> model >mapOfMaze.js");
+
 console.log("---------------------------------------------------------");
+
+//----------------------------------------------------------------------------
+
+//imports
+
+//----------------------------------------------------------------------------
 
 const pool = require("../controllers/dbconfig")
 
-//---------------------------------------------------------objects/functions------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+// Objects/functions
+
+// ----------------------------------------------------------------------------
+
 var maze = {
 
     getMazeContent: function (callback) {
@@ -12,20 +25,21 @@ var maze = {
             , (err, result) => {
                 if (err) {
                     cconsole.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
                     return callback(null, result);
                 }
             })
+
     },
     getMazeByStudentID: function (StudentID, callback) {
         const sql = `SELECT "mazeLvl" FROM public."Student" WHERE "studentID" = $1`;
         pool.query(sql, [StudentID], (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
-                return callback(null, result.rows);
+                return callback(null, result);
             }
         })
     },
@@ -41,7 +55,7 @@ var maze = {
         pool.query(sql, data, (err, result) => {
             if (err) {
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             } else {
                 return callback(null, result);
             }
@@ -53,9 +67,9 @@ var maze = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -69,14 +83,19 @@ var maze = {
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
-                    return callback(null,result.rows);
+                    return callback(null,result);
                 }
             })
     }
 
 };
 
-//---------------------------------------------------------------exports------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+// exports
+
+// ----------------------------------------------------------------------------
+
 module.exports = maze;

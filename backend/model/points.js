@@ -4,20 +4,24 @@ console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig")
 
-//---------------------------------------------------------objects/functions------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// Objects/functions
+// ----------------------------------------------------------------------------
+
 var points = {
     insertPtsHistory: function(maze,callback) {
         var studentID = maze.studentID ;
         var ptsAwarded = maze.ptsAwarded ;
         var eventID = maze.eventID ;
+
             const sql = `INSERT INTO public."studentHistory" ("studentID", "pointsAwarded", "eventID") VALUES ($1,$2,$3) `;
             const values = [studentID, ptsAwarded, eventID];
             pool.query(sql,values,(err, result) => {
                 if(err) {
                     console.log(err);
-                    return callback(err.null);
+                    return callback(err);
                 } else {
-                    return callback(null,result.rows);
+                    return callback(null,result);
                 }
             })
     },
@@ -27,9 +31,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -39,9 +43,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -51,9 +55,9 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     },
@@ -66,14 +70,16 @@ var points = {
         pool.query(sql,value,(err,result) => {
             if(err){
                 console.log(err);
-                return callback(err.null);
+                return callback(err);
             }else{
-                return callback(null,result.rows);
+                return callback(null,result);
             }
         })
     }
 };
 
-//---------------------------------------------------------------exports------------------------------------------------------------
+// ----------------------------------------------------------------------------
+// exports
+// ----------------------------------------------------------------------------
 module.exports = points;
 
