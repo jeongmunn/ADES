@@ -30,12 +30,10 @@ var quiz = {
         var pointsEarned = quiz.pointsEarned;
         var marksEarned = quiz.marksEarned;
         var data = [quizID, studentID, pointsEarned, marksEarned];
-        var data2 = [studentID, pointsEarned]
+      
         var sql = ` INSERT INTO public."quizHistory"("quizID", "studentID", "pointsEarned", "marksEarned")
         VALUES ( $1, $2,$3,$4)` ;
-        var sql2 = `UPDATE public."Student"
-        SET "totalPts"="totalPts" + $1 
-        WHERE "studentID" =$2`
+      
         pool.query(sql, data, (err, result) => {
             if (err) {
                 console.log(err);
@@ -44,15 +42,7 @@ var quiz = {
                 return callback(null, result);
             }
         })
-        pool.query(sql2, data2, (err, result) => {
-            if (err) {
-                console.log(quizID + studentID + pointsEarned + markEarned)
-                console.log(err);
-                return callback(err);
-            } else {
-                return callback(null, result);
-            }
-        })
+        
     },
     UpdatePoints: function (quiz, callback) {
         var studentID = quiz.studentID;
