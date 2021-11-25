@@ -24,7 +24,6 @@ var badge = {
             }
         })
     },
-
     getBadgeClass: function (callback) {
         pool.query('SELECT * FROM public."badgeClass"', (err, result) => {
             if (err) {
@@ -34,7 +33,6 @@ var badge = {
                 return callback(null, result);
             }
         })
-
     },
     insertBadge: function (badge, callback) {
         var name = badge.name;
@@ -53,14 +51,10 @@ var badge = {
                 console.log(err);
                 return callback(err);
             } else {
-
                 return callback(null, result);
             }
-            // pool.end()
         })
     },
-
-
     editBadge: function (badgeID, badge, callback) {
         var name = badge.name;
         var requirements = badge.requirements;

@@ -10,7 +10,6 @@ const pool = require("../controllers/dbconfig")
 
 var points = {
     insertPtsHistory: function(maze,callback) {
-        console.log(" insert reward history function called");
         var studentID = maze.studentID ;
         var ptsAwarded = maze.ptsAwarded ;
         var eventID = maze.eventID ;
@@ -27,7 +26,6 @@ var points = {
             })
     },
     getPts: function(studentID, callback) {
-        console.log("get points function called");
         const sql = `SELECT "totalPts", "redeemedPts", "mazeLvl" FROM public."Student" WHERE "studentID" = $1`;
         const value = [studentID];
         pool.query(sql,value,(err,result) => {
@@ -40,7 +38,6 @@ var points = {
         })
     },
     getQuizPts: function(studentID,quizID, callback){
-        console.log("get quiz points function called");
         const sql = `SELECT "quizHistoryID", "pointsEarned", "marksEarned" FROM public."quizHistory" WHERE "studentID" = $1 AND "quizID" = $2`;
         const value = [studentID, quizID];
         pool.query(sql,value,(err,result) => {
@@ -53,7 +50,6 @@ var points = {
         })
     },
     updateCurrentPts: function(studentID, currentPts, callback){
-        console.log("update points function called");
         const sql = `UPDATE public."Student" SET "redeemedPts"= $1 WHERE "studentID"= $2`;
         const value = [currentPts, studentID];
         pool.query(sql,value,(err,result) => {
@@ -66,7 +62,6 @@ var points = {
         })
     },
     updatePts: function(studentID, points, callback){
-        console.log("update points function called");
         var totalPts = points.totalPts ;
         var currentPts = points.currentPts ;
         var newLvl=points.mazeLvl;

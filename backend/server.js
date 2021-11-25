@@ -3,27 +3,16 @@ console.log("--------------------------------------");
 console.log("ADES> server.js");
 console.log("--------------------------------------");
 
-<<<<<<< Updated upstream
-
-// --------------------------
-//imports
-//---------------------------
-const express=require("express");
-=======
 //---------------------------------------------------------------imports------------------------------------------------------------
 const express = require("express");
->>>>>>> Stashed changes
 const cors = require('cors');
 const path = require("path");
 const api = require('./controllers/app.js');
 const basename = "/quizment";
-<<<<<<< Updated upstream
-=======
 const errors = require('./lib/errors');
 const errorModel = require('./lib/errorResponse');
 
 // web Server
->>>>>>> Stashed changes
 const app = express();
 
 // Web Server
@@ -50,20 +39,11 @@ app.get('/', function (req, res) {
 app.get(basename + '*', function (req, res) {
     // since React uses index.html we use the following code below to get the content from index.html which is updated by the
     // component js files in the frontEnd folder
-<<<<<<< Updated upstream
-    console.log("Reached frontEnd");
-    res.sendFile(path.join(__dirname, '../frontEnd' , 'build', 'index.html'));
-});
-
-// backend content is 
-app.use('/api',api);
-=======
     res.sendFile(path.join(__dirname, '../frontEnd', 'build', 'index.html'));
 });
 
 // link to backend apis
 app.use('/api', api);
->>>>>>> Stashed changes
 
 // error 404 middleware
 app.use(function ( req, res, next) {
