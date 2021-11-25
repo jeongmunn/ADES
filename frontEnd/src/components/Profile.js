@@ -1,4 +1,4 @@
-import '../styling2.css';
+import '../css/styling2.css';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     onAuthStateChanged,
@@ -93,7 +93,7 @@ export default function Profile() {
                 placeholder={emailData}
                 onChange={handleChange}
             />
-            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', margin: '10px', width: '100%' }} variant="contained" onClick={updateEmailFunction}> Update Email</Button>
+            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={updateEmailFunction}> Update Email</Button>
             <TextField
                 required
                 fullWidth
@@ -104,8 +104,8 @@ export default function Profile() {
                 type="password"
                 autoComplete="current-password"
             />
-            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', margin: '10px', width: '100%' }} variant="contained" onClick={updatePasswordFunction}> Update Password</Button>
-            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', margin: '15px', width: '100%' }} variant="contained" onClick={logout}> Logout</Button>
+            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={updatePasswordFunction}> Update Password</Button>
+            <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={logout}> Logout</Button>
         </div>
     );
 }

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "/quizment/static/css/main.13ec116f.chunk.css",
-    "main.js": "/quizment/static/js/main.067a3c41.chunk.js",
-    "main.js.map": "/quizment/static/js/main.067a3c41.chunk.js.map",
+    "main.css": "/quizment/static/css/main.dab330ab.chunk.css",
+    "main.js": "/quizment/static/js/main.4a8042e1.chunk.js",
+    "main.js.map": "/quizment/static/js/main.4a8042e1.chunk.js.map",
     "runtime-main.js": "/quizment/static/js/runtime-main.bd304fa7.js",
     "runtime-main.js.map": "/quizment/static/js/runtime-main.bd304fa7.js.map",
     "static/css/2.917c2923.chunk.css": "/quizment/static/css/2.917c2923.chunk.css",
-    "static/js/2.4f336805.chunk.js": "/quizment/static/js/2.4f336805.chunk.js",
-    "static/js/2.4f336805.chunk.js.map": "/quizment/static/js/2.4f336805.chunk.js.map",
+    "static/js/2.6de84405.chunk.js": "/quizment/static/js/2.6de84405.chunk.js",
+    "static/js/2.6de84405.chunk.js.map": "/quizment/static/js/2.6de84405.chunk.js.map",
     "static/js/3.dc3d0acd.chunk.js": "/quizment/static/js/3.dc3d0acd.chunk.js",
     "static/js/3.dc3d0acd.chunk.js.map": "/quizment/static/js/3.dc3d0acd.chunk.js.map",
     "index.html": "/quizment/index.html",
     "static/css/2.917c2923.chunk.css.map": "/quizment/static/css/2.917c2923.chunk.css.map",
-    "static/css/main.13ec116f.chunk.css.map": "/quizment/static/css/main.13ec116f.chunk.css.map",
-    "static/js/2.4f336805.chunk.js.LICENSE.txt": "/quizment/static/js/2.4f336805.chunk.js.LICENSE.txt",
+    "static/css/main.dab330ab.chunk.css.map": "/quizment/static/css/main.dab330ab.chunk.css.map",
+    "static/js/2.6de84405.chunk.js.LICENSE.txt": "/quizment/static/js/2.6de84405.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/Galey-RoundedExtraLight.d9351dd1.ttf",
     "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
@@ -30,8 +30,8 @@
   "entrypoints": [
     "static/js/runtime-main.bd304fa7.js",
     "static/css/2.917c2923.chunk.css",
-    "static/js/2.4f336805.chunk.js",
-    "static/css/main.13ec116f.chunk.css",
-    "static/js/main.067a3c41.chunk.js"
+    "static/js/2.6de84405.chunk.js",
+    "static/css/main.dab330ab.chunk.css",
+    "static/js/main.4a8042e1.chunk.js"
   ]
 }

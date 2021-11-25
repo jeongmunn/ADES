@@ -1,4 +1,4 @@
-import '../styling2.css';
+import '../css/styling2.css';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     onAuthStateChanged,
@@ -223,12 +223,6 @@ const SignIn = () => {
                         <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={login}> Sign In</Button>
                     </TabPanel>
                     <TabPanel value={value} index={1}>
-                        {/* <input placeholder="email" type="email" onChange={(event) => {
-                            setRegisterEmail(event.target.value);
-                        }} />
-                        <input placeholder="password" type="password" onChange={(event) => {
-                            setRegisterPassword(event.target.value);
-                        }} /> */}
                         <TextField
                             required
                             fullWidth

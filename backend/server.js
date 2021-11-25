@@ -42,8 +42,8 @@ app.use('/api',api);
 
 // error 404 middleware
 app.use(function (req, res, next) {
-    res.status(404).send("Sorry can't find that!")
-  })
+    res.status(404).sendFile(path.join(__dirname, '..', 'error.html'));
+  });
 
 // error handling middleware
 app.use((error, req, res, next) => {

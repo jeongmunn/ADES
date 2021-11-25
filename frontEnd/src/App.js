@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Loading from './components/Loading';
 import SignIn from './components/SignIn';
 import StudentDashboard from './components/StudentDashboard';
 import StudentPointsHistory from './components/StudentPointsHistory';
@@ -41,7 +40,6 @@ function App() {
     <ReactNotification />
       <Routes>
         <Route path="/" element={<SignIn />}></Route>
-        <Route path="/loading" element={<Loading />}></Route>
         <Route path="/studentDashboard" element={<StudentDashboard/>}></Route>
         <Route path="/studentPoints" element={<StudentPointsHistory/>}></Route>
         <Route path="/studentBadges" element={<StudentBadges/>}></Route>
