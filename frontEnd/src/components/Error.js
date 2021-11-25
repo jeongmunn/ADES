@@ -3,7 +3,6 @@ import '../css/error.css';
 
 function Error() {
     return (
-        <div style={{backgroundColor: '#24344c'}}>
         <div className="permission_denied">
             <div id="particles-js">
             </div>
@@ -99,7 +98,6 @@ function Error() {
                 </svg>
                 <a href="https://ades-ca1-project.herokuapp.com/quizment/"><button class="denied__link">Go Home</button></a>
             </div>
-        </div>
         </div>
     )
 }
