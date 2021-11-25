@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
+import StudentNavigation from './StudentNavigaton';
 import QuizPopup from './QuizPopup';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
@@ -17,11 +18,9 @@ export default class Quiz extends React.Component {
             quizID: 0,
             totalMarks:0,
             totalPoints:0
-
-
-
         }
     }
+
     componentDidMount() {
     
         auth.onAuthStateChanged((user) => {
@@ -68,6 +67,7 @@ export default class Quiz extends React.Component {
     handleClose = () => {
         let status = false
         this.setState({ showModalPopup: status });
+        window.location.reload();
     }
 
    
@@ -131,6 +131,8 @@ export default class Quiz extends React.Component {
         // When the user clicks anywhere outside of the modal, close it
         return (
             <div>
+                <StudentNavigation  className="navBar">
+                </StudentNavigation>
                 <div id="users" class="row">
                 </div>
               

@@ -8,6 +8,7 @@ import {
 } from "firebase/auth";
 import { auth } from '../firebase.js';
 import Button from '@mui/material/Button';
+import StudentNavigation from './StudentNavigaton';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 
@@ -81,6 +82,9 @@ export default function Profile() {
         });
     };
     return (
+        <div>
+            <StudentNavigation  className="navBar">
+      </StudentNavigation>
         <div className="profile">
             <h1>Profile Administration</h1>
             <TextField
@@ -106,6 +110,7 @@ export default function Profile() {
             />
             <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={updatePasswordFunction}> Update Password</Button>
             <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={logout}> Logout</Button>
+        </div>
         </div>
     );
 }
