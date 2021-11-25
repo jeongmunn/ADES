@@ -112,13 +112,13 @@ export default class MapOfMaze extends React.Component {
 
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  // componentDidUpdate(prevProps, prevState) {
 
-    if (prevState.isNewLevel !== this.state.isNewLevel && prevState.isNewLevel === false && this.state.isNewLevel === true) {
-      //THERE IS A CHANGE
-      this.mazeAnimation(true);
-    }
-  }
+  //   if (prevState.isNewLevel !== this.state.isNewLevel && prevState.isNewLevel === false && this.state.isNewLevel === true) {
+  //     //THERE IS A CHANGE
+  //     this.mazeAnimation(true);
+  //   }
+  // }
 
   //enabling the clouds
   ableMaze = (mazeLvl) => {
@@ -424,7 +424,12 @@ export default class MapOfMaze extends React.Component {
 
   };
   handleNewLevel = (status) => {
-    this.setState({ isNewLevel: status });
+    if(status===true){
+      this.mazeAnimation(true);
+    }
+    
+    
+
   }
 
 
