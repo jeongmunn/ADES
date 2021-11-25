@@ -334,7 +334,7 @@ app.get('/quiz', function (req, res) {
 });
 
 //posting to quizHistory
-app.post('/quiz', function (req, res) {
+app.post('/quizHistory', function (req, res) {
 
     
     var data = {

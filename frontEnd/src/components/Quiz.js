@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
-import QuizPopUp from './QuizPopUp';
+import QuizPopup from './QuizPopUp';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
 export default class Quiz extends React.Component {
@@ -18,12 +18,10 @@ export default class Quiz extends React.Component {
             totalMarks:0,
             totalPoints:0
 
-
-
         }
     }
     componentDidMount() {
-      
+    
         auth.onAuthStateChanged((user) => {
             if (user) {
                 console.log("User is Signed IN ");
@@ -37,8 +35,8 @@ export default class Quiz extends React.Component {
                     .then(res => {//call maze animation
                        
                         if (res.data.type === 1) {
-                            this.setState({ id: res.data.studentID })
-                            // area to put your axios with the student id
+                           this.setState({ id: res.data.studentID })
+                           // area to put your axios with the student id
 
                         } else if (res.data.type === 2) {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
@@ -56,9 +54,7 @@ export default class Quiz extends React.Component {
             .then(res => {
                 console.log(res.data.length);
                 this.setState({ data: res.data });
-
                 console.log(res.data.length);
-
                 this.setState({ data: res.data });
 
 
@@ -71,7 +67,7 @@ export default class Quiz extends React.Component {
     }
 
    
-    handleScoreAndPoints = (status, quizID, totalMarks, totalPoints)  => {
+    handleScoreAndPoints = (quizID, totalMarks, totalPoints)  => {
       
         this.setState({ quizID: quizID });
       this.setState({totalMarks:totalMarks});
@@ -102,6 +98,10 @@ export default class Quiz extends React.Component {
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS POSTING")
+                // this.quizHistory(function(){
+                //     console.log("its in quizHistory callback")
+                //     this.setShowModalPopupTrue()
+                // });
           
             })
         axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
@@ -111,11 +111,16 @@ export default class Quiz extends React.Component {
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
                 window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
-                this.setState({ showModalPopup: status });
+                axios.get('https://ades-ca1-project.herokuapp.com/api/summary/'  + this.state.quizID + '/' + this.state.id)
+              .then(res => {
+                  this.setState({ data: res.data });
+                 this.setState({ showModalPopup: true });
+                 
+              })
             })
-    }
 
-  
+        }
+       
 
     render() {
         const data = this.state.data;
@@ -131,22 +136,21 @@ export default class Quiz extends React.Component {
                         <tr key={item.quizID} id='tableRow' class="quizRow">
                             <td className="quizTitle quizTableD">Quiz {item.quizID}</td>
                             <td className="marks quizTableD">Total Marks: {item.totalMarks}</td>
-                            <td className="points quizTableD">Total Points:{item.totalPoints}</td>
+                            <td className="quizpoints quizTableD">Total Points:{item.totalPoints}</td>
 
                             <td className="quizTableD">
-                                <button className="gradient-button gradient-button-1" onClick={() => this.handleScoreAndPoints(true, item.quizID, item.totalMarks, item.totalPoints)}  type="submit" id="myBtn">Do Quiz!</button>
+                                <button className="gradient-button gradient-button-1" onClick={() => this.handleScoreAndPoints(item.quizID, item.totalMarks, item.totalPoints)}  type="submit" id="myBtn">Do Quiz!</button>
 
                             </td>
                         </tr>
                     )}
                 </table>
-                <QuizPopUp
+                <QuizPopup
                     showModalPopup={this.state.showModalPopup}
                     onPopupClose={this.handleClose}
-                    id={this.state.id}
-                    quizID={this.state.quizID}
+                    data={this.state.data}
                     
-                ></QuizPopUp>
+                ></QuizPopup>
             </div>
         )
     }
