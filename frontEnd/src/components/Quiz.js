@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import '../css/quiz.css';
-import QuizPopup from './QuizPopUp';
+import QuizPopup from './QuizPopup';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
 export default class Quiz extends React.Component {
