@@ -3,6 +3,7 @@ console.log("server > model > reward.js");
 console.log("---------------------------------------------------------");
 
 const pool = require("../controllers/dbconfig")
+const isImageUrl = require('is-image-url');
 
 // ----------------------------------------------------------------------------
 // Objects/functions
@@ -15,17 +16,27 @@ var rewards = {
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
 
-        const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
+        if (!(isNaN(ptsRequired) || !(isImageUrl(url))) && ptsRequired > 0) {
+            const sql = `INSERT INTO public."Rewards" ("rewardName", "ptsRequired", url)
                      VALUES ($1,$2,$3)`;
-        const values = [rewardName, ptsRequired, url]
-        pool.query(sql, values, (err, result) => {
-            if (err) {
-                console.log(err);
-                return callback(err);
-            } else {
-                return callback(null, result);
-            }
-        })
+            const values = [rewardName, ptsRequired, url]
+            pool.query(sql, values, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                } else {
+                    return callback(null, result);
+                }
+            })
+
+        }
+        else {
+
+            return callback(err);
+
+        }
+
+
     },
     getReward: function (callback) {
         const sql = `SELECT * FROM public."Rewards"`;
@@ -55,6 +66,9 @@ var rewards = {
         var ptsRequired = reward.ptsRequired;
         var url = reward.url;
 
+        
+     if(!(isNaN(ptsRequired) || !(isImageUrl(url))) && ptsRequired>0){
+       
         const sql = `UPDATE "public"."Rewards" SET "rewardName" = $1, "ptsRequired"=$2, url= $3 WHERE "Rewards"."rewardID"=$4;`;
         const values = [rewardName, ptsRequired, url, rewardID]
         pool.query(sql, values, (err, result) => {
@@ -65,6 +79,17 @@ var rewards = {
                 return callback(null, result);
             }
         })
+  
+
+    }
+    else{
+    
+        return callback(err);
+
+    }
+
+
+      
     },
     deleteReward: function (rewardID, callback) {
         const sql = ` DELETE FROM "public"."Rewards" WHERE "Rewards"."rewardID"=$1;`;

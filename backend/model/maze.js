@@ -45,21 +45,36 @@ var maze = {
     },
     editMazeContent: function (mazeLvl, point, callback) {
         var pt = parseInt(point.points);
-        var data = [pt, mazeLvl];
-        var sql = ` 
-        UPDATE public."mazeContent"
-         SET 
-         points= $1
-           WHERE 
-           "mazeLvl"=$2;`;
-        pool.query(sql, data, (err, result) => {
-            if (err) {
-                console.log(err);
-                return callback(err);
-            } else {
-                return callback(null, result);
-            }
-        })
+
+        if(pt>0){
+           
+            var data = [pt, mazeLvl];
+            var sql = ` 
+            UPDATE public."mazeContent"
+             SET 
+             points= $1
+               WHERE 
+               "mazeLvl"=$2;`;
+            pool.query(sql, data, (err, result) => {
+                if (err) {
+                    console.log(err);
+                    return callback(err);
+                } else {
+                    return callback(null, result);
+                }
+            })
+            
+      
+
+        }
+        else{
+       
+            return callback(err);
+
+        }
+
+
+       
     },
     getMazePts: function(mazeLvl, callback){
         const sql = `SELECT points FROM public."mazeContent" WHERE "mazeLvl" = $1`;
