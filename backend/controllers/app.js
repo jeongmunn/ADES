@@ -578,6 +578,7 @@ app.post('/newBadge', printDebugInfo, function (req, res) {
         pic_url: req.body.pic_url,
         badgeClassID: badgeClassID,
     };
+    
 
     badge.insertBadge(data, function (err, result) {
         if (!err) {

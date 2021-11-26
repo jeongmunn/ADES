@@ -26,25 +26,25 @@ export default class MazeAdmin extends React.Component {
                     }
                 }
 
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
                     .then(res => {
                         if (res.data.type === 1) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+                            window.location.replace('http://localhost:8081.com/quizment/studentDashboard');
 
                         } else if (res.data.type === 2) {
                             // area to put your axios 
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081.com/quizment');
                         }
                     })
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
 
-        axios.get('https://ades-ca1-project.herokuapp.com/api/mazeContent')
+        axios.get('http://localhost:8081.com/api/mazeContent')
             .then(res => {
                 this.setState({ data: res.data });
             })

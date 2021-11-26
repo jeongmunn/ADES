@@ -49,7 +49,7 @@ const marks = [
 
 const logout = async () => {
     await signOut(auth);
-    window.location.replace("https://ades-ca1-project.herokuapp.com/quizment");
+    window.location.replace("http://localhost:8081.com/quizment");
 };
 
 
@@ -83,12 +83,12 @@ class StudentDashboard extends React.Component {
                     }
                 }
 
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
                     .then(res => {
                         if (res.data.type === 1) {
                             this.setState({ id: res.data.studentID })
                             // here are those
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/streaks/' + this.state.id)
+                            axios.get('http://localhost:8081.com/api/students/streaks/' + this.state.id)
                                 .then(res => {
                                     const streaks = res.data[0].streaks;
                                     this.setState({ streaks });
@@ -96,7 +96,7 @@ class StudentDashboard extends React.Component {
                                     console.log(error);
                                 });
 
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/points/' + this.state.id)
+                            axios.get('http://localhost:8081.com/api/students/points/' + this.state.id)
                                 .then(res => {
                                     const totalPts = res.data[0].totalPts;
                                     const redeemedPts = res.data[0].redeemedPts;
@@ -109,7 +109,7 @@ class StudentDashboard extends React.Component {
                                     console.log(error);
                                 });
 
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id)
+                            axios.get('http://localhost:8081.com/api/students/lastLogin/' + this.state.id)
                                 .then(res => {
                                     this.setState({ lastLoginData: res.data[0].lastLogin })
                                     var diffTime = this.state.currentLogin - this.state.lastLoginData;
@@ -125,27 +125,27 @@ class StudentDashboard extends React.Component {
                                     if (diffTime >= 28800000 && diffTime <= 86400000) {
                                         console.log("Yassss");
                                         // AXIOS PUT STREAK + NEW LOGIN TIME
-                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginStreak/' + this.state.id, lastLog, config)
+                                        axios.put('http://localhost:8081.com/api/students/lastLoginStreak/' + this.state.id, lastLog, config)
                                             .then(res => {
                                                 console.log("Updated last login + new streak")
                                             }).catch((error) => {
                                                 console.log(error);
                                             });
 
-                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/updatePoints/' + this.state.id)
+                                        axios.put('http://localhost:8081.com/api/students/updatePoints/' + this.state.id)
                                             .then(res => {
                                                 console.log("Update points")
                                             }).catch((error) => {
                                                 console.log(error);
                                             });
                                     } else if (diffTime > 86400000) {
-                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLoginLostStreak/' + this.state.id, lastLog, config)
+                                        axios.put('http://localhost:8081.com/api/students/lastLoginLostStreak/' + this.state.id, lastLog, config)
                                             .then(res => {
                                             }).catch((error) => {
                                                 console.log(error);
                                             });
                                     } else {
-                                        axios.put('https://ades-ca1-project.herokuapp.com/api/students/lastLogin/' + this.state.id, lastLog, config)
+                                        axios.put('http://localhost:8081.com/api/students/lastLogin/' + this.state.id, lastLog, config)
                                             .then(res => {
                                             }).catch((error) => {
                                                 console.log(error);
@@ -153,9 +153,9 @@ class StudentDashboard extends React.Component {
                                     }
                                 })
                         } else if (res.data.type === 2) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                            window.location.replace('http://localhost:8081.com/quizment/teacherDashboard');
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081.com/quizment');
                         }
                     }).catch((error) => {
                         console.log(error);
@@ -163,11 +163,11 @@ class StudentDashboard extends React.Component {
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
 
-        axios.get('https://ades-ca1-project.herokuapp.com/api/students/topStudents/')
+        axios.get('http://localhost:8081.com/api/students/topStudents/')
             .then(res => {
                 this.setState({ data: res.data });
             }).catch((error) => {

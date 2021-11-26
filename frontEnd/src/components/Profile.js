@@ -37,7 +37,7 @@ export default function Profile() {
                         'content-type': 'application/json'
                     }
                 }
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + currentUser.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + currentUser.uid, config)
                     .then(res => {
                         if (res.data.type === 1) {
                         } else if (res.data.type === 2) {
@@ -47,7 +47,7 @@ export default function Profile() {
             } else {
                 console.log("error")
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
     });
@@ -58,7 +58,7 @@ export default function Profile() {
     };
     const logout = async () => {
         await signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        window.location.replace('http://localhost:8081.com/quizment');
     };
     const updateEmailFunction = async () => {
         updateEmail(user, emailData).then(() => {
@@ -72,7 +72,7 @@ export default function Profile() {
                 email: emailData
             };
             console.log(emailDetails.email);
-            axios.put('https://ades-ca1-project.herokuapp.com/api/email/' + uidOfUser, emailDetails, config)
+            axios.put('http://localhost:8081.com/api/email/' + uidOfUser, emailDetails, config)
                 .then(res => {
                     console.log(res);
                     window.location.reload();

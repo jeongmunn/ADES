@@ -35,33 +35,33 @@ export default class BadgeAdmin extends React.Component {
           }
         }
 
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+        axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
           .then(res => {
             if (res.data.type === 1) {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+              window.location.replace('http://localhost:8081.com/quizment/studentDashboard');
 
             } else if (res.data.type === 2) {
               // area to put your axios 
             } else {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+              window.location.replace('http://localhost:8081.com/quizment');
             }
           })
       } else {
         console.log("THERE IS NO USER");
         signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        window.location.replace('http://localhost:8081.com/quizment');
       }
     });
 
 
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/badges`)
+    axios.get(`http://localhost:8081.com/api/badges`)
       .then(res => {
         console.log(res.data.length);
 
         this.setState({ data: res.data });
       })
 
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/badgeClass`)
+    axios.get(`http://localhost:8081.com/api/badgeClass`)
       .then(res => {
         console.log(res.data.length);
 
@@ -113,7 +113,7 @@ export default class BadgeAdmin extends React.Component {
         }
       }
 
-      axios.post('https://ades-ca1-project.herokuapp.com/api/newBadge', badge, config)
+      axios.post('http://localhost:8081.com/api/newBadge', badge, config)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -152,7 +152,7 @@ export default class BadgeAdmin extends React.Component {
             'content-type': 'application/json'
           }
         }
-        axios.post('https://ades-ca1-project.herokuapp.com/api/newBadge', badge, config)
+        axios.post('http://localhost:8081.com/api/newBadge', badge, config)
           .then(res => {
             console.log(res);
             console.log(res.data);

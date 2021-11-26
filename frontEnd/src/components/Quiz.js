@@ -39,7 +39,7 @@ export default class Quiz extends React.Component {
                         'content-type': 'application/json'
                     }
                 }
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
                     .then(res => {//call maze animation
                        
                         if (res.data.type === 1) {
@@ -47,18 +47,18 @@ export default class Quiz extends React.Component {
                            // area to put your axios with the student id
 
                         } else if (res.data.type === 2) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+                            window.location.replace('http://localhost:8081.com/quizment/teacherDashboard');
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081.com/quizment');
                         }
                     })
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/quiz`)
+        axios.get(`http://localhost:8081.com/api/quiz`)
             .then(res => {
                 console.log(res.data.length);
                 this.setState({ data: res.data });
@@ -104,7 +104,7 @@ export default class Quiz extends React.Component {
                 'content-type': 'application/json'
             }
         }
-        axios.post('https://ades-ca1-project.herokuapp.com/api/quizHistory', quiz, config)
+        axios.post('http://localhost:8081.com/api/quizHistory', quiz, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
@@ -115,14 +115,14 @@ export default class Quiz extends React.Component {
                 // });
           
             })
-        axios.put(`https://ades-ca1-project.herokuapp.com/api/studentPoints`, studentUpdatePoint, config)
+        axios.put(`http://localhost:8081.com/api/studentPoints`, studentUpdatePoint, config)
             .then(res => {
                 console.log("HELLO WORK PLS");
                 console.log(res);
                 console.log(res.data);
                 console.log("AXIOS PUTTING")
                 window.alert("points awarded");//NEED NOTY HERE STATING THAT POINTS ARE ADDED
-                axios.get('https://ades-ca1-project.herokuapp.com/api/summary/'  + this.state.quizID + '/' + this.state.id)
+                axios.get('http://localhost:8081.com/api/summary/'  + this.state.quizID + '/' + this.state.id)
               .then(res => {
                   this.setState({ data: res.data });
                  this.setState({ showModalPopup: true });

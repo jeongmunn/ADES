@@ -57,14 +57,14 @@ export default class EditBadge extends React.Component {
         }
 
         const badgeID = parseInt(this.props.badgeID);
-        const baseUrl = "https://ades-ca1-project.herokuapp.com/api";
+        const baseUrl = "http://localhost:8081.com/api";
         console.log(badgeID);
 
         axios.put(`${baseUrl}/editBadge/${badgeID}`, badge, config)
             .then(res => {
                 console.log(res);
                 console.log(res.data);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/badgesAdmin')
+                window.location.replace('http://localhost:8081.com/quizment/badgesAdmin')
             })
   
       // ELSE 
@@ -103,14 +103,14 @@ export default class EditBadge extends React.Component {
             }
 
             const badgeID = parseInt(this.props.badgeID);
-            const baseUrl = "https://ades-ca1-project.herokuapp.com/api";
+            const baseUrl = "http://localhost:8081.com/api";
             console.log(badgeID);
 
             axios.put(`${baseUrl}/editBadge/${badgeID}`, badge, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
-                    window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/badgesAdmin')
+                    window.location.replace('http://localhost:8081.com/quizment/badgesAdmin')
                 })
         });
     }

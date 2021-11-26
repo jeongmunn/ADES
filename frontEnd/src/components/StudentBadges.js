@@ -39,7 +39,7 @@ export default class StudentBadges extends React.Component {
         }
 
         // Get the user type
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+        axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
           .then(res => {
             // IF is student
             if (res.data.type === 1) {
@@ -48,28 +48,28 @@ export default class StudentBadges extends React.Component {
               console.log(res.data.studentID);
             // IF is teacher
             } else if (res.data.type === 2) {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+              window.location.replace('http://localhost:8081.com/quizment/teacherDashboard');
             // ELSE kick them out
             } else {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+              window.location.replace('http://localhost:8081.com/quizment');
             }
           })
       // ELSE kick them out
       } else {
         console.log("THERE IS NO USER");
         signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        window.location.replace('http://localhost:8081.com/quizment');
       }
     });
 
     // Get all the badges
-    axios.get('https://ades-ca1-project.herokuapp.com/api/badges')
+    axios.get('http://localhost:8081.comapi/badges')
       .then(res => {
         this.setState({ dataAll: res.data });
       })
 
     // Get all the badges
-    axios.get('https://ades-ca1-project.herokuapp.com/api/students/badges/' + this.state.id)
+    axios.get('http://localhost:8081.com/api/students/badges/' + this.state.id)
     .then(res => {
       this.setState({ data: res.data });
     })

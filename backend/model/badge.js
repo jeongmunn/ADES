@@ -8,6 +8,8 @@ console.log("---------------------------------------------------------");
 //----------------------------------------------------------------------------
 const pool = require("../controllers/dbconfig")
 
+const isImageUrl=require('is-image-url')
+
 // ----------------------------------------------------------------------------
 // Objects/functions
 // ----------------------------------------------------------------------------
@@ -40,6 +42,13 @@ var badge = {
         var pic = badge.pic_url;
         var badgeCID = badge.badgeClassID;
         var badgeClassID = parseInt(badgeCID);
+
+        if(isImageUrl(pic)){
+            console.log("=======yes=========")
+        }
+        else{
+            console.log("=======no=========")
+        }
 
         var data = [name, requirements, pic, badgeClassID];
 

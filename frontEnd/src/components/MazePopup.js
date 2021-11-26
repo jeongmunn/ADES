@@ -28,7 +28,7 @@ export default class MazePopup extends Component {
         this.props.onPopupClose(false,this.props.level);
     }
     buttonPressed = () => {
-        axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.props.id)
+        axios.get('http://localhost:8081.com/api/points/' + this.props.id)
             .then(res => {
                 this.setState({ totalPts: res.data[0].totalPts });
                 this.setState({ mazeLvl: res.data[0].mazeLvl });

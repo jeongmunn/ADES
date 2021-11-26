@@ -42,36 +42,36 @@ export default class viewReward extends React.Component {
         }
 
         // Get the user type
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+        axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
           .then(res => {
             // IF is student
             if (res.data.type === 1) {
               this.setState({ id: res.data.studentID })
               
               // Get all rewards data
-              axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
+              axios.get('http://localhost:8081.com/api/rewards')
                 .then(res => {
                   this.setState({ data: res.data });
                 })
 
               // Get student's points data
-              axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.state.id)
+              axios.get('http://localhost:8081.com/api/points/' + this.state.id)
                 .then(res => {
                   this.setState({ currentPts: res.data[0].redeemedPts });
                 })
               // IF is teacher
             } else if (res.data.type === 2) {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+              window.location.replace('http://localhost:8081.com/quizment/teacherDashboard');
               // ELSE kick them out
             } else {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+              window.location.replace('http://localhost:8081.com/quizment');
             }
           })
         // ELSE kick them out
       } else {
         console.log("THERE IS NO USER");
         signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        window.location.replace('http://localhost:8081.com/quizment');
       }
     });
   }
@@ -135,7 +135,7 @@ export default class viewReward extends React.Component {
         }
       }
 
-      axios.post('https://ades-ca1-project.herokuapp.com/api/rewardHistory', IDs, config)
+      axios.post('http://localhost:8081.com/api/rewardHistory', IDs, config)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -146,7 +146,7 @@ export default class viewReward extends React.Component {
         points: currentPts
       }
 
-      axios.put('https://ades-ca1-project.herokuapp.com/api/point/' + this.state.id, points, config)
+      axios.put('http://localhost:8081.com/api/point/' + this.state.id, points, config)
         .then(res => {
           console.log(res);
           console.log(res.data);

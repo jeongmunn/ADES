@@ -46,7 +46,7 @@ export default class MapOfMaze extends React.Component {
           }
         }
 
-        axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+        axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
           .then(res => {
             if (res.data.type === 1) {
               this.setState({ id: res.data.studentID })
@@ -54,15 +54,15 @@ export default class MapOfMaze extends React.Component {
               //call maze animation
               this.mazeAnimation(false)
             } else if (res.data.type === 2) {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/teacherDashboard');
+              window.location.replace('http://localhost:8081.com/quizment/teacherDashboard');
             } else {
-              window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+              window.location.replace('http://localhost:8081.com/quizment');
             }
           })
       } else {
         console.log("THERE IS NO USER");
         signOut(auth);
-        window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+        window.location.replace('http://localhost:8081.com/quizment');
       }
     });
 
@@ -155,7 +155,7 @@ export default class MapOfMaze extends React.Component {
   //to get the students current Lvl
   studentLevel = (callback) => {
 
-    axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + this.state.id)
+    axios.get(`http://localhost:8081.com/api/mapOfMaze/` + this.state.id)
       .then(res => {
 
         this.setState({ maze: res.data[0].mazeLvl });
@@ -413,7 +413,7 @@ export default class MapOfMaze extends React.Component {
 
       this.setState({ level: levels });
 
-      axios.get(`https://ades-ca1-project.herokuapp.com/api/maze/${levels}`)
+      axios.get(`http://localhost:8081.com/api/maze/${levels}`)
         .then(res => {
 
           this.setState({ points: res.data[0].points });

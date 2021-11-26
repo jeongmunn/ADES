@@ -63,7 +63,7 @@ export default class EditReward extends React.Component {
         }
       }
 
-      axios.put('https://ades-ca1-project.herokuapp.com/api/rewards/' + this.props.rewardID, reward, config)
+      axios.put('http://localhost:8081.com/api/rewards/' + this.props.rewardID, reward, config)
         .then(res => {
           console.log(res);
           console.log(res.data);
@@ -102,7 +102,7 @@ export default class EditReward extends React.Component {
         }
       }
 
-      axios.put('https://ades-ca1-project.herokuapp.com/api/rewards/' + this.props.rewardID, reward, config)
+      axios.put('http://localhost:8081.com/api/rewards/' + this.props.rewardID, reward, config)
         .then(res => {
           console.log(res);
           console.log(res.data);

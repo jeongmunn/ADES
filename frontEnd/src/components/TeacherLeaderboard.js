@@ -24,28 +24,28 @@ export default class ViewLeaderboard extends React.Component {
                     }
                 }
                 // Get the user type
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
                     .then(res => {
                         // IF is student
                         if (res.data.type === 1) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+                            window.location.replace('http://localhost:8081.com/quizment/studentDashboard');
                             // IF is teacher
                         } else if (res.data.type === 2) {
                             // GET all leaderboard data
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/allLeaderboard')
+                            axios.get('http://localhost:8081.com/api/allLeaderboard')
                                 .then(res => {
                                     this.setState({ data: res.data });
                                 })
                             // ELSE kick them out
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081.com/quizment');
                         }
                     })
                 // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
     }

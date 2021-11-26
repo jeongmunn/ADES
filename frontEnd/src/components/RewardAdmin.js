@@ -43,28 +43,28 @@ export default class viewReward extends React.Component {
                 }
 
                 // Get the user type
-                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + this.state.uid, config)
+                axios.get(`http://localhost:8081.com/api/userType/` + this.state.uid, config)
                     .then(res => {
                         // IF is student
                         if (res.data.type === 1) {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment/studentDashboard');
+                            window.location.replace('http://localhost:8081.com/quizment/studentDashboard');
                             // IF is teacher
                         } else if (res.data.type === 2) {
                             // GET all rewards data
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/rewards')
+                            axios.get('http://localhost:8081.com/api/rewards')
                                 .then(res => {
                                     this.setState({ data: res.data });
                                 })
                             // ELSE kick them out
                         } else {
-                            window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                            window.location.replace('http://localhost:8081.com/quizment');
                         }
                     })
                 // ELSE kick them out
             } else {
                 console.log("THERE IS NO USER");
                 signOut(auth);
-                window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
+                window.location.replace('http://localhost:8081.com/quizment');
             }
         });
     }
@@ -93,7 +93,7 @@ export default class viewReward extends React.Component {
 
     handleDelete = event => {
         const id = event.target.id;
-        axios.delete('https://ades-ca1-project.herokuapp.com/api/rewards/' + id)
+        axios.delete('http://localhost:8081.com/api/rewards/' + id)
             .then(res => {
                 window.alert("Reward deleted successfully");
                 window.location.reload();
@@ -128,7 +128,7 @@ export default class viewReward extends React.Component {
                 }
             }
 
-            axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
+            axios.post('http://localhost:8081.com/api/rewards', reward, config)
                 .then(res => {
                     console.log(res);
                     console.log(res.data);
@@ -163,7 +163,7 @@ export default class viewReward extends React.Component {
                     }
                 }
 
-                axios.post('https://ades-ca1-project.herokuapp.com/api/rewards', reward, config)
+                axios.post('http://localhost:8081.com/api/rewards', reward, config)
                     .then(res => {
                         console.log(res);
                         console.log(res.data);

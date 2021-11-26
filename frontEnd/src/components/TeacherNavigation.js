@@ -9,7 +9,7 @@ import sample from '../logoLoading.webm';
 
 const logout = async () => {
     await signOut(auth);
-    window.location.replace("https://ades-ca1-project.herokuapp.com/quizment");
+    window.location.replace("http://localhost:8081.com/quizment");
 };
 
 export default class TeacherNavigation extends React.Component {
