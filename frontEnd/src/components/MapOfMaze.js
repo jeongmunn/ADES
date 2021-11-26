@@ -10,13 +10,10 @@ import cloud6 from '../img/cloud6.png';
 import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
 import MazePopup from './MazePopup';
+import '../css/maze.css';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '../css/maze.css';
 
 export default class MapOfMaze extends React.Component {
 
@@ -112,13 +109,13 @@ export default class MapOfMaze extends React.Component {
 
   }
 
-  // componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
 
-  //   if (prevState.isNewLevel !== this.state.isNewLevel && prevState.isNewLevel === false && this.state.isNewLevel === true) {
-  //     //THERE IS A CHANGE
-  //     this.mazeAnimation(true);
-  //   }
-  // }
+    if (prevState.isNewLevel !== this.state.isNewLevel && prevState.isNewLevel === false && this.state.isNewLevel === true) {
+      //THERE IS A CHANGE
+      this.mazeAnimation(true);
+    }
+  }
 
   //enabling the clouds
   ableMaze = (mazeLvl) => {
@@ -160,12 +157,14 @@ export default class MapOfMaze extends React.Component {
 
     axios.get(`https://ades-ca1-project.herokuapp.com/api/mapOfMaze/` + this.state.id)
       .then(res => {
+
         this.setState({ maze: res.data[0].mazeLvl });
+
         var mazeLvl = JSON.stringify(this.state.maze);
         this.ableMaze(mazeLvl);
+
         this.setState({ isNewLevel: false })
         callback(mazeLvl);
-        window.alert("get mapofmaze id");
       }
 
       )
@@ -416,20 +415,15 @@ export default class MapOfMaze extends React.Component {
 
       axios.get(`https://ades-ca1-project.herokuapp.com/api/maze/${levels}`)
         .then(res => {
+
           this.setState({ points: res.data[0].points });
-          window.alert("get maze level");
         })
     }
 
 
   };
   handleNewLevel = (status) => {
-    if(status===true){
-      this.mazeAnimation(true);
-    }
-    
-    
-
+    this.setState({ isNewLevel: status });
   }
 
 
@@ -476,11 +470,6 @@ export default class MapOfMaze extends React.Component {
           <div id="levelDisplay">
             <p id="level">{this.state.maze}</p>
             <p id="staticLevel">Level</p>
-          </div>
-          <div className="icon">
-          <Link to={`/studentDashboard`} className="navlink nav-link-ltr">
-          <FontAwesomeIcon icon={faTimes} />
-                  </Link>
           </div>
         </div>
         <MazePopup

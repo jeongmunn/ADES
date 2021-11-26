@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/quizment/static/css/main.853de993.chunk.css",
-    "main.js": "/quizment/static/js/main.5a9d91be.chunk.js",
-    "main.js.map": "/quizment/static/js/main.5a9d91be.chunk.js.map",
-    "runtime-main.js": "/quizment/static/js/runtime-main.8e6a79e5.js",
-    "runtime-main.js.map": "/quizment/static/js/runtime-main.8e6a79e5.js.map",
+    "main.js": "/quizment/static/js/main.ba013520.chunk.js",
+    "main.js.map": "/quizment/static/js/main.ba013520.chunk.js.map",
+    "runtime-main.js": "/quizment/static/js/runtime-main.1c33d4a5.js",
+    "runtime-main.js.map": "/quizment/static/js/runtime-main.1c33d4a5.js.map",
     "static/css/2.917c2923.chunk.css": "/quizment/static/css/2.917c2923.chunk.css",
-    "static/js/2.f23e7627.chunk.js": "/quizment/static/js/2.f23e7627.chunk.js",
-    "static/js/2.f23e7627.chunk.js.map": "/quizment/static/js/2.f23e7627.chunk.js.map",
-    "static/js/3.d5e0cc0b.chunk.js": "/quizment/static/js/3.d5e0cc0b.chunk.js",
-    "static/js/3.d5e0cc0b.chunk.js.map": "/quizment/static/js/3.d5e0cc0b.chunk.js.map",
+    "static/js/2.2e13c619.chunk.js": "/quizment/static/js/2.2e13c619.chunk.js",
+    "static/js/2.2e13c619.chunk.js.map": "/quizment/static/js/2.2e13c619.chunk.js.map",
+    "static/js/3.72f8ad14.chunk.js": "/quizment/static/js/3.72f8ad14.chunk.js",
+    "static/js/3.72f8ad14.chunk.js.map": "/quizment/static/js/3.72f8ad14.chunk.js.map",
     "index.html": "/quizment/index.html",
     "static/css/2.917c2923.chunk.css.map": "/quizment/static/css/2.917c2923.chunk.css.map",
     "static/css/main.853de993.chunk.css.map": "/quizment/static/css/main.853de993.chunk.css.map",
-    "static/js/2.f23e7627.chunk.js.LICENSE.txt": "/quizment/static/js/2.f23e7627.chunk.js.LICENSE.txt",
+    "static/js/2.2e13c619.chunk.js.LICENSE.txt": "/quizment/static/js/2.2e13c619.chunk.js.LICENSE.txt",
     "static/media/rewardAdmin.css": "/quizment/static/media/Galey-RoundedExtraLight.d9351dd1.ttf",
     "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
     "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
@@ -28,10 +28,10 @@
     "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.8e6a79e5.js",
+    "static/js/runtime-main.1c33d4a5.js",
     "static/css/2.917c2923.chunk.css",
-    "static/js/2.f23e7627.chunk.js",
+    "static/js/2.2e13c619.chunk.js",
     "static/css/main.853de993.chunk.css",
-    "static/js/main.5a9d91be.chunk.js"
+    "static/js/main.ba013520.chunk.js"
   ]
 }
