@@ -7,6 +7,7 @@ import StudentPointsHistory from './components/StudentPointsHistory';
 import StudentBadges from './components/StudentBadges'
 import StudentReward from './components/StudentReward';
 import Profile from './components/Profile';
+import ProfileTeacher from './components/ProfileTeacher';
 import TeacherDashboard from './components/TeacherDashboard';
 import ViewLeaderboard from './components/TeacherLeaderboard';
 import BadgeAdmin from './components/BadgeAdmin';
@@ -46,6 +47,7 @@ function App() {
         <Route path="/studentBadges" element={<StudentBadges/>}></Route>
         <Route path="/studentReward" element={<StudentReward/>}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/profileTeacher" element={<ProfileTeacher/>}></Route>
         <Route path="/teacherDashboard" element={<TeacherDashboard/>}></Route>
         <Route path="/leaderboardAdmin" element={<ViewLeaderboard/>}></Route>
         <Route path="/studentAdmin" element={<TeacherViewStudentProgress/>}></Route>

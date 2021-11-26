@@ -7,6 +7,8 @@ import Card from 'react-bootstrap/Card';
 import { Row, Col } from 'react-bootstrap';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import sample from '../logoLoading.webm';
+import '../App.css';
 import '../css/navigation.css';
 import '../css/studentReward.css';
 
@@ -16,7 +18,9 @@ export default class StudentBadges extends React.Component {
     dataAll: [],
     url: '',
     uid: '',
-    id: 0
+    id: 0,
+    display: 'block',
+    display2: 'none'
   }
 
   componentDidMount() {
@@ -24,6 +28,8 @@ export default class StudentBadges extends React.Component {
     auth.onAuthStateChanged((user) => {
       // IF there's user
       if (user) {
+        this.setState({ display: 'none' });
+        this.setState({ display2: 'block' });
         console.log("User is Signed IN ");
         this.setState({ uid: user.uid });
         const config = {
@@ -74,6 +80,10 @@ export default class StudentBadges extends React.Component {
     const dataAll = this.state.dataAll;
     return (
       <div className="StudentReward">
+        <video style={{ display: this.state.display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
+                    <source src={sample} type='video/webm' />
+        </video>
+        <div style={{ display: this.state.display2 }}>
         <StudentNavigation  className="navBar">
       </StudentNavigation>
         <h1>Badges Earned</h1>
@@ -109,6 +119,7 @@ export default class StudentBadges extends React.Component {
               </Col>
             )}
           </Row>
+        </div>
         </div>
       </div>
 

@@ -1,4 +1,3 @@
-import '../css/styling2.css';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     onAuthStateChanged,
@@ -6,26 +5,45 @@ import {
     updateEmail,
     updatePassword,
 } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../firebase.js';
 import Button from '@mui/material/Button';
 import StudentNavigation from './StudentNavigaton';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import sample from '../logoLoading.webm';
+import '../App.css';
+import '../css/styling2.css';
 
 export default function Profile() {
-    // const emailData = useRef("");
+    let navigate = useNavigate();
     const passwordData = useRef("");
     const [uidOfUser, setUid] = useState();
     const [emailData, setEmail] = useState("");
     const [user, setUser] = useState({});
-
+    const [display, setDisplay] = useState('block');
+    const [display2, setDisplay2] = useState('none');
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             if (user) {
+                setDisplay('none');
+                setDisplay2('block');
                 setUser(currentUser);
                 setEmail(user.email);
                 setUid(user.uid);
+                const config = {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                }
+                axios.get(`https://ades-ca1-project.herokuapp.com/api/userType/` + currentUser.uid, config)
+                    .then(res => {
+                        if (res.data.type === 1) {
+                        } else if (res.data.type === 2) {
+                            navigate('/profileTeacher');
+                        }
+                })
             } else {
                 console.log("error")
                 signOut(auth);
@@ -83,6 +101,10 @@ export default function Profile() {
     };
     return (
         <div>
+            <video style={{ display: display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
+                <source src={sample} type='video/webm' />
+            </video>
+        <div style={{ display: display2 }}>
             <StudentNavigation  className="navBar">
       </StudentNavigation>
         <div className="profile">
@@ -110,6 +132,7 @@ export default function Profile() {
             />
             <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={updatePasswordFunction}> Update Password</Button>
             <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '15px', marginBottom: '15px', width: '100%' }} variant="contained" onClick={logout}> Logout</Button>
+        </div>
         </div>
         </div>
     );

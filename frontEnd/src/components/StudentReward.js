@@ -7,6 +7,8 @@ import { Row, Col } from 'react-bootstrap';
 import StudentNavigation from './StudentNavigaton';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import sample from '../logoLoading.webm';
+import '../App.css';
 import '../css/navigation.css';
 import '../css/studentReward.css';
 
@@ -19,7 +21,9 @@ export default class viewReward extends React.Component {
     url: '',
     studentID: 1,
     uid: '',
-    id: 0
+    id: 0,
+    display: 'block',
+    display2: 'none'
   }
 
   componentDidMount() {
@@ -27,6 +31,8 @@ export default class viewReward extends React.Component {
     auth.onAuthStateChanged((user) => {
       // IF there's user
       if (user) {
+        this.setState({ display: 'none' });
+        this.setState({ display2: 'block' });
         console.log("User is Signed IN ");
         this.setState({ uid: user.uid });
         const config = {
@@ -158,6 +164,10 @@ export default class viewReward extends React.Component {
     const data = this.state.data;
     return (
       <div className="StudentReward">
+        <video style={{ display: this.state.display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
+                    <source src={sample} type='video/webm' />
+                </video>
+        <div style={{ display: this.state.display2 }}></div>
         <StudentNavigation  className="navBar">
       </StudentNavigation>
         <h1>Rewards</h1>

@@ -1,11 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
-import '../css/quiz.css';
 import StudentNavigation from './StudentNavigaton';
 import QuizPopup from './QuizPopup';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
+import sample from '../logoLoading.webm';
+import '../App.css';
+import '../css/quiz.css';
+
 export default class Quiz extends React.Component {
 
     constructor() {
@@ -17,7 +20,9 @@ export default class Quiz extends React.Component {
             id: 0,
             quizID: 0,
             totalMarks:0,
-            totalPoints:0
+            totalPoints:0,
+            display: 'block',
+            display2: 'none'
         }
     }
 
@@ -25,6 +30,8 @@ export default class Quiz extends React.Component {
     
         auth.onAuthStateChanged((user) => {
             if (user) {
+                this.setState({ display: 'none' });
+                this.setState({ display2: 'block' });
                 console.log("User is Signed IN ");
                 this.setState({ uid: user.uid });
                 const config = {
@@ -131,6 +138,10 @@ export default class Quiz extends React.Component {
         // When the user clicks anywhere outside of the modal, close it
         return (
             <div>
+            <video style={{ display: this.state.display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
+                    <source src={sample} type='video/webm' />
+                </video>
+            <div style={{ display: this.state.display2 }}>
                 <StudentNavigation  className="navBar">
                 </StudentNavigation>
                 <div id="users" class="row">
@@ -156,6 +167,7 @@ export default class Quiz extends React.Component {
                     onPopupClose={this.handleClose}
                     data={this.state.data}
                 ></QuizPopup>
+            </div>
             </div>
         )
     }

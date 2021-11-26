@@ -1,4 +1,3 @@
-import '../css/styling2.css';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     onAuthStateChanged,
@@ -18,6 +17,10 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import sample from '../logoLoading.webm';
+import '../App.css';
+import '../css/styling2.css';
+
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -67,11 +70,15 @@ const SignIn = () => {
     // const [loginPassword, setLoginPassword] = useState("");
     // const [email, setEmail] = useState("");
     const [value, setValue] = useState(0);
+    const [display, setDisplay] = useState('none');
+    const [display2, setDisplay2] = useState('block');
 
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
+                setDisplay('block');
+                setDisplay2('none');
                 const config = {
                     headers: {
                         'content-type': 'application/json'
@@ -84,9 +91,9 @@ const SignIn = () => {
                         } else if (res.data.type === 2) {
                             navigate('/teacherDashboard');
                         }
-                    });
+                    })
             }
-        });
+        })
     });
 
     const handleChange = (event, newValue) => {
@@ -178,89 +185,96 @@ const SignIn = () => {
     };
 
     return (
-        <div className="signin">
-            <h1>Authentication</h1>
-            <Box sx={{ width: '100%' }}>
-                <Box sx={{ borderColor: 'divider' }}>
-                    <Tabs
-                        value={value}
-                        onChange={handleChange}
-                        textColor="secondary"
-                        indicatorColor="secondary"
-                        aria-label="secondary tabs example"
-                        centered
-                    >
-                        <Tab label="Sign In" {...a11yProps(0)} />
-                        <Tab label="Sign Up" {...a11yProps(1)} />
-                        <Tab label="Forgot Password" {...a11yProps(2)} />
-                    </Tabs>
-                    <TabPanel value={value} index={0}>
-                        {/* <input placeholder="email" type="email" onChange={(event) => {
+            <div>
+            <video style={{ display: display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
+                <source src={sample} type='video/webm' />
+            </video>
+            <div style={{ display: display2 }}>
+                <div className="signin">
+                    <h1>Authentication</h1>
+                    <Box sx={{ width: '100%' }}>
+                        <Box sx={{ borderColor: 'divider' }}>
+                            <Tabs
+                                value={value}
+                                onChange={handleChange}
+                                textColor="secondary"
+                                indicatorColor="secondary"
+                                aria-label="secondary tabs example"
+                                centered
+                            >
+                                <Tab label="Sign In" {...a11yProps(0)} />
+                                <Tab label="Sign Up" {...a11yProps(1)} />
+                                <Tab label="Forgot Password" {...a11yProps(2)} />
+                            </Tabs>
+                            <TabPanel value={value} index={0}>
+                                {/* <input placeholder="email" type="email" onChange={(event) => {
                             setLoginEmail(event.target.value);
                         }} /> */}
-                        {/* <input placeholder="password" type="password" onChange={(event) => {
+                                {/* <input placeholder="password" type="password" onChange={(event) => {
                             setLoginPassword(event.target.value);
                         }} /> */}
-                        <TextField
-                            required
-                            fullWidth
-                            inputRef={loginEmailInput}
-                            id="outlined-required"
-                            label="Email"
-                            margin="dense"
-                            type="email"
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            inputRef={loginPasswordInput}
-                            id="outlined-password-input"
-                            label="Password"
-                            margin="dense"
-                            type="password"
-                            autoComplete="current-password"
-                        />
-                        <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={login}> Sign In</Button>
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <TextField
-                            required
-                            fullWidth
-                            inputRef={registerEmailInput}
-                            id="outlined-required"
-                            label="Email"
-                            margin="dense"
-                            type="email"
-                        />
-                        <TextField
-                            required
-                            fullWidth
-                            inputRef={registerPasswordInput}
-                            id="outlined-password-input"
-                            label="Password"
-                            margin="dense"
-                            type="password"
-                            autoComplete="current-password"
-                        />
-                        <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={register}> Sign Up</Button>
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        {/* <input placeholder="email" type="email" onChange={(event) => {
+                                <TextField
+                                    required
+                                    fullWidth
+                                    inputRef={loginEmailInput}
+                                    id="outlined-required"
+                                    label="Email"
+                                    margin="dense"
+                                    type="email"
+                                />
+                                <TextField
+                                    required
+                                    fullWidth
+                                    inputRef={loginPasswordInput}
+                                    id="outlined-password-input"
+                                    label="Password"
+                                    margin="dense"
+                                    type="password"
+                                    autoComplete="current-password"
+                                />
+                                <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={login}> Sign In</Button>
+                            </TabPanel>
+                            <TabPanel value={value} index={1}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    inputRef={registerEmailInput}
+                                    id="outlined-required"
+                                    label="Email"
+                                    margin="dense"
+                                    type="email"
+                                />
+                                <TextField
+                                    required
+                                    fullWidth
+                                    inputRef={registerPasswordInput}
+                                    id="outlined-password-input"
+                                    label="Password"
+                                    margin="dense"
+                                    type="password"
+                                    autoComplete="current-password"
+                                />
+                                <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={register}> Sign Up</Button>
+                            </TabPanel>
+                            <TabPanel value={value} index={2}>
+                                {/* <input placeholder="email" type="email" onChange={(event) => {
                             setEmail(event.target.value);
                         }} /> */}
-                        <TextField
-                            required
-                            fullWidth
-                            inputRef={emailInput}
-                            id="outlined-required"
-                            label="Email"
-                            margin="dense"
-                            type="email"
-                        />
-                        <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={forgotPassword}> Forgot Password</Button>
-                    </TabPanel>
-                </Box>
-            </Box>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    inputRef={emailInput}
+                                    id="outlined-required"
+                                    label="Email"
+                                    margin="dense"
+                                    type="email"
+                                />
+                                <Button sx={{ background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)', color: 'white', paddingTop: '10px', paddingBottom: '10px', marginTop: '10px', width: '100%' }} variant="contained" onClick={forgotPassword}> Forgot Password</Button>
+                            </TabPanel>
+                        </Box>
+                    </Box>
+                </div>
+            </div>
         </div>
     )
 }
