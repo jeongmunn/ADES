@@ -18,16 +18,6 @@ export default class MazePopup extends Component {
         };
     }
     
-    componentDidMount(){
-        // Get student's points data'
-      
-        axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.props.id)
-        .then(res => {
-            this.setState({ currentPts : res.data[0].redeemedPts });
-            this.setState({ totalPts : res.data[0].totalPts});
-            this.setState({ mazeLvl : res.data[0].mazeLvl});
-        })
-    }
 
     isShowModal = (status) => {
         this.handleClose();
@@ -37,8 +27,23 @@ export default class MazePopup extends Component {
     handleClose = () => {
         this.props.onPopupClose(false,this.props.level);
     }
+    buttonPressed = () => {
+        axios.get('https://ades-ca1-project.herokuapp.com/api/points/' + this.props.id)
+            .then(res => {
+                this.setState({ totalPts: res.data[0].totalPts });
+                this.setState({ mazeLvl: res.data[0].mazeLvl });
+
+                this.setState({
+                    currentPts: res.data[0].redeemedPts
+                }, () => {
+                    this.handleComplete();
+                });
+            })
+
+    }
 
     handleComplete = () => {
+        
         // Store student's points
         const quizPts = this.props.point;
         const currentPoints = (this.state.currentPts + quizPts);
@@ -102,7 +107,7 @@ export default class MazePopup extends Component {
                         <hr />  
                         <div className="Quiz"> 
                         <div>Points : {this.props.point} </div>
-                        <Button onClick={this.handleComplete} >Complete</Button>
+                        <Button onClick={this.buttonPressed} >Complete</Button>
                         </div>  
                     </Modal.Body>  
                 </Modal >  
