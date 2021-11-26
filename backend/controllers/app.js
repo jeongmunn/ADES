@@ -667,13 +667,7 @@ app.get('/maze/:lvl', function (req, res) {
 
     maze.getMazePts(mazeLvl, function (err, result) {
         if (!err) {
-            // IF the result returns nothing
-            if (result.rows == '') {
-                let error = new errorModel.errorResponse(errors.invalid_request.withDetails("Error! The request has no error but there's nothing returned. Possible error : invalid input for maze level."));
-                res.status(422).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+            res.status(200).send(result.rows);
         } else {
             if (err.code == '22P02') {
                 let error = new errorModel.errorResponse(errors.invalid_input.withDetails("Invalid input syntax for integer."));
@@ -737,13 +731,7 @@ app.get('/mapOfMaze/:studentID', function (req, res) {
 
     maze.getMazeByStudentID(studentID, function (err, result) {
         if (!err) {
-            // IF the result returns nothing
-            if (result.rows == '') {
-                let error = new errorModel.errorResponse(errors.invalid_request.withDetails("Error! The request has no error but there's nothing returned. Possible error : invalid input for studentID."));
-                res.status(442).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+            res.status(200).send(result.rows);
         } else {
             let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot GET student's maze level by id."));
             res.status(500).send(error);
@@ -1020,23 +1008,10 @@ app.post('/ptsHistory/:id', function (req, res) {
     points.insertPtsHistory(data, function (err, result) {
         console.log("points.insertPtsHistory called");
         if (!err) {
-            res.send(result);
-            // IF error code = 23502, send the details of error
-            if (err.code == '23502') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails(err.detail));
-                res.status(400).send(error);
-                // IF error code = 23503, send the details of error
-            } else if (err.code == '23503') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails(err.detail));
-                res.status(400).send(error);
-                // IF error code - 22P02, 
-            } else if (err.code == '22P02') {
-                let error = new errorModel.errorResponse(errors.invalid_input.withDetails("Invalid input syntax for integer."));
-                res.status(400).send(error);
-            } else {
-                let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot CREATE new points history"));
-                res.status(500).send(error);
-            }
+            res.status(200).send(result);
+        } else {
+            let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error ! Cannot insert points history"));
+            res.status(500).send(error);
         }
     });
 })
@@ -1093,18 +1068,10 @@ app.post('/quizHistory', function (req, res) {
 //-----------------------------------------------------------------points--------------------------------------------------------------
 // Get Current Points and Total Points
 app.get('/points/:id', function (req, res) {
-
     var studentID = req.params.id;
-
     points.getPts(studentID, function (err, result) {
         if (!err) {
-            // IF the result returns nothing
-            if (result.rows == '') {
-                let error = new errorModel.errorResponse(errors.invalid_request.withDetails("Error! The request has no error but there's nothing returned. Possible error : invalid input for studentID or quizID."));
-                res.status(422).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+            res.status(200).send(result.rows);
         } else {
             let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot GET current and total points."));
             res.status(500).send(error);
@@ -1160,13 +1127,7 @@ app.put('/points/:id', function (req, res) {
 
     points.updatePts(studentID, data, function (err, result) {
         if (!err) {
-            // IF the result returns nothing
-            if (result.rowCount == 0) {
-                let error = new errorModel.errorResponse(errors.invalid_request.withDetails("Error! The request has no error but nothing has been updated. Possible error : invalid inputs."));
-                res.status(422).send(error);
-            } else {
-                res.status(200).send(result.rows);
-            }
+            res.status(201).send(result.rows);
         } else {
             // IF error code = 23502, send the details of error
             if (err.code == '23502') {

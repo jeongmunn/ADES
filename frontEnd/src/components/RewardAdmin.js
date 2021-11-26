@@ -222,7 +222,7 @@ export default class viewReward extends React.Component {
                                 <tr key={item.rewardID}>
                                     <td>{item.rewardName}</td>
                                     <td>{item.ptsRequired}</td>
-                                    <td><img src={item.url} alt="Reward Image" vstyle={{ height: 180, width: 180 }}></img></td>
+                                    <td><img src={item.url} vstyle={{ height: 180, width: 180 }}></img></td>
                                     <td><Button type="button" variant="warning" onClick={() => this.isShowPopup(true, item.rewardID, item.rewardName, item.ptsRequired, item.url)}>Edit</Button></td>
                                     <td><Button type="button" variant="danger" id={item.rewardID} onClick={this.handleDelete}>Delete</Button></td>
                                 </tr>
