@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-RoundedExtraLight.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-SemiBold.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Light.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Medium.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Regular.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
+  }
+
+.navBar {
+    margin-top: "900px" !important;
+}
+
+
+.navlink {
+    font-family: VisbyRound, Arial, sans-serif;
+    font-weight: DemiBold;
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.nav-link {
+    border: none;
+    position: relative;
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.navlink:hover {
+    color: rgb(51, 50, 50);
+    white-space: nowrap;
+
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 3px;
+    background: #E40046;
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    -webkit-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    white-space: nowrap;
+}
+
+.nav-link:active {
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    border-bottom: 3px solid #E40046;
+    white-space: nowrap;
+}
+
+.nav-link:hover::before {
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    left: 0;
+    width: 100%;
+    white-space: nowrap;
+}
+
+
+.nav-link.active::before {
+    color: rgb(51, 50, 50);
+    text-decoration: none;
+    width: 0;
+    white-space: nowrap;
+}

@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/quizment/static/css/main.b579edfd.chunk.css",
+    "main.js": "/quizment/static/js/main.566723a2.chunk.js",
+    "main.js.map": "/quizment/static/js/main.566723a2.chunk.js.map",
+    "runtime-main.js": "/quizment/static/js/runtime-main.1c33d4a5.js",
+    "runtime-main.js.map": "/quizment/static/js/runtime-main.1c33d4a5.js.map",
+    "static/css/2.917c2923.chunk.css": "/quizment/static/css/2.917c2923.chunk.css",
+    "static/js/2.b6dc3fdd.chunk.js": "/quizment/static/js/2.b6dc3fdd.chunk.js",
+    "static/js/2.b6dc3fdd.chunk.js.map": "/quizment/static/js/2.b6dc3fdd.chunk.js.map",
+    "static/js/3.72f8ad14.chunk.js": "/quizment/static/js/3.72f8ad14.chunk.js",
+    "static/js/3.72f8ad14.chunk.js.map": "/quizment/static/js/3.72f8ad14.chunk.js.map",
+    "index.html": "/quizment/index.html",
+    "static/css/2.917c2923.chunk.css.map": "/quizment/static/css/2.917c2923.chunk.css.map",
+    "static/css/main.b579edfd.chunk.css.map": "/quizment/static/css/main.b579edfd.chunk.css.map",
+    "static/js/2.b6dc3fdd.chunk.js.LICENSE.txt": "/quizment/static/js/2.b6dc3fdd.chunk.js.LICENSE.txt",
+    "static/media/rewardAdmin.css": "/quizment/static/media/Galey-RoundedExtraLight.d9351dd1.ttf",
+    "static/media/maze.css": "/quizment/static/media/cloud.66c9e25e.png",
+    "static/media/cloud1.1e2e981d.png": "/quizment/static/media/cloud1.1e2e981d.png",
+    "static/media/cloud2.ecff1f7e.png": "/quizment/static/media/cloud2.ecff1f7e.png",
+    "static/media/cloud3.b4065f4e.png": "/quizment/static/media/cloud3.b4065f4e.png",
+    "static/media/cloud4.3eae1536.png": "/quizment/static/media/cloud4.3eae1536.png",
+    "static/media/cloud5.b5ef5366.png": "/quizment/static/media/cloud5.b5ef5366.png",
+    "static/media/cloud6.c1163dfc.png": "/quizment/static/media/cloud6.c1163dfc.png",
+    "static/media/cloud7.72b4c8f5.png": "/quizment/static/media/cloud7.72b4c8f5.png",
+    "static/media/cloud8.be23d40f.png": "/quizment/static/media/cloud8.be23d40f.png",
+    "static/media/logoLoading.448f5c5e.webm": "/quizment/static/media/logoLoading.448f5c5e.webm",
+    "static/media/wisp.3ef4ee3f.png": "/quizment/static/media/wisp.3ef4ee3f.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.1c33d4a5.js",
+    "static/css/2.917c2923.chunk.css",
+    "static/js/2.b6dc3fdd.chunk.js",
+    "static/css/main.b579edfd.chunk.css",
+    "static/js/main.566723a2.chunk.js"
+  ]
+}

@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-RoundedExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
+.rewardAdmin {
+    padding: 3em;
+}
+
+.rewardAdmin > h1 {
+    font-family: VisbyRound;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+
+.rewardAdmin > Accordion.Header > Button {
+    align-self: center;
+}
+
+div.viewRewards {
+    margin-top: 2em;
+}

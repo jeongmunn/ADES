@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Galey';
+  src: local('Galey'), url(./fonts/Galey-RoundedExtraLight.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Galey';
+  src: local('Galey'), url(./fonts/Galey-SemiBold.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(./fonts/VisbyRound-Light.otf) format('opentype');
+}
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(./fonts/VisbyRound-Medium.otf) format('opentype');
+}
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(./fonts/VisbyRound-Regular.otf) format('opentype');
+}
+@font-face {
+  font-family: 'VisbyRound';
+  src: local('VisbyRound'), url(./fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
+.videoLoader {
+  width: 100%    !important;
+  height: auto   !important;
+}
+

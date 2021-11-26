@@ -1,0 +1,67 @@
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(../fonts/Galey-SemiBold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Light.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(../fonts/VisbyRound-DemiBold.otf) format('opentype');
+}
+
+#bodyEdit {
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    /* Center the image */
+
+
+}
+
+#divEdit {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding-top: 60px;
+    padding: 30px;
+    height: 900px;
+    margin-left: 60px;
+    margin-right: 60px;
+    border-radius: 40px;
+
+}
+
+.badgeAdmin {
+    font-family: VisbyRound;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+#formEdit {
+    background-color: rgba(255, 255, 255, 0.5);
+    margin: 50px;
+    padding-top: 60px;
+    margin-right: 135px;
+    padding: 200px;
+    align-items: center;
+
+}
+
+.label {
+    padding: 10px;
+    font-size: 20px;
+}
