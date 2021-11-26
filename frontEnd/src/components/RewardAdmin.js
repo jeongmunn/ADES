@@ -55,6 +55,9 @@ export default class viewReward extends React.Component {
                                 .then(res => {
                                     this.setState({ data: res.data });
                                 })
+                                .catch(error => {
+                                    this.notiGetRewardFail(error);
+                                })
                             // ELSE kick them out
                         } else {
                             window.location.replace('https://ades-ca1-project.herokuapp.com/quizment');
@@ -83,6 +86,62 @@ export default class viewReward extends React.Component {
         });
     }
 
+    notiUploadFail(error) {
+        store.addNotification({
+            title: "Error",
+            message: "Reward upload failed ! Error message : " + error,
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animated", "bounceIn"],
+            animationOut: ["animated", "bounceOut"],
+            dismiss: { duration: 2000 },
+            dismissable: { click: true }
+        });
+    }
+
+    notiDeleteSuccess() {
+        store.addNotification({
+            title: "Success",
+            message: "Reward deleted successfully !",
+            type: "success",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animated", "fadeIn"],
+            animationOut: ["animated", "fadeOut"],
+            dismiss: { duration: 2000 },
+            dismissable: { click: true }
+        });
+    }
+
+    notiDeleteFail(error) {
+        store.addNotification({
+            title: "Error",
+            message: "Reward delete failed ! Error message : " + error,
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animated", "bounceIn"],
+            animationOut: ["animated", "bounceOut"],
+            dismiss: { duration: 2000 },
+            dismissable: { click: true }
+        });
+    }
+
+    notiGetRewardFail(error) {
+        store.addNotification({
+            title: "Error",
+            message: "Reward retreive failed ! Error message : " + error,
+            type: "danger",
+            insert: "top",
+            container: "top-center",
+            animationIn: ["animated", "bounceIn"],
+            animationOut: ["animated", "bounceOut"],
+            dismiss: { duration: 2000 },
+            dismissable: { click: true }
+        });
+    }
+
     isShowPopup = (status, id, name, points, url) => {
         this.setState({ showModalPopup: status });
         this.setState({ rewardID: id });
@@ -95,8 +154,10 @@ export default class viewReward extends React.Component {
         const id = event.target.id;
         axios.delete('https://ades-ca1-project.herokuapp.com/api/rewards/' + id)
             .then(res => {
-                window.alert("Reward deleted successfully");
+                this.notiDeleteSuccess();
                 window.location.reload();
+            }).catch(error => {
+                this.notiDeleteFail(error);
             })
     }
 
@@ -134,6 +195,8 @@ export default class viewReward extends React.Component {
                     console.log(res.data);
                     window.location.reload();
                     this.notiUploadSuccess();
+                }).catch(error => {
+                    this.notiUploadFail(error);
                 })
         } else {
             // file upload
@@ -169,6 +232,8 @@ export default class viewReward extends React.Component {
                         console.log(res.data);
                         window.location.reload();
                         this.notiUploadSuccess();
+                    }).catch(error => {
+                        this.notiUploadFail(error);
                     })
             })
         }

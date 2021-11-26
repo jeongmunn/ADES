@@ -962,7 +962,7 @@ app.get('/allLeaderboard', function (req, res) {
 
     student.getAllLeaderboard(function (err, result) {
         if (!err) {
-            res.status(200).send(result);
+            res.status(200).send(result.rows);
         } else {
             let error = new errorModel.errorResponse(errors.internal_error.withDetails("Error! Cannot GET all leaderboard"));
             res.status(500).send(error);
