@@ -22,9 +22,7 @@ export default class TeacherNavigation extends React.Component {
                     <Navbar.Toggle aria-controls='resoponsive-navbar-nav' />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Navbar.Brand href="#home">
-                            <video className='videoTag' autoPlay loop muted>
-                                <source src={sample} type='video/webm' />
-                            </video>
+                            <p>quizment</p>
                         </Navbar.Brand>
                         <Nav >
                             <Nav.Link>
@@ -34,7 +32,7 @@ export default class TeacherNavigation extends React.Component {
                             </Nav.Link>
                             <Nav.Link  >
                                 <Link to={`/studentAdmin`} className="navlink nav-link-ltr">
-                                    Student Administration
+                                    Student Progress
                                 </Link>
                             </Nav.Link>
                             <Nav.Link>

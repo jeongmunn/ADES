@@ -23,9 +23,7 @@ export default class StudentNavigation extends React.Component {
                     <Navbar.Toggle aria-controls='resoponsive-navbar-nav' />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Navbar.Brand href="#home">
-                            <video className='videoTag' autoPlay loop muted>
-                                <source src={sample} type='video/webm' />
-                            </video>
+                        <p>quizment</p>
                         </Navbar.Brand>
 
                         <Nav >

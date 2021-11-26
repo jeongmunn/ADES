@@ -32,7 +32,7 @@ export default class ViewLeaderboard extends React.Component {
                             // IF is teacher
                         } else if (res.data.type === 2) {
                             // GET all leaderboard data
-                            axios.get('https://ades-ca1-project.herokuapp.com/api/allLeaderboard')
+                            axios.get('http://localhost:8081/api/allLeaderboard')
                                 .then(res => {
                                     this.setState({ data: res.data });
                                 })
