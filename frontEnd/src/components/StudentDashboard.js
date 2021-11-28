@@ -10,6 +10,7 @@ import Slider from '@material-ui/core/Slider';
 import sample from '../logoLoading.webm';
 import '../App.css';
 import '../styling.css'
+import StudentNavigation from './StudentNavigaton';
 
 const styles = theme => ({
     root: {
@@ -189,13 +190,55 @@ class StudentDashboard extends React.Component {
         return (
             
             <Container className="totalContainer" fluid>
+                 <StudentNavigation className="navBar">
+                </StudentNavigation>
                 <video style={{ display: this.state.display, width: '100%', height: 'auto' }} className='videoLoader' autoPlay loop muted>
                     <source src={sample} type='video/webm' />
                 </video>
                 <div style={{ display: this.state.display2 }}>
+                  
+                                      
+                                    <div>
+                                          <Slider
+                                            className={classes.root}
+                                            aria-label="Always visible"
+                                            value={this.state.streaks}
+                                            step={1}
+                                            min={0}
+                                            max={5}
+                                            marks={marks}
+                                            valueLabelDisplay="off"
+                                        />
+                                   
+                                        <h6>Streaks: {this.state.streaks} </h6>
+                                    </div>
+                            
                     <Row xs={1} className="row">
-                        <Col md={3} className="c1 column">
+                       
+                        <Col md={7} className="box2 column">
+                            <h4>Assignments To Do:</h4>
+                            <Card className="mt-3">
+                               
+                                <Card.Body>
+                                    <Card.Title>Quizes</Card.Title>
+                                    <Card.Text>
+                                        Do Quiz to earn Points
+                                </Card.Text>
+                                    <Button variant="danger">Do Now</Button>
+                                </Card.Body>
+                            </Card>
+                         
+                            
+                        </Col>
+                       
+                           
+                        
+                         <Col md={3} className=" column">
+                               <Row className="c1" >
                             <h4 className="mt-5 mb-5">{this.state.name}</h4>
+                          
+
+                            
                             <Card className="mb-3 points">
                                 <Card.Body>
                                     <Card.Title className="cardContext">Total Points:</Card.Title>
@@ -214,91 +257,11 @@ class StudentDashboard extends React.Component {
                             </Card>
                             <div className="box">
                                 <hr />
-                                <Nav className="col-md-12 d-none d-md-block sidebar navCustomise sideNavItem"
-                                    activeKey="/home"
-                                // onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-                                >
-                                    <div className="sidebar-sticky"></div>
-                                    <Nav.Item className="navItem " activeClassName="active" >
-                                        <Nav.Link className="linkCustomise" href="/quizment/studentDashboard">Dashboard</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/quiz">Quizzes</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/studentBadges">Badges</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/studentReward">Reward</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/studentPoints">Point History</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/mapOfMaze">Maze</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item className="navItem">
-                                        <Nav.Link className="linkCustomise" href="/quizment/profile">Profile</Nav.Link>
-                                    </Nav.Item>
-                                    <Nav.Item onClick={logout} className="navItem">
-                                        <Nav.Link className="linkCustomise" eventKey="link-2">Sign Out</Nav.Link>
-                                    </Nav.Item>
-                                </Nav>
+                               
                             </div>
-                        </Col>
-                        <Col md={4} className="box2 column">
-                            <h4>Assignments To Do:</h4>
-                            <Card className="mt-3">
-                                <Card.Header>Math</Card.Header>
-                                <Card.Body>
-                                    <Card.Title>Integration Homework 2</Card.Title>
-                                    <Card.Text>
-                                        Learn how to do Integration
-                                </Card.Text>
-                                    <Button variant="danger">Do Now</Button>
-                                </Card.Body>
-                            </Card>
-                            <Card className="mt-3">
-                                <Card.Header>Math</Card.Header>
-                                <Card.Body>
-                                    <Card.Title>Integration Homework 3</Card.Title>
-                                    <Card.Text>
-                                        Learn how to do Integration part 3
-                                </Card.Text>
-                                    <Button variant="danger">Do Now</Button>
-                                </Card.Body>
-                            </Card>
-                            <Card className="mt-3">
-                                <Card.Header>Math</Card.Header>
-                                <Card.Body>
-                                    <Card.Title>Integration Homework 2</Card.Title>
-                                    <Card.Text>
-                                        Learn how to do Integration
-                                </Card.Text>
-                                    <Button variant="danger">Do Now</Button>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col md={3} className=" box3 column">
-                            <Col>
-                                <Row className="sliderStreak">
-                                    <Col>
-                                        <Slider
-                                            className={classes.root}
-                                            aria-label="Always visible"
-                                            value={this.state.streaks}
-                                            step={1}
-                                            min={0}
-                                            max={5}
-                                            marks={marks}
-                                            valueLabelDisplay="off"
-                                        />
-                                    </Col>
-                                    <Col className="streakNum">
-                                        <h6>Streaks: {this.state.streaks} </h6>
-                                    </Col>
-                                </Row>
-                            </Col>
+                            </Row>
+
+                            <Row>
                             <Card className="leaderBoardBox"  >
                                 <Card.Header className="leaderBoardTitle">
                                     Leaderboard
@@ -322,6 +285,7 @@ class StudentDashboard extends React.Component {
                                     )}
                                 </Card.Body>
                             </Card>
+                            </Row>
                         </Col>
                     </Row>
                 </div>

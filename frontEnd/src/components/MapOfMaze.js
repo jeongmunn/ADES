@@ -10,13 +10,11 @@ import cloud6 from '../img/cloud6.png';
 import cloud7 from '../img/cloud7.png';
 import cloud8 from '../img/cloud8.png';
 import MazePopup from './MazePopup';
+import '../css/maze.css';
 import moment from 'moment';
-import { Link } from 'react-router-dom';
 import { signOut } from "firebase/auth";
 import { auth } from '../firebase.js';
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import '../css/maze.css';
+import { store } from 'react-notifications-component';
 
 export default class MapOfMaze extends React.Component {
 
@@ -37,7 +35,7 @@ export default class MapOfMaze extends React.Component {
       id: 0
     }
   }
-
+  
   componentDidMount() {
     auth.onAuthStateChanged((user) => {
       if (user) {
@@ -180,9 +178,12 @@ export default class MapOfMaze extends React.Component {
       this.studentLevel(function (mazeLvl) {
         if (mazeLvl > 0) {
           lvl1(mazeLvl);
+          if(mazeLvl===8){
+            notiMazeComplete();
+          }
 
-        } else {
-
+        } else{
+          notiNewMaze();
         }
       });
 
@@ -405,6 +406,37 @@ export default class MapOfMaze extends React.Component {
         }
       }
     }
+
+  function  notiNewMaze(){
+      store.addNotification({
+        title: "Welcome!",
+        message: "Make your way around the maze and earn points!",
+        type: "info",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: { duration: 2000 },
+        dismissable: { click: true }
+      });
+    }
+
+    function  notiMazeComplete(){
+      store.addNotification({
+        title: "Completed!",
+        message: "Keep a look out for more mazes in the future!",
+        type: "warning",
+        insert: "top",
+        container: "top-center",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: { duration: 2000 },
+        dismissable: { click: true }
+      });
+    }
+
+
+
   }
 
   isShowPopup = (status, levels) => {
@@ -473,11 +505,6 @@ export default class MapOfMaze extends React.Component {
           <div id="levelDisplay">
             <p id="level">{this.state.maze}</p>
             <p id="staticLevel">Level</p>
-          </div>
-          <div className="icon">
-          <Link to={`/studentDashboard`} className="navlink nav-link-ltr">
-          <FontAwesomeIcon icon={faTimes} />
-                  </Link>
           </div>
         </div>
         <MazePopup

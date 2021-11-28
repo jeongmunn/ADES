@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'Galey';
+    src: local('Galey'), url(./fonts/Galey-SemiBold.ttf) format('truetype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Light.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Medium.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-Regular.otf) format('opentype');
+  }
+  
+  @font-face {
+    font-family: 'VisbyRound';
+    src: local('VisbyRound'), url(./fonts/VisbyRound-DemiBold.otf) format('opentype');
+  }
 .progressBar {
     width: "150px" !important;
     border: "1px solid #e6e6e6" !important;
@@ -11,12 +35,7 @@
 }
 
 .totalContainer {
-    /* use these three for all colour */
-    /* background: linear-gradient( rgba(220,172,175,0.5)
-    , transparent);
-  
-    backdrop-filter: blur(50px);
-    background-color: #ccd8d6 ; */
+   
     background-color: white;
     width: 100%;
     /* background: radial-gradient(closest-side, #3f87a6, #ebf8e1, #f69d3c); */
@@ -24,20 +43,25 @@
 
 .c1 {
     /* for all colour don't put color here */
-    background: linear-gradient( rgba(255, 255, 255, 0.1), transparent);
+    background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%);
     /* background-color: #ccd8d6 ; */
     backdrop-filter: blur(50px);
     background: url(https://99designs-blog.imgix.net/blog/wp-content/uploads/2018/12/Gradient_builder_2.jpg?auto=format&q=60&w=1815&h=1200&fit=crop&crop=faces) no-repeat center center fixed;
     background-size: cover;
-    border-top-right-radius: 0.9rem;
-    border-bottom-right-radius: 0.9rem;
-    width: 30%;
+    border-radius: 0.9rem;
+    
+    width: 140%;
+    height: 50%;
     /* height: 100%; */
     text-align: center;
     margin-bottom: "90px" !important;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-}
 
+}
+.jss1 {
+    width: 80%;
+   
+}
 .c2 {
     /* background-color: rgba(255, 255, 255, 0.50);
     backdrop-filter: blur(14px); */
@@ -127,7 +151,7 @@
 
 .box2 {
     margin-left: 50px;
-    margin-top: 200px !important;
+   
 }
 
 .box3 {
