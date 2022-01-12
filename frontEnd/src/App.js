@@ -34,6 +34,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/signIn" element={<SignIn/>}></Route>
+
         <Route path="/teacherAdmin" element={<TeacherAdministration/>}></Route>
         <Route path="/badgesAdmin" element={<BadgeAdmin/>}></Route>
         <Route path="/rewardsAdmin" element={<RewardAdmin/>}></Route>

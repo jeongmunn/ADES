@@ -7,11 +7,11 @@
     "npm": "6.x"
   },
   "scripts": {
-    "frontend": "cd frontEnd && npm start",
-    "backend": "cd backEnd && nodemon server.js",
-    "start": "concurrently --kill-others-on-fail \"npm run backend\" \"npm run frontend\"",
-    "heroku-postbuild": "cd frontEnd && npm install && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-client": "cd frontEnd && react-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "(cd frontEnd && npm run build) && (cd ../backEnd && npm install)",
+    "eject": "cd frontEnd && react-scripts eject",
+    "start": "cd backEnd && node server.js"
   },
   "repository": {
     "type": "git",
